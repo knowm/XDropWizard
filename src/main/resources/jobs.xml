@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<job-scheduling-data
+	xmlns="http://www.sundial-scheduler.org/xml/JobSchedulingData"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.sundial-scheduler.org/xml/JobSchedulingData classpath:/com/xeiam/sundial/xml/job_scheduling_data.xsd">
+
+	<schedule>
+		<job>
+			<name>SampleJob3</name>
+			<job-class>com.xeiam.xdropwizard.jobs.SampleJob3</job-class>
+			<job-data-map>
+				<entry>
+					<key>MyParam</key>
+					<value>ABC</value>
+				</entry>
+			</job-data-map>
+		</job>
+		<trigger>
+			<cron>
+				<name>SampleJob3-Trigger</name>
+				<group>CRON</group>
+				<job-name>SampleJob3</job-name>
+				<cron-expression>0/45 * * * * ?</cron-expression>
+			</cron>
+		</trigger>
+
+		<job>
+			<name>MyJob</name>
+			<job-class>com.xeiam.xdropwizard.jobs.MyJob</job-class>
+		</job>
+
+	</schedule>
+
+</job-scheduling-data>
