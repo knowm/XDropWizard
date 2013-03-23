@@ -1,5 +1,7 @@
 # XDropWizard
 
+A starting-point Webservice using DropWizard and containing some Xeiam OSS projects such as Yank, Sundial, and XChart
+
 ## Requirements
 
 *Java 1.7
