@@ -4,8 +4,8 @@ A starting-point Webservice using DropWizard and containing some Xeiam OSS proje
 
 ## Requirements
 
-*Java 1.7
-*Maven
+* Java 1.7
+* Maven
 
 ## Banner Generator 
 
