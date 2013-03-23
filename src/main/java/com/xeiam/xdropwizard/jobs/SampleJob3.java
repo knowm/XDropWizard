@@ -1,5 +1,5 @@
 /**
- * Copyright 2011 Xeiam LLC.
+ * Copyright 2013 Xeiam LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,9 @@
  */
 package com.xeiam.xdropwizard.jobs;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.xeiam.sundial.Job;
 import com.xeiam.sundial.JobContext;
 import com.xeiam.sundial.exceptions.JobInterruptException;
@@ -24,12 +27,16 @@ import com.xeiam.sundial.exceptions.JobInterruptException;
  */
 public class SampleJob3 extends Job {
 
+  private final Logger logger = LoggerFactory.getLogger(SampleJob3.class);
+
   @Override
   public void doRun() throws JobInterruptException {
 
     JobContext context = getJobContext();
 
     context.put("MyValue", new Integer(123));
+
+    logger.info("SampleJob3 says hello!");
 
     new SampleJobAction().run();
 

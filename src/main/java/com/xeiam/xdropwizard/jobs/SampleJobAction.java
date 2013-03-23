@@ -1,5 +1,5 @@
 /**
- * Copyright 2011 Xeiam LLC.
+ * Copyright 2013 Xeiam LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,9 @@
  */
 package com.xeiam.xdropwizard.jobs;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.xeiam.sundial.JobAction;
 
 /**
@@ -24,11 +27,14 @@ import com.xeiam.sundial.JobAction;
  */
 public class SampleJobAction extends JobAction {
 
+  private final Logger logger = LoggerFactory.getLogger(SampleJobAction.class);
+
   @Override
   public void doRun() {
 
     Integer myValue = getJobContext().get("MyValue");
 
+    logger.info("SampleJobAction says " + myValue);
   }
 
 }

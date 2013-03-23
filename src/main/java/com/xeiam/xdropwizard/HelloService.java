@@ -13,6 +13,7 @@ import com.xeiam.xdropwizard.manager.SundialManager;
 import com.xeiam.xdropwizard.manager.YankManager;
 import com.xeiam.xdropwizard.resources.HelloWorldResource;
 import com.xeiam.xdropwizard.task.MyJobTask;
+import com.xeiam.xdropwizard.task.SampleJob3Task;
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
@@ -57,5 +58,7 @@ public class HelloService extends Service<HelloServiceConfiguration> {
 
     // TASKS ////////////////////////////
     environment.addTask(new MyJobTask());
+    environment.addTask(new SampleJob3Task());
+
   }
 }

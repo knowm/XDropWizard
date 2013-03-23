@@ -29,6 +29,12 @@ http://www.webestools.com/ascii-text-generator-ascii-art-code-online-txt2ascii-t
     http://localhost:9091/
     http://localhost:9091/healthcheck
     
+## Run Tasks
+
+    curl -X POST http://localhost:9091/tasks/gc
+    curl -X POST http://localhost:9091/tasks/myjob
+    curl -X POST http://localhost:9091/tasks/samplejob3
+    
 ## Test XDropWizard
 
     coming soon...
