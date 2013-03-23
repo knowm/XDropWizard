@@ -34,6 +34,8 @@ http://www.webestools.com/ascii-text-generator-ascii-art-code-online-txt2ascii-t
     curl -X POST http://localhost:9091/tasks/gc
     curl -X POST http://localhost:9091/tasks/myjob
     curl -X POST http://localhost:9091/tasks/samplejob3
+    curl -X POST http://localhost:9091/tasks/locksundialscheduler
+    curl -X POST http://localhost:9091/tasks/unlocksundialscheduler
     
 ## Test XDropWizard
 
