@@ -11,7 +11,7 @@
 			<job-data-map>
 				<entry>
 					<key>MyParam</key>
-					<value>ABC</value>
+					<value>42</value>
 				</entry>
 			</job-data-map>
 		</job>
