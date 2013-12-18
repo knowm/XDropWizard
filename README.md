@@ -1,6 +1,6 @@
 # XDropWizard
 
-A starting-point Webservice using DropWizard and containing Xeiam's normal dev stack including projects such as Yank, Sundial, Flot, Markdown, Redis, HSQLDB, ZeroMQ, XChart, etc.
+A starting-point Webservice using DropWizard and containing Xeiam's normal dev stack including projects such as Yank, Sundial (a Quartz fork), Flot, Markdown, Redis, HSQLDB, ZeroMQ, XChart, etc.
 
 ## Requirements
 
@@ -104,9 +104,11 @@ jobs, mixing and matching if desired. This keeps your jobs organized.
     
         JobContext context = getJobContext();
     
-        Integer myParam = getJobContext().get("myParam");
+        String valueAsString = context.get("MyParam");
+        logger.info("valueAsString = " + valueAsString);
     
-        logger.info("SampleJob3 says " + myParam);
+        Integer valueAsInt = Integer.valueOf(valueAsString);
+        logger.info("valueAsInt = " + valueAsInt);
     
         context.put("MyValue", new Integer(123));
     
@@ -139,7 +141,7 @@ Here, we see how to hook a job into DropWizard's environment as a task for async
 
 ### SundialManager.java
 
-`SundialManager.java` is the class responisuble for starting the scheduler and it is hooked into DropWizard in the `Service` class by 
+`SundialManager.java` is the class responsible for starting the scheduler and it is hooked into DropWizard in the `Service` class by 
 including the following line of code:
     
     SundialManager sm = new SundialManager(configuration.getSundialProperties()); 
