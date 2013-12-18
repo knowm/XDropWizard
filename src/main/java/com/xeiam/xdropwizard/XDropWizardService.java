@@ -23,23 +23,23 @@ import com.yammer.dropwizard.config.Environment;
 /**
  * @author timmolter
  */
-public class HelloService extends Service<HelloServiceConfiguration> {
+public class XDropWizardService extends Service<XDropWizardServiceConfiguration> {
 
-  private final Logger logger = LoggerFactory.getLogger(HelloService.class);
+  private final Logger logger = LoggerFactory.getLogger(XDropWizardService.class);
 
   public static void main(String[] args) throws Exception {
 
-    new HelloService().run(args);
+    new XDropWizardService().run(args);
   }
 
   @Override
-  public void initialize(Bootstrap<HelloServiceConfiguration> bootstrap) {
+  public void initialize(Bootstrap<XDropWizardServiceConfiguration> bootstrap) {
 
     bootstrap.setName("xdropwizard-service");
   }
 
   @Override
-  public void run(HelloServiceConfiguration configuration, Environment environment) throws Exception {
+  public void run(XDropWizardServiceConfiguration configuration, Environment environment) throws Exception {
 
     logger.error("booya!");
 

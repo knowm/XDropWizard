@@ -8,7 +8,7 @@ package com.xeiam.xdropwizard.manager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.xeiam.xdropwizard.HelloServiceConfiguration.YankConfiguration;
+import com.xeiam.xdropwizard.XDropWizardServiceConfiguration.YankConfiguration;
 import com.xeiam.yank.DBConnectionManager;
 import com.xeiam.yank.PropertiesUtils;
 import com.yammer.dropwizard.lifecycle.Managed;

@@ -85,7 +85,7 @@
 									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.xeiam.xdropwizard.HelloService</mainClass>
+									<mainClass>com.xeiam.xdropwizard.XDropWizardService</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>

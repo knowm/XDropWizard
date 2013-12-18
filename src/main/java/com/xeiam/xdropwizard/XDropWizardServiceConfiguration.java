@@ -20,7 +20,7 @@ import com.yammer.dropwizard.config.Configuration;
 /**
  * @author timmolter
  */
-public class HelloServiceConfiguration extends Configuration {
+public class XDropWizardServiceConfiguration extends Configuration {
 
   // Hello world
   @NotEmpty

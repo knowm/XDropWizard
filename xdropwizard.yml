@@ -1,6 +1,3 @@
-template: Hello, %s!
-defaultName: Stranger
-
 http:
   port: 9090
   adminPort: 9091
@@ -57,3 +54,7 @@ yank:
 
   dbPropsFileName: DB.properties
   sqlPropsFileName: 
+  
+template: Hello, %s!
+defaultName: Stranger
+  
