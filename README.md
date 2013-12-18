@@ -1,10 +1,10 @@
 # XDropWizard
 
-A starting-point Webservice using DropWizard and containing some Xeiam OSS projects such as Yank, Sundial, and XChart
+A starting-point Webservice using DropWizard and containing Xeiam's normal dev stack including projects such as Yank, Sundial, Flot, Markdown, Redis, HSQLDB, ZeroMQ, XChart, etc.
 
 ## Requirements
 
-* Java 1.7
+* Java 1.6
 * Maven
 
 ## Banner Generator 
