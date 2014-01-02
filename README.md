@@ -328,6 +328,34 @@ scatter, and bar charts and to provide the resulting bitmaps (PNGs, JPGs, etc.) 
 There is no required setup or initialization as in the case with Sundial and Yank. You only need to create a resource for each chart you are providing.
 
     http://localhost:9090/xchart/random.png
+    
+### XChartResource.java
+
+This example XChartResource class creates an XChart `QuickChart` and sends the image as a byte[] using `XChart`'s `BitmapEncoder` class. Don't forget to add this resource in `Service` class!
+
+    @Path("xchart")
+    public class XChartResource {
+    
+      @GET
+      @Path("random.png")
+      @Produces("image/png")
+      public Response getRandomLineChart() throws IOException {
+    
+        Chart chart = QuickChart.getChart("XChart Sample - Random Walk", "X", "Y", null, null, getRandomWalk(105));
+    
+        return Response.ok().type("image/png").entity(BitmapEncoder.getPNGBytes(chart)).build();
+      }
+    
+      private double[] getRandomWalk(int numPoints) {
+    
+        double[] y = new double[numPoints];
+        for (int i = 1; i < y.length; i++) {
+          y[i] = y[i - 1] + Math.random() - .5;
+        }
+        return y;
+      }
+    
+    }
 
 ## Markdown
 

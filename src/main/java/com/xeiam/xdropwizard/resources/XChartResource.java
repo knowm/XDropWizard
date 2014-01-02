@@ -15,17 +15,12 @@
  */
 package com.xeiam.xdropwizard.resources;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.xeiam.xchart.BitmapEncoder;
 import com.xeiam.xchart.Chart;
@@ -37,33 +32,19 @@ import com.xeiam.xchart.QuickChart;
 @Path("xchart")
 public class XChartResource {
 
-  private final Logger logger = LoggerFactory.getLogger(XChartResource.class);
-
   @GET
   @Path("random.png")
   @Produces("image/png")
-  public Response getRandomLineChart() {
+  public Response getRandomLineChart() throws IOException {
 
     Chart chart = QuickChart.getChart("XChart Sample - Random Walk", "X", "Y", null, null, getRandomWalk(105));
 
-    BufferedImage bufferedImage = new BufferedImage(chart.getWidth(), chart.getHeight(), BufferedImage.TYPE_INT_RGB);
-    Graphics2D graphics2D = bufferedImage.createGraphics();
-    chart.paint(graphics2D);
-
-    Response response = null;
-    try {
-      response = Response.ok().type("image/png").entity(BitmapEncoder.getPNGBytes(chart)).build();
-    } catch (IOException e) {
-      logger.error("ERROR GENERATING PNG!!!", e);
-    }
-    return response;
+    return Response.ok().type("image/png").entity(BitmapEncoder.getPNGBytes(chart)).build();
   }
 
-  // generate random walk data set
-  private static double[] getRandomWalk(int numPoints) {
+  private double[] getRandomWalk(int numPoints) {
 
     double[] y = new double[numPoints];
-    y[0] = 0;
     for (int i = 1; i < y.length; i++) {
       y[i] = y[i - 1] + Math.random() - .5;
     }
