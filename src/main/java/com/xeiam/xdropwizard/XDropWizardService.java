@@ -22,6 +22,7 @@ import com.xeiam.xdropwizard.health.TemplateHealthCheck;
 import com.xeiam.xdropwizard.manager.SundialManager;
 import com.xeiam.xdropwizard.manager.YankManager;
 import com.xeiam.xdropwizard.resources.HelloWorldResource;
+import com.xeiam.xdropwizard.resources.XChartResource;
 import com.xeiam.xdropwizard.resources.YankBookResource;
 import com.xeiam.xdropwizard.task.LockSundialSchedulerTask;
 import com.xeiam.xdropwizard.task.MyJobTask;
@@ -77,6 +78,10 @@ public class XDropWizardService extends Service<XDropWizardServiceConfiguration>
     environment.addTask(new SampleJob3Task());
     environment.addTask(new LockSundialSchedulerTask());
     environment.addTask(new UnlockSundialSchedulerTask());
+
+    // RESOURCES ////////////////////////////
+
+    environment.addResource(new XChartResource());
 
   }
 }

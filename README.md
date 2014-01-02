@@ -320,6 +320,17 @@ Finally, once DropWizard is running, you can access the JSON objects via the fol
     http://localhost:9090/book/random
     http://localhost:9090/book/all
     
+## XChart
+
+[XChart](https://github.com/timmolter/XChart) is a light-weight and convenient library for plotting data. We use it in Dropwizard to dynamically create line, 
+scatter, and bar charts and to provide the resulting bitmaps (PNGs, JPGs, etc.) as URL endpoint resources. 
+
+There is no required setup or initialization as in the case with Sundial and Yank. You only need to create a resource for each chart you are providing.
+
+    http://localhost:9090/xchart/random.png
+
+## Markdown
+
 
 
     
