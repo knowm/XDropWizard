@@ -53,7 +53,7 @@ sundial:
 yank:
 
   dbPropsFileName: DB.properties
-  sqlPropsFileName: 
+  sqlPropsFileName: SQL.properties
   
 template: Hello, %s!
 defaultName: Stranger

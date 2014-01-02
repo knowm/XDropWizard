@@ -13,32 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.xeiam.xdropwizard.task;
+package com.xeiam.xdropwizard.resources;
 
-import java.io.PrintWriter;
+import java.util.List;
 
-import com.google.common.collect.ImmutableMultimap;
-import com.xeiam.sundial.SundialJobScheduler;
-import com.yammer.dropwizard.tasks.Task;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import com.xeiam.xdropwizard.business.Book;
+import com.xeiam.xdropwizard.business.BooksDAO;
 
 /**
  * @author timmolter
  */
-public class MyJobTask extends Task {
+@Path("book")
+@Produces(MediaType.APPLICATION_JSON)
+public class YankBookResource {
 
-  /**
-   * Constructor
-   */
-  public MyJobTask() {
+  @GET
+  @Path("random")
+  public Book getRandomBook() {
 
-    super("myjob");
+    return BooksDAO.selectRandomBook();
   }
 
-  @Override
-  public void execute(ImmutableMultimap<String, String> arg0, PrintWriter arg1) throws Exception {
+  @GET
+  @Path("all")
+  public List<Book> getAllBooks() {
 
-    SundialJobScheduler.startJob("MyJob");
-
+    return BooksDAO.selectAllBooks();
   }
-
 }

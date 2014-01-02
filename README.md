@@ -1,6 +1,7 @@
 # XDropWizard
 
-A starting-point Webservice using DropWizard and containing Xeiam's normal dev stack including projects such as Yank, Sundial (a Quartz fork), Flot, Markdown, Redis, HSQLDB, ZeroMQ, XChart, etc.
+A starting-point Webservice using DropWizard and containing Xeiam's normal dev stack including projects such as Yank, Sundial (a Quartz fork), Flot, Markdown, 
+Redis, HSQLDB, ZeroMQ, XChart, JUnit, etc.
 
 ## Requirements
 
@@ -13,11 +14,17 @@ http://www.webestools.com/ascii-text-generator-ascii-art-code-online-txt2ascii-t
 
 ## Terminal
 
-    $ cd ~/path/to/project/XDropWizard
+    cd ~/path/to/project/XDropWizard
 
 ## Build
 
-    $ mvn clean package
+    mvn clean package
+    
+#### maven-license-plugin
+
+    mvn license:check
+    mvn license:format
+    mvn license:remove
 
 ## Run
 
@@ -35,6 +42,8 @@ http://www.webestools.com/ascii-text-generator-ascii-art-code-online-txt2ascii-t
     
 ## Sundial
 
+Sundial is a lightweight Java job scheduling framework.
+
 Integrating [Sundial](https://github.com/timmolter/Sundial) into a DropWizard instance requires minimal setup, and once it's all configured and running, 
 the scheduling and automatic running of jobs is straight forward and stable. For those not familiar with Sundial, it is a simplified fork of [Quartz](http://quartz-scheduler.org/) 
 developed by Xeiam. A lot of the bloat and confusion of configuring Quartz was removed in creating Sundial and a convenient wrapper around jobs was added to enable 
@@ -47,7 +56,7 @@ There are two different types of jobs:
 
 ### jobs.xml
 
-Put a file called jobs.xml on your classpath. See jobs.xml in `src/main/resources` to see two jobs. the `SampleJob3` job has an associated trigger as well 
+Put a file called `jobs.xml` on your classpath. See `jobs.xml` in `src/main/resources` to see two jobs. the `SampleJob3` job has an associated trigger as well 
 as a key-value pair, which the job has access to. 
 
         <job>
@@ -167,4 +176,150 @@ By defining some tasks and hooking them into DropWizard you can asynchronously t
     curl -X POST http://localhost:9091/tasks/myjob
     curl -X POST http://localhost:9091/tasks/samplejob3
     
+## Yank
+ 
+Yank is a very easy-to-use yet flexible Java persistence layer for JDBC-compatible databases build on top of 
+[org.apache.DBUtils](http://commons.apache.org/dbutils/). Usage is very simple: define DB connectivity properties, create a DAO and POJO class, 
+and execute queries.
+
+Integrating Yank into DropWizard requires just a minimum of setup.
+
+### DB.properties
+
+The `DB.properties` file should be a familiar sight for people used to working with JDBC-compatible databases such as MySQL, HSQLDB, Oracle, and Postgres. 
+Put a file called `DB.properties` on your classpath. See `DB.properties` in `src/main/resources`. In this file, you define the properties needed to connect to your 
+database such as the JDBC driver class name, the user and password. Yank will load this file at startup and handle connecting to the database. 
+
+### SQL.properties
+
+Put a file called `SQL.properties` on your classpath. See `SQL.properties` in `src/main/resources`. The `SQL.properties` file is a place to centrally store your 
+SQL statements. There are a few advantages to this. First, all your statements are found at a single place so you can see tham all at once. Secondly, if you want 
+to switch your underlying database you'll need to rewrite all your SQL statements. If you have a `SQL.properties` file, you can just create a second one for the new 
+database and easily make the transition. Of course, you can write all your SQL statements in the Java DAO classes directly as well.
+
+### Book.java
+
+Yank requires that you have a single POJO for each table in your database. The POJO's fields should match the column names and data types of the matching table. 
+Add the getter and setters as well. 
+
+    public class Book {
+    
+      private String title;
+      private String author;
+      private double price;
+    
+      /** Pro-tip: In Eclipse, generate all getters and setters after defining class fields: Right-click --> Source --> Generate Getters and Setters... */
+    
+      public String getTitle() {
+        return title;
+      }
+    
+      public void setTitle(String title) {
+        this.title = title;
+      }
+    
+      public String getAuthor() {
+        return author;
+      }
+    
+      public void setAuthor(String author) {
+        this.author = author;
+      }
+    
+      public double getPrice() {
+        return price;
+      }
+    
+      public void setPrice(double price) {
+        this.price = price;
+      }
+    
+    }
+
+### BooksDAO.java
+
+It is not required by Yank, but it really helps to organize your persistence layer code to have one DAO class for each table. The DAO class is just a collection 
+of public static methods that each interact with Yank's `DBProxy` class. Note that in some of the following methods, the SQL statements are written directly as a 
+String, while others come from the `SQL.properties` file on the classpath. The presence of the word `key` in the `DBProxy` method indicates that the SQL 
+statement is being fetched from the `SQL.properties`.
+
+
+    public class BooksDAO {
+    
+      public static int createBooksTable() {
+    
+        String sqlKey = "BOOKS_CREATE_TABLE";
+        return DBProxy.executeSQLKey("myconnectionpoolname", sqlKey, null);
+      }
+    
+      public static int insertBook(Book book) {
+    
+        Object[] params = new Object[] { book.getTitle(), book.getAuthor(), book.getPrice() };
+        String SQL = "INSERT INTO BOOKS  (TITLE, AUTHOR, PRICE) VALUES (?, ?, ?)";
+        return DBProxy.executeSQL("myconnectionpoolname", SQL, params);
+      }
+      
+      public static List<Book> selectAllBooks() {
+    
+        String SQL = "SELECT * FROM BOOKS";
+        return DBProxy.queryObjectListSQL("myconnectionpoolname", SQL, Book.class, null);
+      }
+       
+      public static Book selectRandomBook() {
+    
+        String sqlKey = "BOOKS_SELECT_RANDOM_BOOK";
+        return DBProxy.querySingleObjectSQLKey("myconnectionpoolname", sqlKey, Book.class, null);
+      }
+    
+    }
+
+### YankBookResource.java
+
+In order to access objects from the database and return them as JSON, you need a resource class for it. It makes most sense to create a resource class for 
+each table in your database. Don't forget to add this resource in `Service` class!
+
+    @Path("book")
+    @Produces(MediaType.APPLICATION_JSON)
+    public class YankBookResource {
+    
+      @GET
+      @Path("random")
+      public Book getRandomBook() {
+    
+        return BooksDAO.selectRandomBook();
+      }
+    
+      @GET
+      @Path("all")
+      public List<Book> getAllBooks() {
+    
+        return BooksDAO.selectAllBooks();
+      }
+    }
+
+### YankManager.java
+
+`YankManager.java` is the class responsible for setting up `Yank` and it is hooked into DropWizard in the `Service` class by 
+including the following line of code:
+    
+    YankManager ym = new YankManager(configuration.getYankConfiguration()); // A DropWizard Managed Object
+    environment.manage(ym); // Assign the management of the object to the Service
+    environment.addResource(new YankBookResource());
+    
+In your `*.yml` DropWizard configuration file, you can easily define the database and SQL statement files that Yank uses:
+
+    yank:
+
+        dbPropsFileName: DB.properties
+        sqlPropsFileName: SQL.properties
+        
+### Yank Database Access
+
+Finally, once DropWizard is running, you can access the JSON objects via the following URLS:
+
+    http://localhost:9090/book/random
+    http://localhost:9090/book/all
+    
+
+
     
