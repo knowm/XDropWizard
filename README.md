@@ -327,8 +327,6 @@ scatter, and bar charts and to provide the resulting bitmaps (PNGs, JPGs, etc.) 
 
 There is no required setup or initialization as in the case with Sundial and Yank. You only need to create a resource for each chart you are providing.
 
-    http://localhost:9090/xchart/random.png
-    
 ### XChartResource.java
 
 This example XChartResource class creates an XChart `QuickChart` and sends the image as a byte[] using `XChart`'s `BitmapEncoder` class. Don't forget to add this resource in `Service` class!
@@ -357,6 +355,12 @@ This example XChartResource class creates an XChart `QuickChart` and sends the i
     
     }
 
+### XChart Image Access
+
+Finally, once DropWizard is running, you can access the XChart plots as PNGs via the following URL:
+
+    http://localhost:9090/xchart/random.png
+    
 ## Markdown
 
 
