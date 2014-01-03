@@ -53,7 +53,8 @@ non-admin port however.
     http:
       rootPath: /service/*  # Default is /*
   
-Then use an extended AssetsBundle constructor to serve resources in the assets folder from the root path. index.htm is served as the default page.
+Then use an extended AssetsBundle constructor to serve resources in the assets folder from the root path. `index.htm` is served as the default page. You need to include the following 
+line of code in the `Service` class in the `initialize` method:
 
     bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
 
@@ -328,7 +329,7 @@ statement is being fetched from the `SQL.properties`.
 ### YankBookResource.java
 
 In order to access objects from the database and return them as JSON, you need a resource class for it. It makes most sense to create a resource class for 
-each table in your database. Don't forget to add this resource in `Service` class!
+each table in your database. Don't forget to add this resource in the `Service` class!
 
     @Path("book")
     @Produces(MediaType.APPLICATION_JSON)
@@ -381,7 +382,7 @@ There is no required setup or initialization as in the case with Sundial and Yan
 
 ### XChartResource.java
 
-This example XChartResource class creates an XChart `QuickChart` and sends the image as a byte[] using `XChart`'s `BitmapEncoder` class. Don't forget to add this resource in `Service` class!
+This example XChartResource class creates an XChart `QuickChart` and sends the image as a byte[] using `XChart`'s `BitmapEncoder` class. Don't forget to add this resource in the `Service` class!
 
     @Path("xchart")
     public class XChartResource {
@@ -412,7 +413,107 @@ This example XChartResource class creates an XChart `QuickChart` and sends the i
 Finally, once DropWizard is running, you can access the XChart plots as PNGs via the following URL:
 
     http://localhost:9090/service/xchart/random.png
+
+## Dynamic HTML Pages
+
+Dynamic HTML pages in DropWizard are referred to as "Views". These are like dynamic web pages produced by php or jsp/Servlets. Before adding Views to DropWizard 
+, you need to include the following line of code in the `Service` class in the `initialize` method:
+
+    bootstrap.addBundle(new ViewBundle());
     
+You'll also need to add the `dropwizard-views` dependency to the pom.xml file:
+
+    <dependency>
+        <groupId>com.yammer.dropwizard</groupId>
+        <artifactId>dropwizard-views</artifactId>
+        <version>0.6.2</version>
+    </dependency>
+
+### View Resource
+
+Just as we need a `Resource` class for JSON endpoints, a `Resource` class is needed for "Views" too. 
+
+    @Path("view/book")
+    @Produces(MediaType.TEXT_HTML)
+    public class ViewBookResource {
+    
+      @GET
+      @Timed
+      @CacheControl(noCache = true)
+      public BookView bookView() {
+    
+        return new BookView();
+      }
+    
+    }
+    
+Don't forget to add this resource in the `Service` class!
+
+### View Class
+
+The view class provides both the freemaker template and the dynamic data for the page. Here a `Book` object is hardcoded, 
+but it could easily come from a database. Any URL parameters can be passed from the `Resource` to the `View` via its constructor.
+
+    public class BookView extends View {
+    
+      public BookView() {
+    
+        super("ftl/book.ftl");
+      }
+    
+      public Book getBook() {
+    
+        Book book = new Book();
+        book.setTitle("Cryptonomicon");
+        book.setAuthor("Neal Stephenson");
+        book.setPrice(23.99);
+        return book;
+      }
+    
+    }
+
+### FTL - FreeMarker Template
+
+`book.ftl` is the path of the template relative to the class name. If this class was `com.xeiam.xdropwizard.views.PersonView`, Dropwizard 
+would then look for the file src/main/resources/com/xeiam/xdropwizard/views/person.ftl.
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <#include "../includes/head.ftl">
+    </head>
+    
+    <body>
+    
+    <div>
+    
+        <#include "../includes/header.ftl">
+    
+        <div id="markdown">
+        <table>
+        <tr>
+        <td>Book Title:</td><td>${book.title}</td></tr>
+        <tr><td>Book Author:</td><td>${book.author}</td></tr>
+        <tr><td>Book Price:</td><td>${book.price}</td></tr>
+        </table>
+        </div>
+        
+        <#include "../includes/footer.ftl">
+    
+    </div>
+    
+    <#include "../includes/cdn-scripts.ftl">
+    
+    </body>
+    </html>
+
+Notice the `#include` sections. This allows you to set up common page elements, thus avaoiding copy and pasting header, footer and script sections in all your FTLs.
+
+### View Access
+
+Since the view is a `Resource`
+
+    http://localhost:9090/service/view/book
 
 ## Markdown
 

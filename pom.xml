@@ -16,6 +16,12 @@
 			<artifactId>dropwizard-core</artifactId>
 			<version>0.6.2</version>
 		</dependency>
+		<!-- HTML Freemarker views support -->
+		<dependency>
+			<groupId>com.yammer.dropwizard</groupId>
+			<artifactId>dropwizard-views</artifactId>
+			<version>0.6.2</version>
+		</dependency>
 		<dependency>
 			<groupId>com.xeiam</groupId>
 			<artifactId>sundial</artifactId>

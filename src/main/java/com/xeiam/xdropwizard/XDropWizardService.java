@@ -22,6 +22,7 @@ import com.xeiam.xdropwizard.health.TemplateHealthCheck;
 import com.xeiam.xdropwizard.manager.SundialManager;
 import com.xeiam.xdropwizard.manager.YankManager;
 import com.xeiam.xdropwizard.resources.HelloWorldResource;
+import com.xeiam.xdropwizard.resources.ViewBookResource;
 import com.xeiam.xdropwizard.resources.XChartResource;
 import com.xeiam.xdropwizard.resources.YankBookResource;
 import com.xeiam.xdropwizard.task.LockSundialSchedulerTask;
@@ -32,6 +33,7 @@ import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.assets.AssetsBundle;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
+import com.yammer.dropwizard.views.ViewBundle;
 
 /**
  * @author timmolter
@@ -50,7 +52,7 @@ public class XDropWizardService extends Service<XDropWizardServiceConfiguration>
 
     bootstrap.setName("xdropwizard-service");
     bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
-
+    bootstrap.addBundle(new ViewBundle());
   }
 
   @Override
@@ -85,6 +87,7 @@ public class XDropWizardService extends Service<XDropWizardServiceConfiguration>
     // RESOURCES ////////////////////////////
 
     environment.addResource(new XChartResource());
+    environment.addResource(new ViewBookResource());
 
   }
 }
