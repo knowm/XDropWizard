@@ -68,7 +68,23 @@ Finally, once DropWizard is running, you can access the static content via the f
     http://localhost:9090/img/favicon.png
     http://localhost:9090/img/logo_60.png
     http://localhost:9090/css/main.css
+
+## Webapp Icons
+
+A webapp needs icons, and a really easy way to integrate them into your app is to use the css-based icon set from 
+[shoestrap.org](http://shoestrap.org/downloads/elusive-icons-webfont/). To integrate the Elusive-Icons Webfont icons 
+we need to put the `fonts` folder in `assets` containing the `fonts` files from the Elusive-Icons project. We also need the 
+`elusive-webfont.css` file in the `css` folder. To integrate the icons into a html page, you just add the following line 
+of code:
+
+    <link rel="stylesheet" type="text/css" href="/css/elusive-webfont.css" />
     
+To add the icon to the HTML page, just add a span with the class name matching the icon you want:
+    
+    <span class="icon-wrench"></span>
+    
+You size the icon by setting the `span`'s css font-size value.
+
 ## Sundial
 
 Sundial is a lightweight Java job scheduling framework.

@@ -27,7 +27,7 @@ a {
 }
 
 #header {
-	background-color: #e45d52;
+	background-color: #ffffff;
 	padding: 0;
 	margin: 0;
 }
@@ -35,6 +35,10 @@ a {
 .fullWidth {
 	margin: auto;
 	padding: 10px 0;
+}
+
+.notFullWidth {
+    margin: 0 50px;
 }
 
 .shadowed {
@@ -57,17 +61,17 @@ a {
 	padding-left: 15px;
 	font-size: 15px;
 	line-height: 15px;
-	top: 29px;
+	top: 50px;
 	position: relative;
 	float: left;
-	color: #ffffff;
+	color: #000000;
 }
 
 #headerlinks {
 	float: right;
 	text-align: right;
 	position: relative;
-	top: 32px;
+	top: 50px;
 }
 
 #topmessage {
