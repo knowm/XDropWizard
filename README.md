@@ -68,6 +68,12 @@ Finally, once DropWizard is running, you can access the static content via the f
     http://localhost:9090/img/favicon.png
     http://localhost:9090/img/logo_60.png
     http://localhost:9090/css/main.css
+    
+### Another Option
+
+Another approach is to serve all static content from a webserver such as Apahce HTTP or nginx, placed in front of the DropWizard instance. This however has the disadvantage 
+of spreading your app's content over several places, and the configuration and maintenence is more complex. In certain cases it may make sense though. Gary Rowe blogged 
+about how it can be done with nginx [here](http://gary-rowe.com/agilestack/2013/02/13/an-nginx-config-file-for-dropwizard-with-static-content/).
 
 ## Webapp Icons
 
