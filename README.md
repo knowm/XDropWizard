@@ -68,6 +68,7 @@ Finally, once DropWizard is running, you can access the static content via the f
     http://localhost:9090/img/favicon.png
     http://localhost:9090/img/logo_60.png
     http://localhost:9090/css/main.css
+    http://localhost:9090/sample.html
     
 ### Another Option
 
