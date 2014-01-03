@@ -1,7 +1,8 @@
 http:
   port: 9090
   adminPort: 9091
-
+  rootPath: /service/*  # Default is /*
+  
 logging:
 
   level: INFO

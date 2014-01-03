@@ -32,13 +32,42 @@ http://www.webestools.com/ascii-text-generator-ascii-art-code-online-txt2ascii-t
     
 ## Test Basics
 
-    http://localhost:9090/hello-world
-    http://localhost:9091/
+    http://localhost:9090/service/hello-world
+    http://localhost:9091
     http://localhost:9091/healthcheck
     
 ## Run Tasks
 
     curl -X POST http://localhost:9091/tasks/gc
+
+## Static Content
+
+Serving static content such as images, html, css, javascript and binary files from you XDropWizard Webservice is possible in addition to the normal JSON resources 
+typical for a webservice. DropWizard names static content as "Assets" and all you need to do is place them on the classpath in a folder called `assets`. In our case 
+we simply add the `assets` folder to `src/main/resources` and Maven takes care of adding the folder and its contents to the classpath during the build. 
+
+Either your service or your static assets can be served from the root path, but not both. The latter is useful when using Dropwizard to back a Javascript application 
+as is the case with XDropWizard. To enable it, move your service to a sub-URL. Note that all webservice calls will now need `service` at the root of the URL. This only applies to the 
+non-admin port however.
+
+    http:
+      rootPath: /service/*  # Default is /*
+  
+Then use an extended AssetsBundle constructor to serve resources in the assets folder from the root path. index.htm is served as the default page.
+
+    bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
+
+In order to keep the `assets` folder a bit organized, we can add subfolders to it. Our `assets` folder contains `img`, `js`, and `css` subfolders. Our `assets` folder also contains 
+a special-case file called `index.htm`. By default, DropWizard serves this as the default HTML page.
+
+### Static Content Access
+
+Finally, once DropWizard is running, you can access the static content via the following URLS:
+
+    http://localhost:9090
+    http://localhost:9090/img/favicon.png
+    http://localhost:9090/img/logo_60.png
+    http://localhost:9090/css/main.css
     
 ## Sundial
 
@@ -317,8 +346,8 @@ In your `*.yml` DropWizard configuration file, you can easily define the databas
 
 Finally, once DropWizard is running, you can access the JSON objects via the following URLS:
 
-    http://localhost:9090/book/random
-    http://localhost:9090/book/all
+    http://localhost:9090/service/book/random
+    http://localhost:9090/service/book/all
     
 ## XChart
 
@@ -359,8 +388,9 @@ This example XChartResource class creates an XChart `QuickChart` and sends the i
 
 Finally, once DropWizard is running, you can access the XChart plots as PNGs via the following URL:
 
-    http://localhost:9090/xchart/random.png
+    http://localhost:9090/service/xchart/random.png
     
+
 ## Markdown
 
 

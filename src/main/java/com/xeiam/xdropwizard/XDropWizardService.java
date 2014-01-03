@@ -29,6 +29,7 @@ import com.xeiam.xdropwizard.task.MyJobTask;
 import com.xeiam.xdropwizard.task.SampleJob3Task;
 import com.xeiam.xdropwizard.task.UnlockSundialSchedulerTask;
 import com.yammer.dropwizard.Service;
+import com.yammer.dropwizard.assets.AssetsBundle;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
 
@@ -48,6 +49,8 @@ public class XDropWizardService extends Service<XDropWizardServiceConfiguration>
   public void initialize(Bootstrap<XDropWizardServiceConfiguration> bootstrap) {
 
     bootstrap.setName("xdropwizard-service");
+    bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
+
   }
 
   @Override
