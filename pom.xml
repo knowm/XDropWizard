@@ -43,11 +43,11 @@
 			<version>2.2.2-SNAPSHOT</version>
 		</dependency>
 		<!-- Provides Markdown support -->
-		<dependency>
-			<groupId>org.pegdown</groupId>
-			<artifactId>pegdown</artifactId>
-			<version>1.4.2</version>
-		</dependency>
+	<dependency>
+		<groupId>org.pegdown</groupId>
+		<artifactId>pegdown</artifactId>
+		<version>1.1.0</version>
+	</dependency>
 
 		<!-- test -->
 		<dependency>

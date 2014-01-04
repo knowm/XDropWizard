@@ -23,6 +23,7 @@ import com.xeiam.xdropwizard.manager.SundialManager;
 import com.xeiam.xdropwizard.manager.YankManager;
 import com.xeiam.xdropwizard.resources.HelloWorldResource;
 import com.xeiam.xdropwizard.resources.ViewBookResource;
+import com.xeiam.xdropwizard.resources.ViewMarkdownResource;
 import com.xeiam.xdropwizard.resources.XChartResource;
 import com.xeiam.xdropwizard.resources.YankBookResource;
 import com.xeiam.xdropwizard.task.LockSundialSchedulerTask;
@@ -88,6 +89,7 @@ public class XDropWizardService extends Service<XDropWizardServiceConfiguration>
 
     environment.addResource(new XChartResource());
     environment.addResource(new ViewBookResource());
+    environment.addResource(new ViewMarkdownResource());
 
   }
 }

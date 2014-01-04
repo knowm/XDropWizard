@@ -510,14 +510,87 @@ would then look for the file src/main/resources/com/xeiam/xdropwizard/views/pers
 
 Notice the `#include` sections. This allows you to set up common page elements, thus avaoiding copy and pasting header, footer and script sections in all your FTLs.
 
-### View Access
+### Book View Access
 
-Since the view is a `Resource`
+Since the view is a `Resource`, we need to include `service` in the URL:
 
     http://localhost:9090/service/view/book
 
 ## Markdown
 
+In order to include Markdown into your projects you need only use a suitable Markdown parser, and an easy to use one is [pegdown](https://github.com/sirthias/pegdown). 
+First add the following to pom.xml:
 
+    <dependency>
+        <groupId>org.pegdown</groupId>
+        <artifactId>pegdown</artifactId>
+        <version>1.1.0</version>
+    </dependency>
 
+Unfortunately, there is a dependency clash a couple levels deep with the asm dependency if we try to use the most up to date version of pegdown (1.4.2) and dropwizard 1.6.2. 
+For simple markdown however, it's a non-issue.
+
+Just as for Dynamic Views, we need a `Resource`, a `View`, and a `FTL`. The only additional steps are to generate/get some markdown and convert it to HTML with Pegdown. 
+
+### MarkdownView
+
+The `MarkdownView` class deomonstrates both hardcoding markdown and loading markdown from a file on the classpath. Note that the markdown file is loaded with Guava, which 
+is a dependency of DropWizard so no extra declaration is necessary in pom.xml. Also note that the constructor for `PegDownProcessor` in the `getLoadedhtml()` method 
+is passed `Extensions.ALL`. This is needed for advanced markdown such as tables and terms. 
+
+    public class MarkdownView extends View {
     
+      private final String name;
+      private final int age;
+    
+      public MarkdownView(String name, int age) {
+    
+        super("ftl/markdown.ftl");
+    
+        this.name = name;
+        this.age = age;
+      }
+    
+      public String getHardcodedhtml() {
+    
+        StringBuilder sb = new StringBuilder();
+    
+        sb.append("#### This is from hardcoded markdown");
+        sb.append("\n");
+        sb.append("\n");
+        sb.append("The name path parameter in the URL was: " + this.name);
+        sb.append("\n");
+        sb.append("\n");
+        sb.append("The age query parameter in the URL was: " + this.age);
+    
+        PegDownProcessor processor = new PegDownProcessor();
+    
+        String html = processor.markdownToHtml(sb.toString());
+    
+        return html;
+      }
+    
+      public String getLoadedhtml() throws IOException {
+    
+        // String markdown = readFileFromClasspathToString("markdown/markdownsample.md");
+    
+        URL url = Resources.getResource("markdown/markdownsample.md");
+        String markdown = Resources.toString(url, Charsets.UTF_8);
+    
+        // New processor each time due to pegdown not being thread-safe internally
+        PegDownProcessor processor = new PegDownProcessor(Extensions.ALL);
+    
+        // Return the rendered HTML
+        return processor.markdownToHtml(markdown);
+      }
+    
+    }
+
+### Markdown View Access
+
+Since the markdown view is a Dropwizard `Resource`, we need to include `service` in the URL:
+
+    http://localhost:9090/service/view/markdown/tim?age=25 
+    
+Note that passing path parameters and query parameters is demonstrated here.
+
