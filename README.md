@@ -71,6 +71,11 @@ Finally, once DropWizard is running, you can access the static content via the f
     http://localhost:9090/css/main.css
     http://localhost:9090/sample.html
     
+BTW, the HTML file `index.html` contains all the links referenced in this README file providing a nice overview of all the demonstrated functionality. If you run this 
+DropWizard application as described above, you should be able to click on all the links displayed on `index.html` at the following URL:
+
+    http://localhost:9090
+    
 ### Another Option
 
 Another approach is to serve all static content from a webserver such as Apahce HTTP or nginx, placed in front of the DropWizard instance. This however has the disadvantage 
@@ -607,7 +612,7 @@ This page uses JQuery to fetch JSON, update contents of the `numberplaceholder` 
 
     <html>
       <head>
-        <title>Sample "Hello, World" Application</title>
+        <title>Sample AJAX HTML Page</title>
       </head>
       <body>
     
@@ -657,4 +662,49 @@ This page uses JQuery to fetch JSON, update contents of the `numberplaceholder` 
 
     http://localhost:9090/ajax.html
 
+## Flot
+
+[Flot](http://www.flotcharts.org/) is a pure JavaScript plotting library for jQuery, with a focus on simple usage, attractive looks and interactive features. It's 
+wonderful forweb-based plots.
+
+### jquery.flot.js
+
+Integrating `flot` into a webapp requires adding the latest `javascript` file(s) from `flot`, which can be grabbed from their [GitHub page](https://github.com/flot/flot/releases). 
+We place the `jquery.flot.js` file into a `js` folder in `src/main.resources`. There are many extra `flot` js files used to add extra functionaity to flot.
+
+### flot.html
+
+There are just two main things needed to make a flot chart:
+
+1. a link to `jquery.flot.js`
+1. the `placeholder` div
+
+    <html>
+      <head>
+        <title>Sample Flot Page</title>
+        <link rel="stylesheet" type="text/css" href="/css/main.css" />
+      </head>
+      <body>
     
+        <h1>Sample Flot HTML Page</h1>
+        <p>This is a sample html page demonstrating Flot.</p>
+        
+        <div class="github notFullWidth">
+            <div id="placeholder" style="width: 600px; height: 400px; font-size: 14px; line-height: 1.2em;"></div>
+        </div>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/jquery.flot.js"></script>
+        <script>
+            $(function() {
+        
+                var d1 = [];
+                for (var i = 0; i < 14; i += 0.5) {
+                    d1.push([i, Math.sin(i)]);
+                }
+    
+                $.plot("#placeholder", [ d1 ]);
+        
+            });
+        </script>   
+      </body>
+    </html>
