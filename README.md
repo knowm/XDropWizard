@@ -413,6 +413,7 @@ This example XChartResource class creates an XChart `QuickChart` and sends the i
 Finally, once DropWizard is running, you can access the XChart plots as PNGs via the following URL:
 
     http://localhost:9090/service/xchart/random.png
+    http://localhost:9090/xchart.html
 
 ## Dynamic HTML Pages
 
