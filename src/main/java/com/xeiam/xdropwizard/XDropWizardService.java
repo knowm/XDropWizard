@@ -22,6 +22,7 @@ import com.xeiam.xdropwizard.health.TemplateHealthCheck;
 import com.xeiam.xdropwizard.manager.SundialManager;
 import com.xeiam.xdropwizard.manager.YankManager;
 import com.xeiam.xdropwizard.resources.HelloWorldResource;
+import com.xeiam.xdropwizard.resources.RandomNumberResource;
 import com.xeiam.xdropwizard.resources.ViewBookResource;
 import com.xeiam.xdropwizard.resources.ViewMarkdownResource;
 import com.xeiam.xdropwizard.resources.XChartResource;
@@ -90,6 +91,7 @@ public class XDropWizardService extends Service<XDropWizardServiceConfiguration>
     environment.addResource(new XChartResource());
     environment.addResource(new ViewBookResource());
     environment.addResource(new ViewMarkdownResource());
+    environment.addResource(new RandomNumberResource());
 
   }
 }

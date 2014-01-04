@@ -594,3 +594,67 @@ Since the markdown view is a Dropwizard `Resource`, we need to include `service`
     
 Note that passing path parameters and query parameters is demonstrated here.
 
+## AJAX
+
+For pseudo-real-time updates to an HTML page, AJAX comes in handy. Adding AJAX to a web application requires 2 compnents:
+
+1. an HTML page with a JQuery AJAX query
+1. a backend JSON endpoint
+
+### AJAX HTML page (ajax.html)
+
+This page uses JQuery to fetch JSON, update contents of the `numberplaceholder` span, and repeat every one second.
+
+    <html>
+      <head>
+        <title>Sample "Hello, World" Application</title>
+      </head>
+      <body>
+    
+        <h1>Sample AJAX HTML Page</h1>
+        <p>This is a sample html page demonstrating AJAX.</p>
+        
+        <div class="github">
+            Random Number from Server: <span id="numberplaceholder">&nbsp;</span>        
+        </div>
+        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <script>
+            $(function() {
+    
+                dataUpdate();
+            });
+            
+            function dataUpdate() {
+                
+                $.getJSON("/service/random", function(json) {
+        
+                    $('#numberplaceholder').html(json.number);
+                    setTimeout('dataUpdate()', 1000);
+                    
+                }).error(function() {
+                    console.log("errorfetching JSON asynchronously!");
+                });
+            }
+        </script> 
+      </body>
+    </html>
+    
+### Backend JSON endpoint (RandomNumberResource.java)
+
+    @Path("random")
+    @Produces(MediaType.APPLICATION_JSON)
+    public class RandomNumberResource {
+    
+      @GET
+      public RandomNumber getRandom() {
+    
+        return new RandomNumber();
+      }
+    }
+
+### AJAX Page Access
+
+    http://localhost:9090/ajax.html
+
+    
