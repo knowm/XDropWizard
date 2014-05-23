@@ -15,7 +15,7 @@
  */
 package com.xeiam.xdropwizard.health;
 
-import com.yammer.metrics.core.HealthCheck;
+import com.codahale.metrics.health.HealthCheck;
 
 /**
  * @author timmolter
@@ -26,7 +26,6 @@ public class TemplateHealthCheck extends HealthCheck {
 
   public TemplateHealthCheck(String template) {
 
-    super("template");
     this.template = template;
   }
 

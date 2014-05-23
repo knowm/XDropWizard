@@ -1,44 +1,24 @@
-http:
-  port: 9090
-  adminPort: 9091
-  rootPath: /service/*  # Default is /*
+server:
+  applicationConnectors:
+    - type: http
+      port: 9090
+  adminConnectors:
+    - type: http
+      port: 9091
   
 logging:
-
   level: INFO
-  
-  # Settings for logging to stdout.
-  console:
-
-    # If true, write log statements to stdout.
-    enabled: true
-
-    # Do not display log statements below this threshold to stdout.
-    threshold: ALL
-
-  # ...
-  # Settings for logging to a file.
-  file:
-
-    # If true, write log statements to a file.
-    enabled: true
-
-    # Do not write log statements below this threshold to the file.
-    threshold: ALL
-
-    # The file to which current statements will be logged.
-    currentLogFilename: ./log/xdropwizard.log
-
-    # When the log file rotates, the archived log will be renamed to this and gzipped. The
-    # %d is replaced with the previous day (yyyy-MM-dd). Custom rolling windows can be created
-    # by passing a SimpleDateFormat-compatible format as an argument: "%d{yyyy-MM-dd-hh}".
-    archivedLogFilenamePattern: ./log/xdropwizard-%d.log.gz
-
-    # The number of archived files to keep.
-    archivedFileCount: 5
-
-    # The timezone used to format dates. HINT: USE THE DEFAULT, UTC.
-    timeZone: UTC
+  appenders:
+    - type: console
+      threshold: ALL
+      timeZone: UTC
+      target: stdout
+    - type: file
+      threshold: ALL
+      currentLogFilename: ./log/xdropwizard.log
+      archivedLogFilenamePattern: ./log/xdropwizard-%d.log.gz,
+      archivedFileCount: 5
+      timeZone: UTC
     
 
 sundial:

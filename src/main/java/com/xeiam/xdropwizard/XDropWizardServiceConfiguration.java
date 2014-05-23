@@ -15,6 +15,8 @@
  */
 package com.xeiam.xdropwizard;
 
+import io.dropwizard.Configuration;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -25,7 +27,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.yammer.dropwizard.config.Configuration;
 
 /**
  * @author timmolter

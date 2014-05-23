@@ -15,6 +15,8 @@
  */
 package com.xeiam.xdropwizard.task;
 
+import io.dropwizard.servlets.tasks.Task;
+
 import java.io.PrintWriter;
 
 import org.slf4j.Logger;
@@ -22,7 +24,6 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.xeiam.sundial.SundialJobScheduler;
-import com.yammer.dropwizard.tasks.Task;
 
 /**
  * @author timmolter

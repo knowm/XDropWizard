@@ -1,5 +1,7 @@
 package com.xeiam.xdropwizard.views;
 
+import io.dropwizard.views.View;
+
 import java.io.IOException;
 import java.net.URL;
 
@@ -8,7 +10,6 @@ import org.pegdown.PegDownProcessor;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
-import com.yammer.dropwizard.views.View;
 
 /**
  * @author timmolter

@@ -23,9 +23,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Optional;
 import com.xeiam.xdropwizard.api.Saying;
-import com.yammer.metrics.annotation.Timed;
 
 /**
  * @author timmolter

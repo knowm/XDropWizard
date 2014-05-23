@@ -15,11 +15,12 @@
  */
 package com.xeiam.xdropwizard.task;
 
+import io.dropwizard.servlets.tasks.Task;
+
 import java.io.PrintWriter;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.xeiam.sundial.SundialJobScheduler;
-import com.yammer.dropwizard.tasks.Task;
 
 /**
  * @author timmolter

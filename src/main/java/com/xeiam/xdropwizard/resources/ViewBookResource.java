@@ -1,13 +1,14 @@
 package com.xeiam.xdropwizard.resources;
 
+import io.dropwizard.jersey.caching.CacheControl;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.codahale.metrics.annotation.Timed;
 import com.xeiam.xdropwizard.views.BookView;
-import com.yammer.dropwizard.jersey.caching.CacheControl;
-import com.yammer.metrics.annotation.Timed;
 
 @Path("view/book")
 @Produces(MediaType.TEXT_HTML)

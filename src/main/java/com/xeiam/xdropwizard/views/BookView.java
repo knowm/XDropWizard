@@ -1,7 +1,8 @@
 package com.xeiam.xdropwizard.views;
 
+import io.dropwizard.views.View;
+
 import com.xeiam.xdropwizard.business.Book;
-import com.yammer.dropwizard.views.View;
 
 /**
  * @author timmolter

@@ -15,6 +15,11 @@
  */
 package com.xeiam.xdropwizard;
 
+import io.dropwizard.Application;
+import io.dropwizard.setup.Bootstrap;
+import io.dropwizard.setup.Environment;
+import io.dropwizard.views.ViewBundle;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,16 +36,11 @@ import com.xeiam.xdropwizard.task.LockSundialSchedulerTask;
 import com.xeiam.xdropwizard.task.MyJobTask;
 import com.xeiam.xdropwizard.task.SampleJob3Task;
 import com.xeiam.xdropwizard.task.UnlockSundialSchedulerTask;
-import com.yammer.dropwizard.Service;
-import com.yammer.dropwizard.assets.AssetsBundle;
-import com.yammer.dropwizard.config.Bootstrap;
-import com.yammer.dropwizard.config.Environment;
-import com.yammer.dropwizard.views.ViewBundle;
 
 /**
  * @author timmolter
  */
-public class XDropWizardService extends Service<XDropWizardServiceConfiguration> {
+public class XDropWizardService extends Application<XDropWizardServiceConfiguration> {
 
   private final Logger logger = LoggerFactory.getLogger(XDropWizardService.class);
 
@@ -52,8 +52,8 @@ public class XDropWizardService extends Service<XDropWizardServiceConfiguration>
   @Override
   public void initialize(Bootstrap<XDropWizardServiceConfiguration> bootstrap) {
 
-    bootstrap.setName("xdropwizard-service");
-    bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
+    // bootstrap.setName("xdropwizard-service"); // simply removed
+    // bootstrap.addBundle(new AssetsBundle("/assets/", "/")); // replaced in run()
     bootstrap.addBundle(new ViewBundle());
   }
 
@@ -62,36 +62,38 @@ public class XDropWizardService extends Service<XDropWizardServiceConfiguration>
 
     logger.info("running DropWizard!");
 
+    environment.jersey().setUrlPattern("/assets/*");
+
     final String template = configuration.getTemplate();
     final String defaultName = configuration.getDefaultName();
-    environment.addResource(new HelloWorldResource(template, defaultName));
-    environment.addHealthCheck(new TemplateHealthCheck(template));
+    environment.jersey().register(new HelloWorldResource(template, defaultName));
+    environment.healthChecks().register("TemplateHealth", new TemplateHealthCheck(template));
 
     // MANAGERS /////////////////////////
 
     // Sundial
     SundialManager sm = new SundialManager(configuration.getSundialProperties()); // A DropWizard Managed Object
-    environment.manage(sm); // Assign the management of the object to the Service
+    environment.jersey().register(sm); // Assign the management of the object to the Service
 
     // Yank
     YankManager ym = new YankManager(configuration.getYankConfiguration()); // A DropWizard Managed Object
-    environment.manage(ym); // Assign the management of the object to the Service
-    environment.addResource(new YankBookResource());
+    environment.jersey().register(ym); // Assign the management of the object to the Service
+    environment.jersey().register(new YankBookResource());
 
     // TASKS ////////////////////////////
 
     // task are things that should run triggered by a POST, but don't need to respond
-    environment.addTask(new MyJobTask());
-    environment.addTask(new SampleJob3Task());
-    environment.addTask(new LockSundialSchedulerTask());
-    environment.addTask(new UnlockSundialSchedulerTask());
+    environment.jersey().register(new MyJobTask());
+    environment.jersey().register(new SampleJob3Task());
+    environment.jersey().register(new LockSundialSchedulerTask());
+    environment.jersey().register(new UnlockSundialSchedulerTask());
 
     // RESOURCES ////////////////////////////
 
-    environment.addResource(new XChartResource());
-    environment.addResource(new ViewBookResource());
-    environment.addResource(new ViewMarkdownResource());
-    environment.addResource(new RandomNumberResource());
+    environment.jersey().register(new XChartResource());
+    environment.jersey().register(new ViewBookResource());
+    environment.jersey().register(new ViewMarkdownResource());
+    environment.jersey().register(new RandomNumberResource());
 
   }
 }

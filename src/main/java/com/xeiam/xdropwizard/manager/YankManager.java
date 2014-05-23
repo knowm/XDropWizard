@@ -15,6 +15,8 @@
  */
 package com.xeiam.xdropwizard.manager;
 
+import io.dropwizard.lifecycle.Managed;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +25,6 @@ import com.xeiam.xdropwizard.business.Book;
 import com.xeiam.xdropwizard.business.BooksDAO;
 import com.xeiam.yank.DBConnectionManager;
 import com.xeiam.yank.PropertiesUtils;
-import com.yammer.dropwizard.lifecycle.Managed;
 
 /**
  * <p>

@@ -28,7 +28,7 @@ http://www.webestools.com/ascii-text-generator-ascii-art-code-online-txt2ascii-t
 
 ## Run
 
-    $ java -jar target/xdropwizard-1.0.0-SNAPSHOT.jar server xdropwizard.yml 
+    $ java -jar target/xdropwizard-1.1.0-SNAPSHOT.jar server xdropwizard.yml 
     
 ## Test Basics
 

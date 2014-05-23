@@ -15,13 +15,14 @@
  */
 package com.xeiam.xdropwizard.manager;
 
+import io.dropwizard.lifecycle.Managed;
+
 import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.xeiam.sundial.SundialJobScheduler;
-import com.yammer.dropwizard.lifecycle.Managed;
 
 /**
  * Adapted from here: http://blog.tech.renttherunway.com/?p=60
