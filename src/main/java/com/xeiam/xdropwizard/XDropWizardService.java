@@ -53,7 +53,6 @@ public class XDropWizardService extends Application<XDropWizardServiceConfigurat
   @Override
   public void initialize(Bootstrap<XDropWizardServiceConfiguration> bootstrap) {
 
-    // bootstrap.setName("xdropwizard-service"); // simply removed
     bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
     bootstrap.addBundle(new ViewBundle());
   }
@@ -83,11 +82,11 @@ public class XDropWizardService extends Application<XDropWizardServiceConfigurat
 
     // TASKS ////////////////////////////
 
-    // task are things that should run triggered by a POST, but don't need to respond
-    environment.jersey().register(new MyJobTask());
-    environment.jersey().register(new SampleJob3Task());
-    environment.jersey().register(new LockSundialSchedulerTask());
-    environment.jersey().register(new UnlockSundialSchedulerTask());
+    // tasks are things that should run triggered by a POST, but don't need to respond
+    environment.admin().addTask(new MyJobTask());
+    environment.admin().addTask(new SampleJob3Task());
+    environment.admin().addTask(new LockSundialSchedulerTask());
+    environment.admin().addTask(new UnlockSundialSchedulerTask());
 
     // RESOURCES ////////////////////////////
 

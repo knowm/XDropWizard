@@ -22,7 +22,6 @@ logging:
     
 
 sundial:
- 
   thread-pool-size: 5
   shutdown-on-unload: true
   wait-on-shutdown: false
@@ -32,7 +31,6 @@ sundial:
 
   
 yank:
-
   dbPropsFileName: DB.properties
   sqlPropsFileName: SQL.properties
   

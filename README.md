@@ -38,7 +38,7 @@ http://www.webestools.com/ascii-text-generator-ascii-art-code-online-txt2ascii-t
     
 ## Run Tasks
 
-    curl -X POST http://localhost:9091/tasks/gc
+    curl -X POST http://localhost:9090/admin/tasks/gc
 
 ## Static Content
 
@@ -229,10 +229,10 @@ In your `*.yml` DropWizard configuration file, you can easily set some helpful p
 
 By defining some tasks and hooking them into DropWizard you can asynchronously trigger your jobs and/or put a global lock and unlock on the Sundial scheduler.
 
-    curl -X POST http://localhost:9091/tasks/locksundialscheduler
-    curl -X POST http://localhost:9091/tasks/unlocksundialscheduler
-    curl -X POST http://localhost:9091/tasks/myjob
-    curl -X POST http://localhost:9091/tasks/samplejob3
+    curl -X POST http://localhost:9090/admin/tasks/locksundialscheduler
+    curl -X POST http://localhost:9090/admin/tasks/unlocksundialscheduler
+    curl -X POST http://localhost:9090/admin/tasks/myjob
+    curl -X POST http://localhost:9090/admin/tasks/samplejob3
     
 ## Yank
  
