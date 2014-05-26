@@ -1,6 +1,8 @@
+<#-- @ftlvariable name="" type="com.xeiam.xdropwizard.views.BookView" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<title>Book</title>
 <#include "../includes/head.ftl">
 </head>
 

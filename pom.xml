@@ -21,12 +21,22 @@
 			<artifactId>dropwizard-configuration</artifactId>
 			<version>0.7.0</version>
 		</dependency>
-		<!-- HTML Freemarker views support -->
+		<dependency>
+			<groupId>io.dropwizard</groupId>
+			<artifactId>dropwizard-assets</artifactId>
+			<version>0.7.0</version>
+		</dependency>
 		<dependency>
 			<groupId>io.dropwizard</groupId>
 			<artifactId>dropwizard-views</artifactId>
 			<version>0.7.0</version>
 		</dependency>
+		<dependency>
+			<groupId>io.dropwizard</groupId>
+			<artifactId>dropwizard-views-freemarker</artifactId>
+			<version>0.7.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.xeiam</groupId>
 			<artifactId>sundial</artifactId>

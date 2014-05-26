@@ -2,6 +2,7 @@ package com.xeiam.xdropwizard.views;
 
 import io.dropwizard.views.View;
 
+import com.google.common.base.Charsets;
 import com.xeiam.xdropwizard.business.Book;
 
 /**
@@ -11,7 +12,7 @@ public class BookView extends View {
 
   public BookView() {
 
-    super("ftl/book.ftl");
+    super("ftl/book.ftl", Charsets.UTF_8);
   }
 
   public Book getBook() {

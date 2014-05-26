@@ -45,7 +45,6 @@ public class YankManager implements Managed {
   public YankManager(YankConfiguration yankConfiguration) {
 
     this.yankConfiguration = yankConfiguration;
-
   }
 
   @Override

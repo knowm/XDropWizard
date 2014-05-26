@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<title>Markdown</title>
 <#include "../includes/head.ftl">
 </head>
 

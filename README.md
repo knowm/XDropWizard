@@ -33,8 +33,8 @@ http://www.webestools.com/ascii-text-generator-ascii-art-code-online-txt2ascii-t
 ## Test Basics
 
     http://localhost:9090/service/hello-world
-    http://localhost:9091
-    http://localhost:9091/healthcheck
+    http://localhost:9090/admin/
+    http://localhost:9090/admin/healthcheck
     
 ## Run Tasks
 

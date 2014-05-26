@@ -1,10 +1,10 @@
 server:
-  applicationConnectors:
-    - type: http
-      port: 9090
-  adminConnectors:
-    - type: http
-      port: 9091
+  type: simple
+  applicationContextPath: /
+  adminContextPath: /admin
+  connector:
+    type: http
+    port: 9090
   
 logging:
   level: INFO

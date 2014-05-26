@@ -16,6 +16,7 @@
 package com.xeiam.xdropwizard;
 
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
@@ -53,7 +54,7 @@ public class XDropWizardService extends Application<XDropWizardServiceConfigurat
   public void initialize(Bootstrap<XDropWizardServiceConfiguration> bootstrap) {
 
     // bootstrap.setName("xdropwizard-service"); // simply removed
-    // bootstrap.addBundle(new AssetsBundle("/assets/", "/")); // replaced in run()
+    bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
     bootstrap.addBundle(new ViewBundle());
   }
 
@@ -62,7 +63,7 @@ public class XDropWizardService extends Application<XDropWizardServiceConfigurat
 
     logger.info("running DropWizard!");
 
-    environment.jersey().setUrlPattern("/assets/*");
+    environment.jersey().setUrlPattern("/service/*");
 
     final String template = configuration.getTemplate();
     final String defaultName = configuration.getDefaultName();
@@ -73,11 +74,11 @@ public class XDropWizardService extends Application<XDropWizardServiceConfigurat
 
     // Sundial
     SundialManager sm = new SundialManager(configuration.getSundialProperties()); // A DropWizard Managed Object
-    environment.jersey().register(sm); // Assign the management of the object to the Service
+    environment.lifecycle().manage(sm); // Assign the management of the object to the Service
 
     // Yank
     YankManager ym = new YankManager(configuration.getYankConfiguration()); // A DropWizard Managed Object
-    environment.jersey().register(ym); // Assign the management of the object to the Service
+    environment.lifecycle().manage(ym); // Assign the management of the object to the Service
     environment.jersey().register(new YankBookResource());
 
     // TASKS ////////////////////////////
