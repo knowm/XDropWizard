@@ -41,13 +41,13 @@ import com.xeiam.xdropwizard.task.UnlockSundialSchedulerTask;
 /**
  * @author timmolter
  */
-public class XDropWizardService extends Application<XDropWizardServiceConfiguration> {
+public class XDropWizardApplication extends Application<XDropWizardServiceConfiguration> {
 
-  private final Logger logger = LoggerFactory.getLogger(XDropWizardService.class);
+  private final Logger logger = LoggerFactory.getLogger(XDropWizardApplication.class);
 
   public static void main(String[] args) throws Exception {
 
-    new XDropWizardService().run(args);
+    new XDropWizardApplication().run(args);
   }
 
   @Override

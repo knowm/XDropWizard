@@ -9,6 +9,20 @@
 	<packaging>jar</packaging>
 	<description>Webservice starting point for new webservices containing Xeiam OSS projects</description>
 	<url>http://xeiam.com</url>
+	
+	<!-- for Snapshots -->
+	<repositories>
+		<repository>
+			<id>sonatype-oss-public</id>
+			<url>https://oss.sonatype.org/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -117,7 +131,7 @@
 									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.xeiam.xdropwizard.XDropWizardService</mainClass>
+									<mainClass>com.xeiam.xdropwizard.XDropWizardApplication</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>
