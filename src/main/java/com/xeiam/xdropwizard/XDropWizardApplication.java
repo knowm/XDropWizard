@@ -41,7 +41,7 @@ import com.xeiam.xdropwizard.task.UnlockSundialSchedulerTask;
 /**
  * @author timmolter
  */
-public class XDropWizardApplication extends Application<XDropWizardServiceConfiguration> {
+public class XDropWizardApplication extends Application<XDropWizardApplicationConfiguration> {
 
   private final Logger logger = LoggerFactory.getLogger(XDropWizardApplication.class);
 
@@ -51,14 +51,14 @@ public class XDropWizardApplication extends Application<XDropWizardServiceConfig
   }
 
   @Override
-  public void initialize(Bootstrap<XDropWizardServiceConfiguration> bootstrap) {
+  public void initialize(Bootstrap<XDropWizardApplicationConfiguration> bootstrap) {
 
     bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
     bootstrap.addBundle(new ViewBundle());
   }
 
   @Override
-  public void run(XDropWizardServiceConfiguration configuration, Environment environment) throws Exception {
+  public void run(XDropWizardApplicationConfiguration configuration, Environment environment) throws Exception {
 
     logger.info("running DropWizard!");
 

@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * @author timmolter
  */
-public class XDropWizardServiceConfiguration extends Configuration {
+public class XDropWizardApplicationConfiguration extends Configuration {
 
   // Hello world
   @NotEmpty

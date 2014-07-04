@@ -23,6 +23,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import com.xeiam.xchart.BitmapEncoder;
+import com.xeiam.xchart.BitmapEncoder.BitmapFormat;
 import com.xeiam.xchart.Chart;
 import com.xeiam.xchart.QuickChart;
 
@@ -39,7 +40,7 @@ public class XChartResource {
 
     Chart chart = QuickChart.getChart("XChart Sample - Random Walk", "X", "Y", null, null, getRandomWalk(105));
 
-    return Response.ok().type("image/png").entity(BitmapEncoder.getPNGBytes(chart)).build();
+    return Response.ok().type("image/png").entity(BitmapEncoder.getBitmapBytes(chart, BitmapFormat.PNG)).build();
   }
 
   private double[] getRandomWalk(int numPoints) {

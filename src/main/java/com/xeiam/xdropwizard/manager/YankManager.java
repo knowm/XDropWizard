@@ -20,7 +20,7 @@ import io.dropwizard.lifecycle.Managed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.xeiam.xdropwizard.XDropWizardServiceConfiguration.YankConfiguration;
+import com.xeiam.xdropwizard.XDropWizardApplicationConfiguration.YankConfiguration;
 import com.xeiam.xdropwizard.business.Book;
 import com.xeiam.xdropwizard.business.BooksDAO;
 import com.xeiam.yank.DBConnectionManager;
