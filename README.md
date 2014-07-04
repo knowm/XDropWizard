@@ -708,3 +708,4 @@ There are just two main things needed to make a flot chart:
         </script>   
       </body>
     </html>
+
