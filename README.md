@@ -1,7 +1,6 @@
 # XDropWizard
 
-A starting-point Webservice using DropWizard and containing Xeiam's normal dev stack including projects such as Yank, Sundial (a Quartz fork), Flot, Markdown, 
-Redis, HSQLDB, ZeroMQ, XChart, JUnit, etc.
+A starting-point Webservice using DropWizard and containing Xeiam's normal dev stack including projects such as Yank, Sundial (a Quartz fork), Flot, Markdown, HSQLDB, XChart, JUnit, etc.
 
 ## Requirements
 
@@ -665,7 +664,7 @@ This page uses JQuery to fetch JSON, update contents of the `numberplaceholder` 
 ## Flot
 
 [Flot](http://www.flotcharts.org/) is a pure JavaScript plotting library for jQuery, with a focus on simple usage, attractive looks and interactive features. It's 
-wonderful forweb-based plots.
+wonderful for web-based plots.
 
 ### jquery.flot.js
 
@@ -708,4 +707,10 @@ There are just two main things needed to make a flot chart:
         </script>   
       </body>
     </html>
+
+## AngularJS
+
+[AngularJS](https://angularjs.org/) is a Java-script-based thick client. 
+
+Integrating `AngularJS` into a webapp requires adding some Javascript files to the generated HTML and the integration of Javascript acting as the controller (in MVC) between the view (HTML) and the model (the JSON webservice).
 
