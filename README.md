@@ -4,12 +4,16 @@ A starting-point Webservice using DropWizard and containing Xeiam's normal dev s
 
 ## Requirements
 
-* Java 1.6
+* Java 1.7
 * Maven
 
 ## Banner Generator 
 
 http://www.webestools.com/ascii-text-generator-ascii-art-code-online-txt2ascii-text2ascii-maker-free-text-to-ascii-converter.html
+
+## Running in Eclipse
+
+Run `XDropWizardApplication` in Eclipse. Add a program arg: `server xdropwizard.yml`.
 
 ## Terminal
 
@@ -19,12 +23,6 @@ http://www.webestools.com/ascii-text-generator-ascii-art-code-online-txt2ascii-t
 
     mvn clean package
     
-#### maven-license-plugin
-
-    mvn license:check
-    mvn license:format
-    mvn license:remove
-
 ## Run
 
     $ java -jar target/xdropwizard-1.1.0-SNAPSHOT.jar server xdropwizard.yml 

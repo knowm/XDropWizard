@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 	<description>Webservice starting point for new webservices containing Xeiam OSS projects</description>
 	<url>http://xeiam.com</url>
-	
+
 	<!-- for Snapshots -->
 	<repositories>
 		<repository>
@@ -25,30 +25,31 @@
 	</repositories>
 
 	<dependencies>
+		<!-- DropWizard -->
 		<dependency>
 			<groupId>io.dropwizard</groupId>
 			<artifactId>dropwizard-core</artifactId>
-			<version>0.7.1</version>
+			<version>${dropwizard.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.dropwizard</groupId>
 			<artifactId>dropwizard-configuration</artifactId>
-			<version>0.7.1</version>
+			<version>${dropwizard.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.dropwizard</groupId>
 			<artifactId>dropwizard-assets</artifactId>
-			<version>0.7.1</version>
+			<version>${dropwizard.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.dropwizard</groupId>
 			<artifactId>dropwizard-views</artifactId>
-			<version>0.7.1</version>
+			<version>${dropwizard.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.dropwizard</groupId>
 			<artifactId>dropwizard-views-freemarker</artifactId>
-			<version>0.7.1</version>
+			<version>${dropwizard.version}</version>
 		</dependency>
 
 		<dependency>
@@ -138,20 +139,13 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- for header in all .java files -->
-			<plugin>
-				<groupId>com.mycila.maven-license-plugin</groupId>
-				<artifactId>maven-license-plugin</artifactId>
-				<version>1.10.b1</version>
-				<configuration>
-					<header>etc/header.txt</header>
-					<aggregate>true</aggregate>
-					<includes>
-						<include>**/*.java</include>
-					</includes>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<dropwizard.version>0.7.1</dropwizard.version>
+	</properties>
 
 </project>
