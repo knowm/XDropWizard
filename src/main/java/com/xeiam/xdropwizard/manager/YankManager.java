@@ -6,8 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.xeiam.xdropwizard.XDropWizardApplicationConfiguration.YankConfiguration;
-import com.xeiam.xdropwizard.business.Book;
-import com.xeiam.xdropwizard.business.BooksDAO;
 import com.xeiam.yank.DBConnectionManager;
 import com.xeiam.yank.PropertiesUtils;
 
@@ -15,14 +13,14 @@ import com.xeiam.yank.PropertiesUtils;
  * <p>
  * This is where Yank is bound to the main DropWizard thread.
  * </p>
- * 
+ *
  * @author timmolter
  */
 public class YankManager implements Managed {
 
   private final Logger logger = LoggerFactory.getLogger(YankManager.class);
 
-  private YankConfiguration yankConfiguration;
+  private final YankConfiguration yankConfiguration;
 
   /**
    * Constructor
@@ -37,7 +35,10 @@ public class YankManager implements Managed {
 
     logger.info("initializing Yank...");
 
-    if (yankConfiguration.getSqlPropsFileName() == null || yankConfiguration.getSqlPropsFileName().trim().length() < 1) {
+    if (yankConfiguration.getDbPropsFileName() == null && yankConfiguration.getSqlPropsFileName() == null) {
+      DBConnectionManager.INSTANCE.init(PropertiesUtils.getPropertiesFromClasspath("DB.properties"));
+    }
+    else if (yankConfiguration.getSqlPropsFileName() == null) {
       DBConnectionManager.INSTANCE.init(PropertiesUtils.getPropertiesFromClasspath(yankConfiguration.getDbPropsFileName()));
     }
     else {
@@ -47,30 +48,6 @@ public class YankManager implements Managed {
 
     logger.info("Yank started successfully.");
 
-    // Create an in-memory table and fill it with Book Objects. Normally the database would already exist.
-    logger.info("Creating Books table and adding data to it...");
-
-    BooksDAO.createBooksTable();
-
-    Book book = new Book();
-    book.setTitle("Cryptonomicon");
-    book.setAuthor("Neal Stephenson");
-    book.setPrice(23.99);
-    BooksDAO.insertBook(book);
-
-    book = new Book();
-    book.setTitle("Harry Potter");
-    book.setAuthor("Joanne K. Rowling");
-    book.setPrice(11.99);
-    BooksDAO.insertBook(book);
-
-    book = new Book();
-    book.setTitle("Don Quijote");
-    book.setAuthor("Cervantes");
-    book.setPrice(21.99);
-    BooksDAO.insertBook(book);
-
-    logger.info("Creating Books table complete.");
   }
 
   @Override
