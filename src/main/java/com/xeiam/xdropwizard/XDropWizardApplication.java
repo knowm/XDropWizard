@@ -72,7 +72,7 @@ public class XDropWizardApplication extends Application<XDropWizardApplicationCo
     // MANAGERS /////////////////////////
 
     // Sundial
-    SundialManager sm = new SundialManager(configuration.getSundialProperties()); // A DropWizard Managed Object
+    SundialManager sm = new SundialManager(configuration.getSundialConfiguration(), environment); // A DropWizard Managed Object
     environment.lifecycle().manage(sm); // Assign the management of the object to the Service
 
     // Yank

@@ -1,115 +1,63 @@
-/**
- * Copyright 2012 - 2013 Xeiam LLC.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.xeiam.xdropwizard.manager;
 
 import io.dropwizard.lifecycle.Managed;
+import io.dropwizard.setup.Environment;
 
-import java.util.Properties;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.xeiam.sundial.SundialJobScheduler;
+import com.xeiam.sundial.ee.SundialInitializerListener;
+import com.xeiam.xdropwizard.XDropWizardApplicationConfiguration.SundialConfiguration;
 
 /**
- * Adapted from here: http://blog.tech.renttherunway.com/?p=60
- * <p>
- * This is where Sundial is bound to the main DropWizard thread.
- * </p>
- * 
  * @author timmolter
  */
 public class SundialManager implements Managed {
 
-  private final Logger logger = LoggerFactory.getLogger(SundialManager.class);
-
-  private Properties quartzProperties;
-
-  private boolean performShutdown;
-  private boolean waitOnShutdown;
+  private final SundialConfiguration sundialConfiguration;
+  private final Environment environment;
 
   /**
    * Constructor
+   *
+   * @param sundialConfiguration
+   * @param environment
    */
-  public SundialManager(Properties quartzProperties) {
+  public SundialManager(SundialConfiguration sundialConfiguration, Environment environment) {
 
-    this.quartzProperties = quartzProperties;
+    this.sundialConfiguration = sundialConfiguration;
+    this.environment = environment;
   }
 
   @Override
   public void start() throws Exception {
 
-    logger.info("Sundial Initializer Manager loaded, initializing Scheduler...");
+    // this sets up Sundial with all the default values
+    environment.servlets().addServletListeners(new SundialInitializerListener());
 
-    // PERFORM SHUTDOWN
-    performShutdown = Boolean.valueOf(quartzProperties.getProperty("performShutdown", "true")).booleanValue();
-
-    // WAIT ON SHUTDOWN
-    waitOnShutdown = Boolean.valueOf(quartzProperties.getProperty("waitOnShutdown", "false")).booleanValue();
-
-    // THREAD POOL SIZE
-    int threadPoolSize = 10; // ten is default
-    threadPoolSize = Integer.parseInt(quartzProperties.getProperty("threadPoolSize", "10"));
-
-    // CREATE SCHEDULER
-    SundialJobScheduler.createScheduler(threadPoolSize);
-
-    // START SCHEDULER
-    boolean startOnLoad = Boolean.valueOf(quartzProperties.getProperty("startOnLoad", "true")).booleanValue();
-    if (startOnLoad) {
-      int startDelay = Integer.parseInt(quartzProperties.getProperty("startDelay", "0"));
-      if (startDelay <= 0) {
-        // Start now
-        SundialJobScheduler.getScheduler().start();
-        logger.info("Sundial scheduler has been started.");
-      } else {
-        // Start delayed
-        SundialJobScheduler.getScheduler().startDelayed(startDelay);
-        logger.info("Sundial scheduler will start in " + startDelay + " seconds.");
-      }
-    } else {
-      logger.info("Sundial scheduler has not been started. Use scheduler.start()");
+    // here we can override the defaults
+    if (sundialConfiguration.getThreadPoolSize() != null) {
+      environment.servlets().setInitParameter("thread-pool-size", sundialConfiguration.getThreadPoolSize());
+    }
+    if (sundialConfiguration.getPerformShutdown() != null) {
+      environment.servlets().setInitParameter("shutdown-on-unload", sundialConfiguration.getPerformShutdown());
+    }
+    if (sundialConfiguration.getWaitOnShutdown() != null) {
+      environment.servlets().setInitParameter("wait-on-shutdown", sundialConfiguration.getWaitOnShutdown());
+    }
+    if (sundialConfiguration.getStartDelay() != null) {
+      environment.servlets().setInitParameter("start-delay-seconds", sundialConfiguration.getStartDelay());
+    }
+    if (sundialConfiguration.getStartOnLoad() != null) {
+      environment.servlets().setInitParameter("start-scheduler-on-load", sundialConfiguration.getStartOnLoad());
+    }
+    if (sundialConfiguration.getGlobalLockOnLoad() != null) {
+      environment.servlets().setInitParameter("global-lock-on-load", sundialConfiguration.getGlobalLockOnLoad());
     }
 
-    // GLOBAL LOCK
-    boolean globalLockOnLoad = Boolean.valueOf(quartzProperties.getProperty("globalLockOnLoad", "false")).booleanValue();
-    if (globalLockOnLoad) {
-      SundialJobScheduler.lockScheduler();
-      logger.info("Sundial scheduler has been locked.");
-    }
-
-    logger.info("Scheduler has been started.");
   }
 
   @Override
   public void stop() throws Exception {
 
-    if (!performShutdown) {
-      return;
-    }
-
-    try {
-      if (SundialJobScheduler.getScheduler() != null) {
-        SundialJobScheduler.getScheduler().shutdown(waitOnShutdown);
-      }
-    } catch (Exception e) {
-      logger.error("Sundial Scheduler failed to shutdown cleanly: ", e);
-    }
-
-    logger.info("Sundial Scheduler shutdown successfully.");
+    // Do nothing. It's taken care of behind the scenes.
   }
 
 }

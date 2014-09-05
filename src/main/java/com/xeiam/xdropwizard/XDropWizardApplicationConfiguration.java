@@ -17,12 +17,7 @@ package com.xeiam.xdropwizard;
 
 import io.dropwizard.Configuration;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -54,33 +49,103 @@ public class XDropWizardApplicationConfiguration extends Configuration {
 
   // Sundial
   @Valid
-  @JsonProperty
-  private Map<String, String> sundial = new HashMap<String, String>();
+  @JsonProperty("sundial")
+  public SundialConfiguration sundialConfiguration = new SundialConfiguration();
 
-  public Properties getSundialProperties() {
+  public static class SundialConfiguration {
 
-    Properties props = new Properties();
+    @JsonProperty("thread-pool-size")
+    private String threadPoolSize;
 
-    // Sundial settings configured in YML file
-    props.setProperty("threadPoolSize", sundial.get("thread-pool-size"));
-    props.setProperty("performShutdown", sundial.get("shutdown-on-unload"));
-    props.setProperty("waitOnShutdown", sundial.get("wait-on-shutdown"));
-    props.setProperty("startDelay", sundial.get("start-delay-seconds"));
-    props.setProperty("startOnLoad", sundial.get("start-scheduler-on-load"));
-    props.setProperty("globalLockOnLoad", sundial.get("global-lock-on-load"));
+    @JsonProperty("shutdown-on-unload")
+    private String performShutdown;
 
-    return props;
+    @JsonProperty("wait-on-shutdown")
+    private String waitOnShutdown;
+
+    @JsonProperty("start-delay-seconds")
+    private String startDelay;
+
+    @JsonProperty("start-scheduler-on-load")
+    private String startOnLoad;
+
+    @JsonProperty("global-lock-on-load")
+    private String globalLockOnLoad;
+
+    public String getThreadPoolSize() {
+
+      return threadPoolSize;
+    }
+
+    public void setThreadPoolSize(String threadPoolSize) {
+
+      this.threadPoolSize = threadPoolSize;
+    }
+
+    public String getPerformShutdown() {
+
+      return performShutdown;
+    }
+
+    public void setPerformShutdown(String performShutdown) {
+
+      this.performShutdown = performShutdown;
+    }
+
+    public String getWaitOnShutdown() {
+
+      return waitOnShutdown;
+    }
+
+    public void setWaitOnShutdown(String waitOnShutdown) {
+
+      this.waitOnShutdown = waitOnShutdown;
+    }
+
+    public String getStartDelay() {
+
+      return startDelay;
+    }
+
+    public void setStartDelay(String startDelay) {
+
+      this.startDelay = startDelay;
+    }
+
+    public String getStartOnLoad() {
+
+      return startOnLoad;
+    }
+
+    public void setStartOnLoad(String startOnLoad) {
+
+      this.startOnLoad = startOnLoad;
+    }
+
+    public String getGlobalLockOnLoad() {
+
+      return globalLockOnLoad;
+    }
+
+    public void setGlobalLockOnLoad(String globalLockOnLoad) {
+
+      this.globalLockOnLoad = globalLockOnLoad;
+    }
+
+  }
+
+  public SundialConfiguration getSundialConfiguration() {
+
+    return sundialConfiguration;
   }
 
   // Yank
   @Valid
-  @NotNull
-  @JsonProperty
-  protected YankConfiguration yank = new YankConfiguration();
+  @JsonProperty("yank")
+  protected YankConfiguration yankConfiguration = new YankConfiguration();
 
   public static class YankConfiguration {
 
-    @NotEmpty
     @JsonProperty
     private String dbPropsFileName;
 
@@ -100,6 +165,6 @@ public class XDropWizardApplicationConfiguration extends Configuration {
 
   public YankConfiguration getYankConfiguration() {
 
-    return yank;
+    return yankConfiguration;
   }
 }
