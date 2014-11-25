@@ -1,6 +1,6 @@
 # XDropWizard
 
-A starting-point Webservice using DropWizard and containing Xeiam's normal dev stack including projects such as Yank, Sundial (a Quartz fork), Flot, Markdown, HSQLDB, XChart, JUnit, etc.
+A skeleton DropWizard Web Application using including projects such as Yank, Sundial (a Quartz fork), Flot, Markdown, HSQLDB, XChart, JUnit, etc. Demonstrates how to serve static content, dynamic content, Freemarker Views, using Elusive Webfonts, AJAX and more...
 
 ## Requirements
 
@@ -25,7 +25,7 @@ Run `XDropWizardApplication` in Eclipse. Add a program arg: `server xdropwizard.
     
 ## Run
 
-    $ java -jar target/xdropwizard-1.1.0-SNAPSHOT.jar server xdropwizard.yml 
+    $ java -jar target/xdropwizard.jar server xdropwizard.yml 
     
 ## Test Basics
 

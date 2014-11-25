@@ -70,7 +70,7 @@
 		<dependency>
 			<groupId>com.xeiam.xchart</groupId>
 			<artifactId>xchart</artifactId>
-			<version>2.4.0</version>
+			<version>2.4.2</version>
 		</dependency>
 		<!-- Provides Markdown support -->
 		<dependency>
@@ -89,6 +89,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>xdropwizard</finalName>
 		<plugins>
 			<!-- Ensure compilation is done under Java 7 in all environments -->
 			<plugin>
