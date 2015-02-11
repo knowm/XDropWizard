@@ -127,7 +127,6 @@ as a key-value pair, which the job has access to.
         <trigger>
             <cron>
                 <name>SampleJob3-Trigger</name>
-                <group>CRON</group>
                 <job-name>SampleJob3</job-name>
                 <cron-expression>0/45 * * * * ?</cron-expression>
             </cron>
@@ -230,6 +229,17 @@ By defining some tasks and hooking them into DropWizard you can asynchronously t
     curl -X POST http://localhost:9090/admin/tasks/unlocksundialscheduler
     curl -X POST http://localhost:9090/admin/tasks/myjob
     curl -X POST http://localhost:9090/admin/tasks/samplejob3
+    curl -X POST http://localhost:9090/admin/tasks/samplejob3?MyParam=56789
+    curl -X POST "http://localhost:9090/admin/tasks/startjob?JOB_NAME=MyJob"
+    curl -X POST "http://localhost:9090/admin/tasks/startjob?JOB_NAME=SampleJob3&MyParam=9999"
+    curl -X POST "http://localhost:9090/admin/tasks/stopjob?JOB_NAME=SampleJob3"
+    curl -X POST "http://localhost:9090/admin/tasks/removejob?JOB_NAME=SampleJob3"
+    curl -X POST "http://localhost:9090/admin/tasks/addjob?JOB_NAME=SampleJob3&JOB_CLASS=com.xeiam.xdropwizard.jobs.SampleJob3&MyParam=888"
+    
+    curl -X POST http://localhost:9090/admin/tasks/removejobtrigger?TRIGGER_NAME=SampleJob3-Trigger
+    
+    curl -X POST "http://localhost:9090/admin/tasks/addcronjobtrigger?TRIGGER_NAME=SampleJob3-Trigger&JOB_NAME=SampleJob3&CRON_EXPRESSION=0/45%20*%20*%20*%20*%20?"
+    curl -X POST "http://localhost:9090/admin/tasks/addcronjobtrigger?TRIGGER_NAME=SampleJob3-Trigger&JOB_NAME=SampleJob3" --data-urlencode "CRON_EXPRESSION=0/45 * * * * ?"
     
 ## Yank
  

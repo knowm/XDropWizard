@@ -13,14 +13,14 @@ import com.xeiam.xdropwizard.health.TemplateHealthCheck;
 import com.xeiam.xdropwizard.manager.SundialManager;
 import com.xeiam.xdropwizard.manager.YankManager;
 import com.xeiam.xdropwizard.resources.HelloWorldResource;
-import com.xeiam.xdropwizard.resources.RandomNumberResource;
-import com.xeiam.xdropwizard.resources.ViewBookResource;
-import com.xeiam.xdropwizard.resources.ViewMarkdownResource;
-import com.xeiam.xdropwizard.resources.XChartResource;
 import com.xeiam.xdropwizard.resources.YankBookResource;
+import com.xeiam.xdropwizard.task.AddCronJobTriggerTask;
+import com.xeiam.xdropwizard.task.AddJobTask;
 import com.xeiam.xdropwizard.task.LockSundialSchedulerTask;
-import com.xeiam.xdropwizard.task.MyJobTask;
-import com.xeiam.xdropwizard.task.SampleJob3Task;
+import com.xeiam.xdropwizard.task.RemoveJobTask;
+import com.xeiam.xdropwizard.task.RemoveJobTriggerTask;
+import com.xeiam.xdropwizard.task.StartJobTask;
+import com.xeiam.xdropwizard.task.StopJobTask;
 import com.xeiam.xdropwizard.task.UnlockSundialSchedulerTask;
 
 /**
@@ -68,17 +68,23 @@ public class XDropWizardApplication extends Application<XDropWizardApplicationCo
     // TASKS ////////////////////////////
 
     // tasks are things that should run triggered by a POST, but don't need to respond
-    environment.admin().addTask(new MyJobTask());
-    environment.admin().addTask(new SampleJob3Task());
     environment.admin().addTask(new LockSundialSchedulerTask());
     environment.admin().addTask(new UnlockSundialSchedulerTask());
+    environment.admin().addTask(new RemoveJobTriggerTask());
+    environment.admin().addTask(new AddCronJobTriggerTask());
+    environment.admin().addTask(new StartJobTask());
+    environment.admin().addTask(new StopJobTask());
+    environment.admin().addTask(new RemoveJobTask());
+    environment.admin().addTask(new AddJobTask());
 
     // RESOURCES ////////////////////////////
 
-    environment.jersey().register(new XChartResource());
-    environment.jersey().register(new ViewBookResource());
-    environment.jersey().register(new ViewMarkdownResource());
-    environment.jersey().register(new RandomNumberResource());
+    //    environment.jersey().register(new XChartResource());
+    //    environment.jersey().register(new ViewBookResource());
+    //    environment.jersey().register(new ViewMarkdownResource());
+    //    environment.jersey().register(new RandomNumberResource());
+
+    environment.jersey().packages("com.xeiam.xdropwizard.resources");
 
   }
 }

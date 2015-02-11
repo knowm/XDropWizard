@@ -19,7 +19,6 @@ logging:
       archivedLogFilenamePattern: ./log/xdropwizard-%d.log.gz,
       archivedFileCount: 5
       timeZone: UTC
-    
 
 sundial:
   thread-pool-size: 5
