@@ -20,10 +20,10 @@
 			</cron>
 		</trigger>
 
-		<job>
-			<name>MyJob</name>
-			<job-class>com.xeiam.xdropwizard.jobs.MyJob</job-class>
-		</job>
+<!-- 		<job> -->
+<!-- 			<name>MyJob</name> -->
+<!-- 			<job-class>com.xeiam.xdropwizard.jobs.MyJob</job-class> -->
+<!-- 		</job> -->
 
 	</schedule>
 

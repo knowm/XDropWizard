@@ -57,6 +57,9 @@ public class XDropWizardApplicationConfiguration extends Configuration {
     @JsonProperty("global-lock-on-load")
     private String globalLockOnLoad;
 
+    @JsonProperty("annotated-jobs-package-name")
+    private String annotatedJobsPackageName;
+
     public String getThreadPoolSize() {
 
       return threadPoolSize;
@@ -117,6 +120,13 @@ public class XDropWizardApplicationConfiguration extends Configuration {
       this.globalLockOnLoad = globalLockOnLoad;
     }
 
+    public String getAnnotatedJobsPackageName() {
+      return annotatedJobsPackageName;
+    }
+
+    public void setAnnotatedJobsPackageName(String annotatedJobsPackageName) {
+      this.annotatedJobsPackageName = annotatedJobsPackageName;
+    }
   }
 
   public SundialConfiguration getSundialConfiguration() {

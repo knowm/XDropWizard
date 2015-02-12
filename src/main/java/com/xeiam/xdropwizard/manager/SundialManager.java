@@ -51,6 +51,12 @@ public class SundialManager implements Managed {
     if (sundialConfiguration.getGlobalLockOnLoad() != null) {
       environment.servlets().setInitParameter("global-lock-on-load", sundialConfiguration.getGlobalLockOnLoad());
     }
+    if (sundialConfiguration.getGlobalLockOnLoad() != null) {
+      environment.servlets().setInitParameter("global-lock-on-load", sundialConfiguration.getGlobalLockOnLoad());
+    }
+    if (sundialConfiguration.getAnnotatedJobsPackageName() != null) {
+      environment.servlets().setInitParameter("annotated-jobs-package-name", sundialConfiguration.getAnnotatedJobsPackageName());
+    }
 
   }
 
