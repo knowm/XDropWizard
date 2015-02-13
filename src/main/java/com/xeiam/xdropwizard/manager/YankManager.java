@@ -2,10 +2,15 @@ package com.xeiam.xdropwizard.manager;
 
 import io.dropwizard.lifecycle.Managed;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.xeiam.xdropwizard.XDropWizardApplicationConfiguration.YankConfiguration;
+import com.xeiam.xdropwizard.business.Book;
+import com.xeiam.xdropwizard.business.BooksDAO;
 import com.xeiam.yank.PropertiesUtils;
 import com.xeiam.yank.Yank;
 
@@ -48,6 +53,31 @@ public class YankManager implements Managed {
     }
 
     logger.info("Yank started successfully.");
+
+    // put some data in DB
+    BooksDAO.createBooksTable();
+
+    List<Book> books = new ArrayList<Book>();
+
+    Book book = new Book();
+    book.setTitle("Cryptonomicon");
+    book.setAuthor("Neal Stephenson");
+    book.setPrice(23.99);
+    books.add(book);
+
+    book = new Book();
+    book.setTitle("Harry Potter");
+    book.setAuthor("Joanne K. Rowling");
+    book.setPrice(11.99);
+    books.add(book);
+
+    book = new Book();
+    book.setTitle("Don Quijote");
+    book.setAuthor("Cervantes");
+    book.setPrice(21.99);
+    books.add(book);
+
+    BooksDAO.insertBatch(books);
 
   }
 
