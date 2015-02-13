@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.xeiam.xdropwizard.XDropWizardApplicationConfiguration.YankConfiguration;
-import com.xeiam.yank.DBConnectionManager;
 import com.xeiam.yank.PropertiesUtils;
+import com.xeiam.yank.Yank;
 
 /**
  * <p>
@@ -35,15 +35,16 @@ public class YankManager implements Managed {
 
     logger.info("initializing Yank...");
 
-    if (yankConfiguration.getDbPropsFileName() == null && yankConfiguration.getSqlPropsFileName() == null) {
-      DBConnectionManager.INSTANCE.init(PropertiesUtils.getPropertiesFromClasspath("DB.properties"));
+    // setup connection pool
+    if (yankConfiguration.getDbPropsFileName() == null) {
+      Yank.addConnectionPool("myconnectionpoolname", PropertiesUtils.getPropertiesFromClasspath("DB.properties"));
+    } else {
+      Yank.addConnectionPool("myconnectionpoolname", PropertiesUtils.getPropertiesFromClasspath(yankConfiguration.getDbPropsFileName()));
     }
-    else if (yankConfiguration.getSqlPropsFileName() == null) {
-      DBConnectionManager.INSTANCE.init(PropertiesUtils.getPropertiesFromClasspath(yankConfiguration.getDbPropsFileName()));
-    }
-    else {
-      DBConnectionManager.INSTANCE.init(PropertiesUtils.getPropertiesFromClasspath(yankConfiguration.getDbPropsFileName()), PropertiesUtils.getPropertiesFromClasspath(yankConfiguration
-          .getSqlPropsFileName()));
+
+    // setup sql statements
+    if (yankConfiguration.getSqlPropsFileName() != null) {
+      Yank.addSQLStatements(PropertiesUtils.getPropertiesFromClasspath(yankConfiguration.getSqlPropsFileName()));
     }
 
     logger.info("Yank started successfully.");
@@ -55,7 +56,7 @@ public class YankManager implements Managed {
 
     logger.info("shutting down Yank...");
 
-    DBConnectionManager.INSTANCE.release();
+    Yank.release();
 
     logger.info("Yank shutdown successfully.");
   }
