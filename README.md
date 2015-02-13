@@ -1,6 +1,6 @@
 # XDropWizard
 
-A skeleton DropWizard Web Application using including projects such as Yank, Sundial (a Quartz fork), Flot, Markdown, HSQLDB, XChart, JUnit, etc. Demonstrates how to serve static content, dynamic content loaded into Freemarker templates, Freemarker Views, using AJAX and more...
+A skeleton DropWizard Web Application using including projects such as Yank, Sundial (a Quartz fork), Flot, Bootstrap, AngularJS, HSQLDB, XChart, JUnit, etc. Demonstrates how to serve static content, dynamic content loaded into Freemarker templates, Freemarker Views, using AJAX and more...
 
 ## Requirements
 
@@ -98,6 +98,7 @@ There are two different types of jobs:
 Put a file called `jobs.xml` on your classpath. See `jobs.xml` in `src/main/resources` to see two jobs. the `SampleJob3` job has an associated trigger as well
 as a key-value pair, which the job has access to.
 
+```xml
         <job>
             <name>SampleJob3</name>
             <job-class>com.xeiam.xdropwizard.jobs.SampleJob3</job-class>
@@ -120,11 +121,13 @@ as a key-value pair, which the job has access to.
             <name>MyJob</name>
             <job-class>com.xeiam.xdropwizard.jobs.MyJob</job-class>
         </job>
+```
 
 ### MyJob.java
 
 This extremely simple example job demonstrates how easy it is to get a basic job coded. Whenever it's run, it just logs a message, but it could do anything you want.
 
+```java
     public class MyJob extends Job {
 
       private final Logger logger = LoggerFactory.getLogger(MyJob.class);
@@ -135,6 +138,7 @@ This extremely simple example job demonstrates how easy it is to get a basic job
         logger.info("MyJob says hello!");
       }
     }
+```
 
 ### SampleJob3.java
 
@@ -142,6 +146,7 @@ This job is slightly more complicated and it demonstrates two nice features of S
 Second it uses a `JobAction` and passes it a parameter via the `JobContext`. Using `JobAction`s is a good way to reuse common job actions across many different
 jobs, mixing and matching if desired. This keeps your jobs organized.
 
+```java
     public class SampleJob3 extends Job {
 
       private final Logger logger = LoggerFactory.getLogger(SampleJob3.class);
@@ -163,16 +168,15 @@ jobs, mixing and matching if desired. This keeps your jobs organized.
 
       }
     }
+```
 
 ### SampleJob3Task.java
 
 Here, we see how to hook a job into DropWizard's environment as a task for asynchronously starting it via a POST.
 
+```java
     public class SampleJob3Task extends Task {
 
-      /**
-       * Constructor
-       */
       public SampleJob3Task() {
 
         super("samplejob3");
@@ -185,6 +189,7 @@ Here, we see how to hook a job into DropWizard's environment as a task for async
 
       }
     }
+```
 
 ### SundialManager.java
 
@@ -196,6 +201,7 @@ including the following line of code:
 
 In your `*.yml` DropWizard configuration file, you can easily set some helpful parameters to customize Sundial as DropWizard starts up, right from the config file:
 
+```yml
     sundial:
 
         thread-pool-size: 5
@@ -204,6 +210,7 @@ In your `*.yml` DropWizard configuration file, you can easily set some helpful p
         start-delay-seconds: 0
         start-scheduler-on-load: true
         global-lock-on-load: false
+```
 
 ### Sundial Asynchronous Control via HTTP
 
@@ -251,6 +258,7 @@ database and easily make the transition. Of course, you can write all your SQL s
 Yank requires that you have a single POJO for each table in your database. The POJO's fields should match the column names and data types of the matching table.
 Add the getter and setters as well.
 
+```java
     public class Book {
 
       private String title;
@@ -284,6 +292,7 @@ Add the getter and setters as well.
       }
 
     }
+```
 
 ### BooksDAO.java
 
@@ -292,7 +301,7 @@ of public static methods that each interact with Yank's `DBProxy` class. Note th
 String, while others come from the `SQL.properties` file on the classpath. The presence of the word `key` in the `DBProxy` method indicates that the SQL
 statement is being fetched from the `SQL.properties`.
 
-
+```java
     public class BooksDAO {
 
       public static int createBooksTable() {
@@ -321,12 +330,14 @@ statement is being fetched from the `SQL.properties`.
       }
 
     }
+```
 
 ### YankBookResource.java
 
 In order to access objects from the database and return them as JSON, you need a resource class for it. It makes most sense to create a resource class for
 each table in your database. Don't forget to add this resource in the `Service` class!
 
+```java
     @Path("book")
     @Produces(MediaType.APPLICATION_JSON)
     public class YankBookResource {
@@ -345,15 +356,18 @@ each table in your database. Don't forget to add this resource in the `Service` 
         return BooksDAO.selectAllBooks();
       }
     }
+```
 
 ### YankManager.java
 
 `YankManager.java` is the class responsible for setting up `Yank` and it is hooked into DropWizard in the `Service` class by
 including the following line of code:
 
+```java
     YankManager ym = new YankManager(configuration.getYankConfiguration()); // A DropWizard Managed Object
     environment.manage(ym); // Assign the management of the object to the Service
     environment.addResource(new YankBookResource());
+```
 
 In your `.yml` DropWizard configuration file, you can easily define the database and SQL statement files that Yank uses:
 
@@ -380,6 +394,7 @@ There is no required setup or initialization as in the case with Sundial and Yan
 
 This example XChartResource class creates an XChart `QuickChart` and sends the image as a byte[] using `XChart`'s `BitmapEncoder` class. Don't forget to add this resource in the `Service` class!
 
+```java
     @Path("xchart")
     public class XChartResource {
 
@@ -403,6 +418,7 @@ This example XChartResource class creates an XChart `QuickChart` and sends the i
       }
 
     }
+```
 
 ### XChart Image Access
 
@@ -420,16 +436,19 @@ Dynamic HTML pages in DropWizard are referred to as "Views". These are like dyna
 
 You'll also need to add the `dropwizard-views` dependency to the pom.xml file:
 
+```xml
     <dependency>
         <groupId>com.yammer.dropwizard</groupId>
         <artifactId>dropwizard-views</artifactId>
         <version>whatever</version>
     </dependency>
+```
 
 ### View Resource
 
 Just as we need a `Resource` class for JSON endpoints, a `Resource` class is needed for "Views" too.
 
+```java
     @Path("view/book")
     @Produces(MediaType.TEXT_HTML)
     public class ViewBookResource {
@@ -443,6 +462,7 @@ Just as we need a `Resource` class for JSON endpoints, a `Resource` class is nee
       }
 
     }
+```
 
 Don't forget to add this resource in the `Service` class!
 
@@ -451,6 +471,7 @@ Don't forget to add this resource in the `Service` class!
 The view class provides both the freemaker template and the dynamic data for the page. Here a `Book` object is hardcoded,
 but it could easily come from a database. Any URL parameters can be passed from the `Resource` to the `View` via its constructor.
 
+```java
     public class BookView extends View {
 
       public BookView() {
@@ -468,12 +489,14 @@ but it could easily come from a database. Any URL parameters can be passed from 
       }
 
     }
+```
 
 ### FTL - FreeMarker Template
 
 `book.ftl` is the path of the template relative to the class name. If this class was `com.xeiam.xdropwizard.views.PersonView`, Dropwizard
 would then look for the file src/main/resources/com/xeiam/xdropwizard/views/person.ftl.
 
+```html
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -503,6 +526,7 @@ would then look for the file src/main/resources/com/xeiam/xdropwizard/views/pers
 
     </body>
     </html>
+```
 
 Notice the `#include` sections. This allows you to set up common page elements, thus avaoiding copy and pasting header, footer and script sections in all your FTLs.
 
@@ -511,84 +535,6 @@ Notice the `#include` sections. This allows you to set up common page elements, 
 Since the view is a `Resource`, we need to include `service` in the URL:
 
     http://localhost:9090/service/view/book
-
-## Markdown
-
-In order to include Markdown into your projects you need only use a suitable Markdown parser, and an easy to use one is [pegdown](https://github.com/sirthias/pegdown).
-First add the following to pom.xml:
-
-    <dependency>
-        <groupId>org.pegdown</groupId>
-        <artifactId>pegdown</artifactId>
-        <version>1.1.0</version>
-    </dependency>
-
-Unfortunately, there is a dependency clash a couple levels deep with the asm dependency if we try to use the most up to date version of pegdown (1.4.2) and dropwizard 1.6.2.
-For simple markdown however, it's a non-issue.
-
-Just as for Dynamic Views, we need a `Resource`, a `View`, and a `FTL`. The only additional steps are to generate/get some markdown and convert it to HTML with Pegdown.
-
-### MarkdownView
-
-The `MarkdownView` class deomonstrates both hardcoding markdown and loading markdown from a file on the classpath. Note that the markdown file is loaded with Guava, which
-is a dependency of DropWizard so no extra declaration is necessary in pom.xml. Also note that the constructor for `PegDownProcessor` in the `getLoadedhtml()` method
-is passed `Extensions.ALL`. This is needed for advanced markdown such as tables and terms.
-
-    public class MarkdownView extends View {
-
-      private final String name;
-      private final int age;
-
-      public MarkdownView(String name, int age) {
-
-        super("ftl/markdown.ftl");
-
-        this.name = name;
-        this.age = age;
-      }
-
-      public String getHardcodedhtml() {
-
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("#### This is from hardcoded markdown");
-        sb.append("\n");
-        sb.append("\n");
-        sb.append("The name path parameter in the URL was: " + this.name);
-        sb.append("\n");
-        sb.append("\n");
-        sb.append("The age query parameter in the URL was: " + this.age);
-
-        PegDownProcessor processor = new PegDownProcessor();
-
-        String html = processor.markdownToHtml(sb.toString());
-
-        return html;
-      }
-
-      public String getLoadedhtml() throws IOException {
-
-        // String markdown = readFileFromClasspathToString("markdown/markdownsample.md");
-
-        URL url = Resources.getResource("markdown/markdownsample.md");
-        String markdown = Resources.toString(url, Charsets.UTF_8);
-
-        // New processor each time due to pegdown not being thread-safe internally
-        PegDownProcessor processor = new PegDownProcessor(Extensions.ALL);
-
-        // Return the rendered HTML
-        return processor.markdownToHtml(markdown);
-      }
-
-    }
-
-### Markdown View Access
-
-Since the markdown view is a Dropwizard `Resource`, we need to include `service` in the URL:
-
-    http://localhost:9090/service/view/markdown/tim?age=25
-
-Note that passing path parameters and query parameters is demonstrated here.
 
 ## AJAX
 
@@ -600,7 +546,7 @@ For pseudo-real-time updates to an HTML page, AJAX comes in handy. Adding AJAX t
 ### AJAX HTML page (ajax.html)
 
 This page uses JQuery to fetch JSON, update contents of the `numberplaceholder` span, and repeat every one second.
-
+```html
     <html>
       <head>
         <title>Sample AJAX HTML Page</title>
@@ -635,19 +581,20 @@ This page uses JQuery to fetch JSON, update contents of the `numberplaceholder` 
         </script>
       </body>
     </html>
-
+```
 ### Backend JSON endpoint (RandomNumberResource.java)
+```java
+@Path("random")
+@Produces(MediaType.APPLICATION_JSON)
+public class RandomNumberResource {
 
-    @Path("random")
-    @Produces(MediaType.APPLICATION_JSON)
-    public class RandomNumberResource {
+  @GET
+  public RandomNumber getRandom() {
 
-      @GET
-      public RandomNumber getRandom() {
-
-        return new RandomNumber();
-      }
-    }
+    return new RandomNumber();
+  }
+}
+```
 
 ### AJAX Page Access
 
@@ -670,6 +617,7 @@ There are just two main things needed to make a flot chart:
 1. a link to `jquery.flot.js`
 1. the `placeholder` div
 
+```html
     <html>
       <head>
         <title>Sample Flot Page</title>
@@ -699,9 +647,69 @@ There are just two main things needed to make a flot chart:
         </script>
       </body>
     </html>
+```
 
 ## AngularJS
 
-[AngularJS](https://angularjs.org/) is a Java-script-based thick client.
+[AngularJS](https://angularjs.org/) is a Java-script-based thick client providing a model-view-controller framework for web applications.
 
 Integrating `AngularJS` into a webapp requires adding some Javascript files to the generated HTML and the integration of Javascript acting as the controller (in MVC) between the view (HTML) and the model (the JSON webservice).
+
+### books.html
+```html
+    <html>
+
+    <head>
+      <title>Sample AngularJS Page</title>
+      <!-- Bootstrap core CSS -->
+      <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.js"></script>
+      <script src="/js/books_angular.js"></script>
+    </head>
+
+    <body ng-app="sampleApp">
+
+      <h1>Sample AngularJS Page</h1>
+      <p>This is a sample html page demonstrating AngularJS.</p>
+
+
+      <div ng-controller="sampleAppController">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+              <table class="table table-condensed">
+                <tr ng-repeat="book in books">
+                  <td>{{book.author}}</td>
+                  <td>{{book.title}}</td>
+                  <td>{{book.price}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </body>
+
+    </html>
+```
+### books_angular.js
+```javascript
+angular.module('sampleApp', [])
+  .controller('sampleAppController', ['$scope', '$http', function($scope, $http) {
+
+    $scope.books = [];
+
+    $http.get('/service/book/all').success(function(data) {
+      console.log(data);
+      $scope.books = data;
+    }).
+    error(function(data, status, headers, config) {
+      console.log(data);
+    });
+
+  }]);
+```
+
+The controller defines a dependency to the `$scope` and the `$http` module. An HTTP GET request to the `/service/book/all` endpoint is carried out with the get method. It returns a $promise object with a success and an error method. Once successful, the JSON data is assigned to $scope.books to make it available in the template in books.html. The 'ng-repeat' creates a multi-rowed table to match the data fetched from the backend.
