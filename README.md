@@ -2,6 +2,8 @@
 
 A skeleton DropWizard Web Application using including projects such as Yank, Sundial (a Quartz fork), Flot, Bootstrap, AngularJS, HSQLDB, XChart, JUnit, etc. Demonstrates how to serve static content, dynamic content loaded into Freemarker templates, Freemarker Views, using AJAX and more...
 
+![Screenshot of Dashboard](https://raw.github.com/timmolter/XDropWizard/blob/master/etc/xdropwizard.png)
+
 ## Requirements
 
 * Java 1.7
