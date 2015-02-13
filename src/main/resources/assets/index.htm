@@ -17,7 +17,7 @@
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-	<link rel="stylesheet" type="text/css" href="/css/dashboard.css" />
+  <link rel="stylesheet" type="text/css" href="/css/dashboard.css" />
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -61,190 +61,89 @@
     <div class="row">
       <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav nav-sidebar">
-          <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a>
+          <li><a href="/service/hello-world">Hello World Webservice JSON End Point</a>
           </li>
-          <li><a href="#">Reports</a>
+          <li><a href="http://localhost:9090/admin">DropWizard Admin</a>
           </li>
-          <li><a href="#">Analytics</a>
-          </li>
-          <li><a href="#">Export</a>
+          <li><a href="http://localhost:9090/admin/healthcheck">DropWizard Health Check</a>
           </li>
         </ul>
         <ul class="nav nav-sidebar">
-          <li><a href="">Nav item</a>
+          <li><a href="http://localhost:9090/img/favicon.png">favicon.png</a>
           </li>
-          <li><a href="">Nav item again</a>
+          <li><a href="http://localhost:9090/css/dashboard.css">dashboard.css</a>
           </li>
-          <li><a href="">One more nav</a>
-          </li>
-          <li><a href="">Another nav item</a>
-          </li>
-          <li><a href="">More navigation</a>
+          <li><a href="http://localhost:9090/sample.html">sample.html</a>
           </li>
         </ul>
         <ul class="nav nav-sidebar">
-          <li><a href="">Nav item again</a>
+          <li><a href="/service/book/random">Yank Random Book</a>
           </li>
-          <li><a href="">One more nav</a>
-          </li>
-          <li><a href="">Another nav item</a>
+          <li><a href="/service/book/all">Yank All Books</a>
           </li>
         </ul>
+        <ul class="nav nav-sidebar">
+          <li><a href="http://localhost:9090/service/xchart/random.png">XChart Random Path</a>
+          </li>
+          <li><a href="http://localhost:9090/xchart.html">xchart.html</a>
+          </li>
+        </ul>
+				<ul class="nav nav-sidebar">
+					<li><a href="http://localhost:9090/service/view/book">Freemarker Book View</a>
+					</li>
+					<li><a href="http://localhost:9090/books.html">AngularJs Book View</a>
+					</li>
+				</ul>
+				<ul class="nav nav-sidebar">
+					<li><a href="http://localhost:9090/ajax.html">Ajax Demo</a>
+					</li>
+				</ul>
+				<ul class="nav nav-sidebar">
+					<li><a href="http://localhost:9090/flot.html">Flot Demo</a>
+					</li>
+				</ul>
       </div>
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">Dashboard</h1>
 
         <div class="row placeholders">
           <div class="col-xs-6 col-sm-3 placeholder">
-            <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-            <h4>Label</h4>
-            <span class="text-muted">Something else</span>
+            <img src="/img/dropwizard.png" class="img-responsive" alt="Generic placeholder thumbnail">
+            <h4>DropWizard</h4>
+            <span class="text-muted">An awesome Java Web App Framework</span>
+          </div>
+					<div class="col-xs-6 col-sm-3 placeholder">
+						<img src="/img/Yank_256_256.png" class="img-responsive" alt="Generic placeholder thumbnail">
+						<h4>Yank</h4>
+						<span class="text-muted">Ultra-light JDBC persitence layer</span>
+					</div>
+          <div class="col-xs-6 col-sm-3 placeholder">
+            <img src="/img/Sundial_256_256.png" class="img-responsive" alt="Generic placeholder thumbnail">
+            <h4>Sundial</h4>
+            <span class="text-muted">Simple Job Scheduler for Java</span>
           </div>
           <div class="col-xs-6 col-sm-3 placeholder">
-            <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-            <h4>Label</h4>
-            <span class="text-muted">Something else</span>
+            <img src="/img/XChart_256_256.png" class="img-responsive" alt="Generic placeholder thumbnail">
+            <h4>XChart</h4>
+            <span class="text-muted">Hassle-free Charts for Java</span>
           </div>
           <div class="col-xs-6 col-sm-3 placeholder">
-            <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-            <h4>Label</h4>
-            <span class="text-muted">Something else</span>
+            <img src="/img/bootstrap.png" class="img-responsive" alt="Generic placeholder thumbnail">
+            <h4>Bootstrap</h4>
+            <span class="text-muted">Simple and Good CSS</span>
           </div>
-          <div class="col-xs-6 col-sm-3 placeholder">
-            <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-            <h4>Label</h4>
-            <span class="text-muted">Something else</span>
-          </div>
+					<div class="col-xs-6 col-sm-3 placeholder">
+						<img src="/img/angular.png" class="img-responsive" alt="Generic placeholder thumbnail">
+						<h4>AngularJS</h4>
+						<span class="text-muted">Superheroic JavaScript MVW Framework</span>
+					</div>
+					<div class="col-xs-6 col-sm-3 placeholder">
+						<img src="/img/flot.png" class="img-responsive" alt="Generic placeholder thumbnail">
+						<h4>Flot</h4>
+						<span class="text-muted">Attractive JavaScript plotting for jQuery</span>
+					</div>
         </div>
 
-        <h2 class="sub-header">Section title</h2>
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1,001</td>
-                <td>Lorem</td>
-                <td>ipsum</td>
-                <td>dolor</td>
-                <td>sit</td>
-              </tr>
-              <tr>
-                <td>1,002</td>
-                <td>amet</td>
-                <td>consectetur</td>
-                <td>adipiscing</td>
-                <td>elit</td>
-              </tr>
-              <tr>
-                <td>1,003</td>
-                <td>Integer</td>
-                <td>nec</td>
-                <td>odio</td>
-                <td>Praesent</td>
-              </tr>
-              <tr>
-                <td>1,003</td>
-                <td>libero</td>
-                <td>Sed</td>
-                <td>cursus</td>
-                <td>ante</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,005</td>
-                <td>Nulla</td>
-                <td>quis</td>
-                <td>sem</td>
-                <td>at</td>
-              </tr>
-              <tr>
-                <td>1,006</td>
-                <td>nibh</td>
-                <td>elementum</td>
-                <td>imperdiet</td>
-                <td>Duis</td>
-              </tr>
-              <tr>
-                <td>1,007</td>
-                <td>sagittis</td>
-                <td>ipsum</td>
-                <td>Praesent</td>
-                <td>mauris</td>
-              </tr>
-              <tr>
-                <td>1,008</td>
-                <td>Fusce</td>
-                <td>nec</td>
-                <td>tellus</td>
-                <td>sed</td>
-              </tr>
-              <tr>
-                <td>1,009</td>
-                <td>augue</td>
-                <td>semper</td>
-                <td>porta</td>
-                <td>Mauris</td>
-              </tr>
-              <tr>
-                <td>1,010</td>
-                <td>massa</td>
-                <td>Vestibulum</td>
-                <td>lacinia</td>
-                <td>arcu</td>
-              </tr>
-              <tr>
-                <td>1,011</td>
-                <td>eget</td>
-                <td>nulla</td>
-                <td>Class</td>
-                <td>aptent</td>
-              </tr>
-              <tr>
-                <td>1,012</td>
-                <td>taciti</td>
-                <td>sociosqu</td>
-                <td>ad</td>
-                <td>litora</td>
-              </tr>
-              <tr>
-                <td>1,013</td>
-                <td>torquent</td>
-                <td>per</td>
-                <td>conubia</td>
-                <td>nostra</td>
-              </tr>
-              <tr>
-                <td>1,014</td>
-                <td>per</td>
-                <td>inceptos</td>
-                <td>himenaeos</td>
-                <td>Curabitur</td>
-              </tr>
-              <tr>
-                <td>1,015</td>
-                <td>sodales</td>
-                <td>ligula</td>
-                <td>in</td>
-                <td>libero</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
       </div>
     </div>
   </div>

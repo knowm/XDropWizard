@@ -1,31 +1,33 @@
-<#-- @ftlvariable name="" type="com.xeiam.xdropwizard.views.BookView" -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<title>Book</title>
-<#include "../includes/head.ftl">
+  <title>Book</title>
+  <!-- Bootstrap core CSS -->
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-<div>
-
-    <#include "../includes/header.ftl">
-
+  <div>
     <div class="markdown">
-    <table>
-    <tr>
-    <td>Book Title:</td><td>${book.title}</td></tr>
-    <tr><td>Book Author:</td><td>${book.author}</td></tr>
-    <tr><td>Book Price:</td><td>${book.price}</td></tr>
-    </table>
+      <table>
+        <tr>
+          <td>Book Title:</td>
+          <td>${book.title}</td>
+        </tr>
+        <tr>
+          <td>Book Author:</td>
+          <td>${book.author}</td>
+        </tr>
+        <tr>
+          <td>Book Price:</td>
+          <td>${book.price}</td>
+        </tr>
+      </table>
     </div>
-    
-    <#include "../includes/footer.ftl">
-
-</div>
-
-<#include "../includes/cdn-scripts.ftl">
+  </div>
 
 </body>
+
 </html>
