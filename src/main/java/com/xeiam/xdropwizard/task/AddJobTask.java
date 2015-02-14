@@ -33,7 +33,7 @@ public class AddJobTask extends Task {
 
     logger.info(parameters.toString());
 
-    Map<String, Object> params = new HashMap<>();
+    Map<String, Object> params = new HashMap<String, Object>();
 
     for (Entry<String, String> entry : parameters.entries()) {
       params.put(entry.getKey(), entry.getValue());
