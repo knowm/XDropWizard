@@ -1,15 +1,29 @@
 # XDropWizard
 
-A skeleton DropWizard Web Application using including projects such as Yank, Sundial (a Quartz fork), Flot, Bootstrap, AngularJS, HSQLDB, XChart, JUnit, etc. Demonstrates how to serve static content, dynamic content loaded into Freemarker templates, Freemarker Views, using AJAX and more...
+A skeleton DropWizard Web Application integrating and demonstrating several useful open source projects such as Yank, Sundial (a Quartz fork), Flot, Bootstrap, AngularJS, HSQLDB, XChart, JUnit, etc. Demonstrates how to serve static content, dynamic content loaded into Freemarker templates, using AJAX and more...
 
 ![Screenshot of Dashboard](https://raw.githubusercontent.com/timmolter/XDropWizard/master/etc/xdropwizard.png)
 
-## Requirements
+## Features
 
-* Java 1.7
-* Maven
+* [x] Uses Dropwizard for web application
+* [x] Uses Bootstrap for looks
+* [x] Uses AngularJS for MVC
+* [x] Uses Sundial for Job scheduling
+* [x] Uses Yank for databases
+* [x] Uses XChart for Bitmap charts
+* [x] Uses Flot for Javascript charts
+* [x] Uses Freemarker for dymanic templating
+* [x] Demonstrates working Dropwizard setup
+* [x] Demonstrates Dropwizard tasks
+* [x] Demonstrates Dropwizard halthchecks
+* [x] Demonstrates Dropwizard building and deploying
+* [x] Java 6 and up
+* [x] Apache 2.0 license
 
 ## Banner Generator
+
+If you want DropWizard to print out a banner in the console during app startup, you can add a file called `banner.txt` in `src/main/resources`. Use the following link to generate a banner:
 
 http://www.webestools.com/ascii-text-generator-ascii-art-code-online-txt2ascii-text2ascii-maker-free-text-to-ascii-converter.html
 
