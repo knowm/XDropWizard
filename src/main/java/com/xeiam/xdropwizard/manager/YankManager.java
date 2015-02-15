@@ -42,9 +42,9 @@ public class YankManager implements Managed {
 
     // setup connection pool
     if (yankConfiguration.getDbPropsFileName() == null) {
-      Yank.addConnectionPool("myconnectionpoolname", PropertiesUtils.getPropertiesFromClasspath("DB.properties"));
+      Yank.setupDataSource(PropertiesUtils.getPropertiesFromClasspath("DB.properties"));
     } else {
-      Yank.addConnectionPool("myconnectionpoolname", PropertiesUtils.getPropertiesFromClasspath(yankConfiguration.getDbPropsFileName()));
+      Yank.setupDataSource(PropertiesUtils.getPropertiesFromClasspath(yankConfiguration.getDbPropsFileName()));
     }
 
     // setup sql statements
@@ -53,6 +53,8 @@ public class YankManager implements Managed {
     }
 
     logger.info("Yank started successfully.");
+
+    /// The below code is just to create some dummy data in an in-memory DB for use later by the REST API. See YankBookResource.
 
     // put some data in DB
     BooksDAO.createBooksTable();
@@ -86,7 +88,7 @@ public class YankManager implements Managed {
 
     logger.info("shutting down Yank...");
 
-    Yank.release();
+    Yank.releaseDataSource();
 
     logger.info("Yank shutdown successfully.");
   }
