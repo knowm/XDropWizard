@@ -54,8 +54,8 @@
 
 		<dependency>
 			<groupId>com.xeiam</groupId>
-			<artifactId>sundial</artifactId>
-			<version>2.0.0-SNAPSHOT</version>
+			<artifactId>dropwizard-sundial</artifactId>
+			<version>0.7.1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.xeiam</groupId>
@@ -91,8 +91,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
 					<showDeprecation>true</showDeprecation>
 					<showWarnings>true</showWarnings>
 				</configuration>

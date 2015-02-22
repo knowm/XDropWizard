@@ -9,19 +9,20 @@ import io.dropwizard.views.ViewBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.xeiam.dropwizard.sundial.SundialBundle;
+import com.xeiam.dropwizard.sundial.SundialConfiguration;
+import com.xeiam.dropwizard.sundial.tasks.AddCronJobTriggerTask;
+import com.xeiam.dropwizard.sundial.tasks.AddJobTask;
+import com.xeiam.dropwizard.sundial.tasks.LockSundialSchedulerTask;
+import com.xeiam.dropwizard.sundial.tasks.RemoveJobTask;
+import com.xeiam.dropwizard.sundial.tasks.RemoveJobTriggerTask;
+import com.xeiam.dropwizard.sundial.tasks.StartJobTask;
+import com.xeiam.dropwizard.sundial.tasks.StopJobTask;
+import com.xeiam.dropwizard.sundial.tasks.UnlockSundialSchedulerTask;
 import com.xeiam.xdropwizard.health.TemplateHealthCheck;
-import com.xeiam.xdropwizard.manager.SundialManager;
 import com.xeiam.xdropwizard.manager.YankManager;
 import com.xeiam.xdropwizard.resources.HelloWorldResource;
 import com.xeiam.xdropwizard.resources.YankBookResource;
-import com.xeiam.xdropwizard.task.AddCronJobTriggerTask;
-import com.xeiam.xdropwizard.task.AddJobTask;
-import com.xeiam.xdropwizard.task.LockSundialSchedulerTask;
-import com.xeiam.xdropwizard.task.RemoveJobTask;
-import com.xeiam.xdropwizard.task.RemoveJobTriggerTask;
-import com.xeiam.xdropwizard.task.StartJobTask;
-import com.xeiam.xdropwizard.task.StopJobTask;
-import com.xeiam.xdropwizard.task.UnlockSundialSchedulerTask;
 
 /**
  * @author timmolter
@@ -40,6 +41,14 @@ public class XDropWizardApplication extends Application<XDropWizardApplicationCo
 
     bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
     bootstrap.addBundle(new ViewBundle());
+
+    bootstrap.addBundle(new SundialBundle<XDropWizardApplicationConfiguration>() {
+
+      @Override
+      public SundialConfiguration getSundialConfiguration(XDropWizardApplicationConfiguration configuration) {
+        return configuration.getSundialConfiguration();
+      }
+    });
   }
 
   @Override
@@ -55,10 +64,6 @@ public class XDropWizardApplication extends Application<XDropWizardApplicationCo
     environment.healthChecks().register("TemplateHealth", new TemplateHealthCheck(template));
 
     // MANAGERS /////////////////////////
-
-    // Sundial
-    SundialManager sm = new SundialManager(configuration.getSundialConfiguration(), environment); // A DropWizard Managed Object
-    environment.lifecycle().manage(sm); // Assign the management of the object to the Service
 
     // Yank
     YankManager ym = new YankManager(configuration.getYankConfiguration()); // A DropWizard Managed Object

@@ -104,20 +104,74 @@ the scheduling and automatic running of jobs is straight forward and stable. For
 developed by Xeiam. A lot of the bloat and confusion of configuring Quartz was removed in creating Sundial and a convenient wrapper around jobs was added to enable
 more modular job building and organization. Sundial creates a threadpool on application startup and uses it for background jobs.
 
-There are two different types of jobs:
 
-* Jobs which need to run at a specific time, via a cron-like expression (trigger defined in jobs.xml)
-* Manually triggered jobs via a POST to a task
+## Adding the dropwizard-sundial dependency
 
-### jobs.xml
-
-Put a file called `jobs.xml` on your classpath. See `jobs.xml` in `src/main/resources` to see two jobs. the `SampleJob3` job has an associated trigger as well
-as a key-value pair, which the job has access to.
+Add the **dropwizard-sundial** library as a dependency to your `pom.xml` file:
 
 ```xml
+<dependency>
+    <groupId>com.xeiam</groupId>
+    <artifactId>dropwizard-sundial</artifactId>
+    <version>0.7.1.0</version>
+</dependency>
+```
+
+
+## Create a Job Class
+
+```java
+public class SampleJob extends com.xeiam.sundial.Job {
+
+  @Override
+  public void doRun() throws JobInterruptException {
+    // Do something interesting...
+  }
+}
+```
+##  ...with CronTrigger or SimpleTrigger Annotation
+```java
+@CronTrigger(cron = "0/5 * * * * ?")
+```
+```java
+@SimpleTrigger(repeatInterval = 30, timeUnit = TimeUnit.SECONDS)
+```
+
+## Start Sundial Job Scheduler
+
+```java
+public static void main(String[] args) {
+
+  SundialJobScheduler.startScheduler("com.xeiam.sundial.jobs"); // package with annotated Jobs
+}
+```
+
+## Alternatively, Put an XML File Called jobs.xml on Classpath
+
+```xml
+<?xml version='1.0' encoding='utf-8'?>
+<job-scheduling-data>
+
+    <schedule>
+
+        <!-- job with cron trigger -->
         <job>
             <name>SampleJob3</name>
-            <job-class>com.xeiam.xdropwizard.jobs.SampleJob3</job-class>
+            <job-class>com.foo.bar.jobs.SampleJob3</job-class>
+            <concurrency-allowed>true</concurrency-allowed>
+        </job>
+        <trigger>
+            <cron>
+                <name>SampleJob3-Trigger</name>
+                <job-name>SampleJob3</job-name>
+                <cron-expression>*/15 * * * * ?</cron-expression>
+            </cron>
+        </trigger>
+
+        <!-- job with simple trigger -->
+        <job>
+            <name>SampleJob2</name>
+            <job-class>com.foo.bar.jobs.SampleJob2</job-class>
             <job-data-map>
                 <entry>
                     <key>MyParam</key>
@@ -126,35 +180,19 @@ as a key-value pair, which the job has access to.
             </job-data-map>
         </job>
         <trigger>
-            <cron>
-                <name>SampleJob3-Trigger</name>
-                <job-name>SampleJob3</job-name>
-                <cron-expression>0/45 * * * * ?</cron-expression>
-            </cron>
+            <simple>
+                <name>SampleJob2-Trigger</name>
+                <job-name>SampleJob2</job-name>
+                <repeat-count>5</repeat-count>
+                <repeat-interval>5000</repeat-interval>
+            </simple>
         </trigger>
 
-        <job>
-            <name>MyJob</name>
-            <job-class>com.xeiam.xdropwizard.jobs.MyJob</job-class>
-        </job>
+    </schedule>
+
+</job-scheduling-data>
 ```
 
-### MyJob.java
-
-This extremely simple example job demonstrates how easy it is to get a basic job coded. Whenever it's run, it just logs a message, but it could do anything you want.
-
-```java
-    public class MyJob extends Job {
-
-      private final Logger logger = LoggerFactory.getLogger(MyJob.class);
-
-      @Override
-      public void doRun() throws JobInterruptException {
-
-        logger.info("MyJob says hello!");
-      }
-    }
-```
 
 ### SampleJob3.java
 
@@ -186,46 +224,18 @@ jobs, mixing and matching if desired. This keeps your jobs organized.
     }
 ```
 
-### SampleJob3Task.java
-
-Here, we see how to hook a job into DropWizard's environment as a task for asynchronously starting it via a POST.
-
-```java
-    public class SampleJob3Task extends Task {
-
-      public SampleJob3Task() {
-
-        super("samplejob3");
-      }
-
-      @Override
-      public void execute(ImmutableMultimap<String, String> arg0, PrintWriter arg1) throws Exception {
-
-        SundialJobScheduler.startJob("SampleJob3");
-
-      }
-    }
-```
-
-### SundialManager.java
-
-`SundialManager.java` is the class responsible for starting the scheduler and it is hooked into DropWizard in the `Service` class by
-including the following line of code:
-
-    SundialManager sm = new SundialManager(configuration.getSundialProperties());
-    environment.manage(sm);
-
 In your `*.yml` DropWizard configuration file, you can easily set some helpful parameters to customize Sundial as DropWizard starts up, right from the config file:
 
 ```yml
-    sundial:
+sundial:
 
-        thread-pool-size: 5
-        shutdown-on-unload: true
-        wait-on-shutdown: false
-        start-delay-seconds: 0
-        start-scheduler-on-load: true
-        global-lock-on-load: false
+    thread-pool-size: 5
+    shutdown-on-unload: true
+    wait-on-shutdown: false
+    start-delay-seconds: 0
+    start-scheduler-on-load: true
+    global-lock-on-load: false
+    annotated-jobs-package-name: com.foo.bar.jobs
 ```
 
 ### Sundial Asynchronous Control via HTTP
@@ -234,17 +244,13 @@ By defining some tasks and hooking them into DropWizard you can asynchronously t
 
     curl -X POST http://localhost:9090/admin/tasks/locksundialscheduler
     curl -X POST http://localhost:9090/admin/tasks/unlocksundialscheduler
-    curl -X POST http://localhost:9090/admin/tasks/myjob
-    curl -X POST http://localhost:9090/admin/tasks/samplejob3
     curl -X POST http://localhost:9090/admin/tasks/samplejob3?MyParam=56789
     curl -X POST "http://localhost:9090/admin/tasks/startjob?JOB_NAME=MyJob"
     curl -X POST "http://localhost:9090/admin/tasks/startjob?JOB_NAME=SampleJob3&MyParam=9999"
     curl -X POST "http://localhost:9090/admin/tasks/stopjob?JOB_NAME=SampleJob3"
     curl -X POST "http://localhost:9090/admin/tasks/removejob?JOB_NAME=SampleJob3"
     curl -X POST "http://localhost:9090/admin/tasks/addjob?JOB_NAME=SampleJob3&JOB_CLASS=com.xeiam.xdropwizard.jobs.SampleJob3&MyParam=888"
-
     curl -X POST http://localhost:9090/admin/tasks/removejobtrigger?TRIGGER_NAME=SampleJob3-Trigger
-
     curl -X POST "http://localhost:9090/admin/tasks/addcronjobtrigger?TRIGGER_NAME=SampleJob3-Trigger&JOB_NAME=SampleJob3&CRON_EXPRESSION=0/45%20*%20*%20*%20*%20?"
     curl -X POST "http://localhost:9090/admin/tasks/addcronjobtrigger?TRIGGER_NAME=SampleJob3-Trigger&JOB_NAME=SampleJob3" --data-urlencode "CRON_EXPRESSION=0/45 * * * * ?"
 
