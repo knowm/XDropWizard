@@ -1,6 +1,6 @@
 # XDropWizard
 
-A skeleton DropWizard Web Application integrating and demonstrating several useful open source projects such as Yank, Sundial (a Quartz fork), Flot, Bootstrap, AngularJS, HSQLDB, XChart, JUnit, etc. Demonstrates how to serve static content, dynamic content loaded into Freemarker templates, using AJAX and more...
+A jump-start DropWizard Web Application integrating and demonstrating several useful open source projects such as Yank, Sundial (a Quartz fork), Flot, Bootstrap, AngularJS, HSQLDB, XChart, JUnit, etc. Demonstrates how to serve static content, dynamic content loaded into Freemarker templates, using AJAX and more...
 
 ![Screenshot of Dashboard](https://raw.githubusercontent.com/timmolter/XDropWizard/master/etc/xdropwizard.png)
 
