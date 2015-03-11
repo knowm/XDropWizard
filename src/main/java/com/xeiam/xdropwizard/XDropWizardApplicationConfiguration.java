@@ -2,12 +2,15 @@ package com.xeiam.xdropwizard;
 
 import io.dropwizard.Configuration;
 
+import java.util.Map;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.collect.ImmutableMap;
 import com.xeiam.dropwizard.sundial.SundialConfiguration;
 
 /**
@@ -72,5 +75,22 @@ public class XDropWizardApplicationConfiguration extends Configuration {
   public YankConfiguration getYankConfiguration() {
 
     return yankConfiguration;
+  }
+
+  @NotNull
+  private ImmutableMap<String, ImmutableMap<String, String>> viewRendererConfiguration = ImmutableMap.of();
+
+  @JsonProperty("viewRendererConfiguration")
+  public ImmutableMap<String, ImmutableMap<String, String>> getViewRendererConfiguration() {
+    return viewRendererConfiguration;
+  }
+
+  @JsonProperty("viewRendererConfiguration")
+  public void setViewRendererConfiguration(Map<String, Map<String, String>> viewRendererConfiguration) {
+    ImmutableMap.Builder<String, ImmutableMap<String, String>> builder = ImmutableMap.builder();
+    for (Map.Entry<String, Map<String, String>> entry : viewRendererConfiguration.entrySet()) {
+      builder.put(entry.getKey(), ImmutableMap.copyOf(entry.getValue()));
+    }
+    this.viewRendererConfiguration = builder.build();
   }
 }

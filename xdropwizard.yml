@@ -1,5 +1,6 @@
 server:
   type: simple
+  rootPath: '/service/*'
   applicationContextPath: /
   adminContextPath: /admin
   connector:

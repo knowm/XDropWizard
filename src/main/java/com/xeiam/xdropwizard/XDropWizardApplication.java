@@ -9,6 +9,7 @@ import io.dropwizard.views.ViewBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.ImmutableMap;
 import com.xeiam.dropwizard.sundial.SundialBundle;
 import com.xeiam.dropwizard.sundial.SundialConfiguration;
 import com.xeiam.dropwizard.sundial.tasks.AddCronJobTriggerTask;
@@ -40,7 +41,13 @@ public class XDropWizardApplication extends Application<XDropWizardApplicationCo
   public void initialize(Bootstrap<XDropWizardApplicationConfiguration> bootstrap) {
 
     bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
-    bootstrap.addBundle(new ViewBundle());
+    bootstrap.addBundle(new ViewBundle<XDropWizardApplicationConfiguration>() {
+
+      @Override
+      public ImmutableMap<String, ImmutableMap<String, String>> getViewConfiguration(XDropWizardApplicationConfiguration configuration) {
+        return configuration.getViewRendererConfiguration();
+      }
+    });
 
     bootstrap.addBundle(new SundialBundle<XDropWizardApplicationConfiguration>() {
 
@@ -56,7 +63,7 @@ public class XDropWizardApplication extends Application<XDropWizardApplicationCo
 
     logger.info("running DropWizard!");
 
-    environment.jersey().setUrlPattern("/service/*");
+    //    environment.jersey().setUrlPattern("/service/*");
 
     final String template = configuration.getTemplate();
     final String defaultName = configuration.getDefaultName();
