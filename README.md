@@ -18,7 +18,7 @@ A jump-start DropWizard Web Application integrating and demonstrating several us
 * [x] Demonstrates Dropwizard tasks
 * [x] Demonstrates Dropwizard halthchecks
 * [x] Demonstrates Dropwizard building and deploying
-* [x] Java 6 and up
+* [x] Java 7 and up
 * [x] Apache 2.0 license
 
 ## Banner Generator
