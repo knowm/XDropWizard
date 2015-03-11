@@ -45,7 +45,7 @@ public class XDropWizardApplication extends Application<XDropWizardApplicationCo
 
       @Override
       public ImmutableMap<String, ImmutableMap<String, String>> getViewConfiguration(XDropWizardApplicationConfiguration configuration) {
-        return configuration.getViewRendererConfiguration();
+        return ImmutableMap.of();
       }
     });
 
