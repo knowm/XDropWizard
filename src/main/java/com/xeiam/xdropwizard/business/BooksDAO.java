@@ -39,7 +39,7 @@ public class BooksDAO {
 
     Object[] params = new Object[] { book.getTitle(), book.getAuthor(), book.getPrice() };
     String SQL = "INSERT INTO BOOKS  (TITLE, AUTHOR, PRICE) VALUES (?, ?, ?)";
-    return Yank.execute(  SQL, params);
+    return Yank.execute(SQL, params);
   }
 
   /**
@@ -52,7 +52,7 @@ public class BooksDAO {
   public static List<Book> selectAllBooks() {
 
     String SQL = "SELECT * FROM BOOKS";
-    return Yank.queryBeanList(  SQL, Book.class, null);
+    return Yank.queryBeanList(SQL, Book.class, null);
   }
 
   /**
@@ -66,7 +66,7 @@ public class BooksDAO {
 
     String SQL = "SELECT TITLE FROM BOOKS";
     String columnName = "title";
-    return Yank.queryColumn(  SQL, columnName, String.class, null);
+    return Yank.queryColumn(SQL, columnName, String.class, null);
   }
 
   /**
@@ -86,7 +86,7 @@ public class BooksDAO {
     }
 
     String SQL = "INSERT INTO BOOKS  (TITLE, AUTHOR, PRICE) VALUES (?, ?, ?)";
-    return Yank.executeBatch(  SQL, params);
+    return Yank.executeBatch(SQL, params);
   }
 
   /**
@@ -99,7 +99,7 @@ public class BooksDAO {
   public static int createBooksTable() {
 
     String sqlKey = "BOOKS_CREATE_TABLE";
-    return Yank.executeSQLKey(  sqlKey, null);
+    return Yank.executeSQLKey(sqlKey, null);
   }
 
   /**
@@ -115,7 +115,7 @@ public class BooksDAO {
     Object[] params = new Object[] { title };
 
     String sqlKey = "BOOKS_SELECT_BY_TITLE";
-    return Yank.queryBeanSQLKey(  sqlKey, Book.class, params);
+    return Yank.queryBeanSQLKey(sqlKey, Book.class, params);
   }
 
   /**
@@ -130,7 +130,7 @@ public class BooksDAO {
   public static List<Object[]> getTableStatus() {
 
     String sqlKey = "BOOKS_SELECT_TABLE_STATUS";
-    return Yank.queryObjectArraysSQLKey(  sqlKey, null);
+    return Yank.queryObjectArraysSQLKey(sqlKey, null);
   }
 
   /**
@@ -143,13 +143,13 @@ public class BooksDAO {
   public static long getNumBooks() {
 
     String SQL = "SELECT COUNT(*) FROM BOOKS";
-    return Yank.queryScalar(  SQL, Long.class, null);
+    return Yank.queryScalar(SQL, Long.class, null);
   }
 
   public static Book selectRandomBook() {
 
     String sqlKey = "BOOKS_SELECT_RANDOM_BOOK";
-    return Yank.queryBeanSQLKey(  sqlKey, Book.class, null);
+    return Yank.queryBeanSQLKey(sqlKey, Book.class, null);
   }
 
 }
