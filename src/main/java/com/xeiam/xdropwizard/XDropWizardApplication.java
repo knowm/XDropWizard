@@ -9,7 +9,6 @@ import io.dropwizard.views.ViewBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.collect.ImmutableMap;
 import com.xeiam.dropwizard.sundial.SundialBundle;
 import com.xeiam.dropwizard.sundial.SundialConfiguration;
 import com.xeiam.dropwizard.sundial.tasks.AddCronJobTriggerTask;
@@ -41,13 +40,7 @@ public class XDropWizardApplication extends Application<XDropWizardApplicationCo
   public void initialize(Bootstrap<XDropWizardApplicationConfiguration> bootstrap) {
 
     bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
-    bootstrap.addBundle(new ViewBundle<XDropWizardApplicationConfiguration>() {
-
-      @Override
-      public ImmutableMap<String, ImmutableMap<String, String>> getViewConfiguration(XDropWizardApplicationConfiguration configuration) {
-        return ImmutableMap.of();
-      }
-    });
+    bootstrap.addBundle(new ViewBundle<XDropWizardApplicationConfiguration>());
 
     bootstrap.addBundle(new SundialBundle<XDropWizardApplicationConfiguration>() {
 
