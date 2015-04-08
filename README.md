@@ -91,8 +91,8 @@ DropWizard application as described above, you should be able to click on all th
 
 ### Another Option
 
-Another approach is to serve all static content from a webserver such as Apahce HTTP or nginx, placed in front of the DropWizard instance. This however has the disadvantage
-of spreading your app's content over several places, and the configuration and maintenence is more complex. In certain cases it may make sense though. Gary Rowe blogged
+Another approach is to serve all static content from a webserver such as Apache HTTP or nginx, placed in front of the DropWizard instance. This however has the disadvantage
+of spreading your app's content over several places, and the configuration and maintenance is more complex. In certain cases it may make sense though. Gary Rowe blogged
 about how it can be done with nginx [here](http://gary-rowe.com/agilestack/2013/02/13/an-nginx-config-file-for-dropwizard-with-static-content/).
 
 ## Sundial
@@ -113,7 +113,7 @@ Add the **dropwizard-sundial** library as a dependency to your `pom.xml` file:
 <dependency>
     <groupId>com.xeiam</groupId>
     <artifactId>dropwizard-sundial</artifactId>
-    <version>0.7.1.0</version>
+    <version>0.8.0.0</version>
 </dependency>
 ```
 
