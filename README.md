@@ -117,6 +117,41 @@ Add the **dropwizard-sundial** library as a dependency to your `pom.xml` file:
 </dependency>
 ```
 
+## Integrate Sundial into you App
+
+
+1. Add the Sundial Bundle in the initialize method.
+
+```java
+@Override
+public void initialize(Bootstrap<XDropWizardApplicationConfiguration> bootstrap) {
+
+    ...
+
+    bootstrap.addBundle(new SundialBundle<XDropWizardApplicationConfiguration>() {
+
+      @Override
+      public SundialConfiguration getSundialConfiguration(XDropWizardApplicationConfiguration configuration) {
+        return configuration.getSundialConfiguration();
+      }
+    });
+}
+```
+
+2. Add `SundialConfiguration` to your configuration file.
+
+```java
+// Sundial
+@Valid
+@NotNull
+public SundialConfiguration sundialConfiguration = new SundialConfiguration();
+
+@JsonProperty("sundial")
+public SundialConfiguration getSundialConfiguration() {
+
+    return sundialConfiguration;
+}
+```
 
 ## Create a Job Class
 
@@ -129,21 +164,13 @@ public class SampleJob extends com.xeiam.sundial.Job {
   }
 }
 ```
+
 ##  ...with CronTrigger or SimpleTrigger Annotation
 ```java
 @CronTrigger(cron = "0/5 * * * * ?")
 ```
 ```java
 @SimpleTrigger(repeatInterval = 30, timeUnit = TimeUnit.SECONDS)
-```
-
-## Start Sundial Job Scheduler
-
-```java
-public static void main(String[] args) {
-
-  SundialJobScheduler.startScheduler("com.xeiam.sundial.jobs"); // package with annotated Jobs
-}
 ```
 
 ## Alternatively, Put an XML File Called jobs.xml on Classpath
