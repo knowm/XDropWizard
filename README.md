@@ -97,7 +97,7 @@ about how it can be done with nginx [here](http://gary-rowe.com/agilestack/2013/
 
 ## Sundial
 
-Sundial is a lightweight Java job scheduling framework.
+Sundial is a lightweight Java job scheduling framework. Read all about it here: [https://github.com/timmolter/Sundial](https://github.com/timmolter/Sundial).
 
 Integrating [Sundial](https://github.com/timmolter/Sundial) into a DropWizard instance requires minimal setup, and once it's all configured and running,
 the scheduling and automatic running of jobs is straight forward and stable. For those not familiar with Sundial, it is a simplified fork of [Quartz](http://quartz-scheduler.org/)
@@ -280,6 +280,10 @@ By defining some tasks and hooking them into DropWizard you can asynchronously t
     curl -X POST http://localhost:9090/admin/tasks/removejobtrigger?TRIGGER_NAME=SampleJob3-Trigger
     curl -X POST "http://localhost:9090/admin/tasks/addcronjobtrigger?TRIGGER_NAME=SampleJob3-Trigger&JOB_NAME=SampleJob3&CRON_EXPRESSION=0/45%20*%20*%20*%20*%20?"
     curl -X POST "http://localhost:9090/admin/tasks/addcronjobtrigger?TRIGGER_NAME=SampleJob3-Trigger&JOB_NAME=SampleJob3" --data-urlencode "CRON_EXPRESSION=0/45 * * * * ?"
+    
+**Note:** If you intend to asynchronously stop jobs, read this: The Job termination mechanism works by setting a flag that the Job should be terminated, 
+but it is up to the logic in the Job to decide at what point termination should occur. Therefore, in any long-running job that you anticipate the need to terminate, 
+put the method call checkTerminated() at an appropriate location.
 
 ## Yank
 
@@ -295,7 +299,7 @@ The `DB.properties` file should be a familiar sight for people used to working w
 Put a file called `DB.properties` on your classpath. See `DB.properties` in `src/main/resources`. In this file, you define the properties needed to connect to your
 database such as the JDBC driver class name, the user and password. Yank will load this file at startup and handle connecting to the database.
 
-### SQL.properties
+### SQL.properties (Optional)
 
 Put a file called `SQL.properties` on your classpath. See `SQL.properties` in `src/main/resources`. The `SQL.properties` file is a place to centrally store your
 SQL statements. There are a few advantages to this. First, all your statements are found at a single place so you can see tham all at once. Secondly, if you want
@@ -308,39 +312,39 @@ Yank requires that you have a single POJO for each table in your database. The P
 Add the getter and setters as well.
 
 ```java
-    public class Book {
+public class Book {
 
-      private String title;
-      private String author;
-      private double price;
+  private String title;
+  private String author;
+  private double price;
 
-      /** Pro-tip: In Eclipse, generate all getters and setters after defining class fields: Right-click --> Source --> Generate Getters and Setters... */
+  /** Pro-tip: In Eclipse, generate all getters and setters after defining class fields: Right-click --> Source --> Generate Getters and Setters... */
 
-      public String getTitle() {
-        return title;
-      }
+  public String getTitle() {
+    return title;
+  }
 
-      public void setTitle(String title) {
-        this.title = title;
-      }
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-      public String getAuthor() {
-        return author;
-      }
+  public String getAuthor() {
+    return author;
+  }
 
-      public void setAuthor(String author) {
-        this.author = author;
-      }
+  public void setAuthor(String author) {
+    this.author = author;
+  }
 
-      public double getPrice() {
-        return price;
-      }
+  public double getPrice() {
+    return price;
+  }
 
-      public void setPrice(double price) {
-        this.price = price;
-      }
+  public void setPrice(double price) {
+    this.price = price;
+  }
 
-    }
+}
 ```
 
 ### BooksDAO.java
@@ -351,34 +355,34 @@ String, while others come from the `SQL.properties` file on the classpath. The p
 statement is being fetched from the `SQL.properties`.
 
 ```java
-    public class BooksDAO {
+public class BooksDAO {
 
-      public static int createBooksTable() {
+  public static int createBooksTable() {
 
-        String sqlKey = "BOOKS_CREATE_TABLE";
-        return DBProxy.executeSQLKey("myconnectionpoolname", sqlKey, null);
-      }
+    String sqlKey = "BOOKS_CREATE_TABLE";
+    return DBProxy.executeSQLKey("myconnectionpoolname", sqlKey, null);
+  }
 
-      public static int insertBook(Book book) {
+  public static int insertBook(Book book) {
 
-        Object[] params = new Object[] { book.getTitle(), book.getAuthor(), book.getPrice() };
-        String SQL = "INSERT INTO BOOKS  (TITLE, AUTHOR, PRICE) VALUES (?, ?, ?)";
-        return DBProxy.executeSQL("myconnectionpoolname", SQL, params);
-      }
+    Object[] params = new Object[] { book.getTitle(), book.getAuthor(), book.getPrice() };
+    String SQL = "INSERT INTO BOOKS  (TITLE, AUTHOR, PRICE) VALUES (?, ?, ?)";
+    return DBProxy.executeSQL("myconnectionpoolname", SQL, params);
+  }
 
-      public static List<Book> selectAllBooks() {
+  public static List<Book> selectAllBooks() {
 
-        String SQL = "SELECT * FROM BOOKS";
-        return DBProxy.queryObjectListSQL("myconnectionpoolname", SQL, Book.class, null);
-      }
+    String SQL = "SELECT * FROM BOOKS";
+    return DBProxy.queryObjectListSQL("myconnectionpoolname", SQL, Book.class, null);
+  }
 
-      public static Book selectRandomBook() {
+  public static Book selectRandomBook() {
 
-        String sqlKey = "BOOKS_SELECT_RANDOM_BOOK";
-        return DBProxy.querySingleObjectSQLKey("myconnectionpoolname", sqlKey, Book.class, null);
-      }
+    String sqlKey = "BOOKS_SELECT_RANDOM_BOOK";
+    return DBProxy.querySingleObjectSQLKey("myconnectionpoolname", sqlKey, Book.class, null);
+  }
 
-    }
+}
 ```
 
 ### YankBookResource.java
@@ -387,24 +391,24 @@ In order to access objects from the database and return them as JSON, you need a
 each table in your database. Don't forget to add this resource in the `Service` class!
 
 ```java
-    @Path("book")
-    @Produces(MediaType.APPLICATION_JSON)
-    public class YankBookResource {
+@Path("book")
+@Produces(MediaType.APPLICATION_JSON)
+public class YankBookResource {
 
-      @GET
-      @Path("random")
-      public Book getRandomBook() {
+  @GET
+  @Path("random")
+  public Book getRandomBook() {
 
-        return BooksDAO.selectRandomBook();
-      }
+    return BooksDAO.selectRandomBook();
+  }
 
-      @GET
-      @Path("all")
-      public List<Book> getAllBooks() {
+  @GET
+  @Path("all")
+  public List<Book> getAllBooks() {
 
-        return BooksDAO.selectAllBooks();
-      }
-    }
+    return BooksDAO.selectAllBooks();
+  }
+}
 ```
 
 ### YankManager.java
@@ -423,7 +427,7 @@ In your `.yml` DropWizard configuration file, you can easily define the database
     yank:
 
         dbPropsFileName: DB.properties
-        sqlPropsFileName: SQL.properties
+        sqlPropsFileName: SQL.properties (optional)
 
 ### Yank Database Access
 
