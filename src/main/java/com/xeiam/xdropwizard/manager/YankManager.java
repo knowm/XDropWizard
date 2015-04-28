@@ -41,14 +41,14 @@ public class YankManager implements Managed {
     logger.info("initializing Yank...");
 
     // setup connection pool
-    if (yankConfiguration.getDbPropsFileName() == null) {
+    if (yankConfiguration.getDbPropsFileName() == null || yankConfiguration.getSqlPropsFileName().trim().length() == 0) {
       Yank.setupDataSource(PropertiesUtils.getPropertiesFromClasspath("DB.properties"));
     } else {
       Yank.setupDataSource(PropertiesUtils.getPropertiesFromClasspath(yankConfiguration.getDbPropsFileName()));
     }
 
     // setup sql statements
-    if (yankConfiguration.getSqlPropsFileName() != null) {
+    if (yankConfiguration.getSqlPropsFileName() != null && yankConfiguration.getSqlPropsFileName().trim().length() > 0) {
       Yank.addSQLStatements(PropertiesUtils.getPropertiesFromClasspath(yankConfiguration.getSqlPropsFileName()));
     }
 
