@@ -285,6 +285,45 @@ By defining some tasks and hooking them into DropWizard you can asynchronously t
 but it is up to the logic in the Job to decide at what point termination should occur. Therefore, in any long-running job that you anticipate the need to terminate, 
 put the method call checkTerminated() at an appropriate location.
 
+### Inject Global Objects or Config Parameters into a Job
+
+You may want access to a global object such as a REST client, and you don't want to have to reinstantiate that object every single time the job is run. It can be done quite easily by 
+putting the object in the ServletContext during app startup in the `run` method. Since Sundial is bound to the ServletContext's lifecycle, it has direct access to the ServletContext. 
+The ServletContext has a `String, Object` map for holding these global objects. The following code snippets show how to add an object to the ServletContext in the `run` method and how 
+to access it from a job.
+
+```java
+@Override
+public void run(XDropWizardApplicationConfiguration configuration, Environment environment) throws Exception {
+
+  logger.info("running DropWizard!");
+
+  // Add object to ServletContext for accessing from Sundial Jobs
+  environment.getApplicationContext().setAttribute("MyKey", "MyObject");
+    
+  ...
+}
+```
+
+```java
+@CronTrigger(cron = "0/25 * * * * ?")
+public class MyJob extends Job {
+
+  private final Logger logger = LoggerFactory.getLogger(MyJob.class);
+
+  @Override
+  public void doRun() throws JobInterruptException {
+
+    // pull object from ServletContext, which was added in the apllication's run method
+    String myObject = (String) SundialJobScheduler.getServletContext().getAttribute("MyKey");
+
+    logger.info("MyJob says: " + myObject);
+  }
+}
+```
+
+
+
 ## Yank
 
 Yank is a very easy-to-use yet flexible Java persistence layer for JDBC-compatible databases build on top of

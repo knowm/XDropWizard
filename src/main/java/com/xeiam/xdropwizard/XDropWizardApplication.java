@@ -56,7 +56,8 @@ public class XDropWizardApplication extends Application<XDropWizardApplicationCo
 
     logger.info("running DropWizard!");
 
-    //    environment.jersey().setUrlPattern("/service/*");
+    // Add object to ServletContext for accessing from Sundial Jobs
+    environment.getApplicationContext().setAttribute("MyKey", "MyObject");
 
     final String template = configuration.getTemplate();
     final String defaultName = configuration.getDefaultName();
