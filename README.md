@@ -322,8 +322,6 @@ public class MyJob extends Job {
 }
 ```
 
-
-
 ## Yank
 
 Yank is a very easy-to-use yet flexible Java persistence layer for JDBC-compatible databases build on top of
