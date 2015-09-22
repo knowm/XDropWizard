@@ -101,7 +101,7 @@ Sundial is a lightweight Java job scheduling framework. Read all about it here: 
 
 Integrating [Sundial](https://github.com/timmolter/Sundial) into a DropWizard instance requires minimal setup, and once it's all configured and running,
 the scheduling and automatic running of jobs is straight forward and stable. For those not familiar with Sundial, it is a simplified fork of [Quartz](http://quartz-scheduler.org/)
-developed by Xeiam. A lot of the bloat and confusion of configuring Quartz was removed in creating Sundial and a convenient wrapper around jobs was added to enable
+developed by [Knowm](http://knowm.org/open-source/). A lot of the bloat and confusion of configuring Quartz was removed in creating Sundial and a convenient wrapper around jobs was added to enable
 more modular job building and organization. Sundial creates a threadpool on application startup and uses it for background jobs.
 
 
