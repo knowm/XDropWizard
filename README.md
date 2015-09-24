@@ -803,3 +803,9 @@ angular.module('sampleApp', [])
 ```
 
 The controller defines a dependency to the `$scope` and the `$http` module. An HTTP GET request to the `/service/book/all` endpoint is carried out with the get method. It returns a $promise object with a success and an error method. Once successful, the JSON data is assigned to $scope.books to make it available in the template in books.html. The 'ng-repeat' creates a multi-rowed table to match the data fetched from the backend.
+
+## Donations
+
+Donate with Bitcoin: [1JVyTP9v9z54dALuhDTZDQfS6FUjcKjPgZ](https://blockchain.info/address/1JVyTP9v9z54dALuhDTZDQfS6FUjcKjPgZ)
+
+All donations will be used to pay bounties for new features, refactoring, etc. Please consider donating or even posting your own bounties on our [Issues Page](https://github.com/timmolter/xdropwizard/issues?state=open). Open bounties and bounties paid thus far can be found on knowm's [bounties](http://knowm.org/open-source/) page.
