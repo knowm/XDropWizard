@@ -1,4 +1,4 @@
-package com.xeiam.xdropwizard.health;
+package org.knowm.xdropwizard.health;
 
 import com.codahale.metrics.health.HealthCheck;
 

@@ -8,7 +8,7 @@ server:
     port: 9090
   
 logging:
-  level: INFO
+  level: DEBUG
   appenders:
     - type: console
       threshold: ALL
@@ -28,7 +28,7 @@ sundial:
   start-delay-seconds: 0
   start-scheduler-on-load: true
   global-lock-on-load: false
-  annotated-jobs-package-name: com.xeiam.xdropwizard.jobs
+  annotated-jobs-package-name: org.knowm.xdropwizard.jobs
 
   
 yank:

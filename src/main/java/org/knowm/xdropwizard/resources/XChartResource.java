@@ -1,4 +1,4 @@
-package com.xeiam.xdropwizard.resources;
+package org.knowm.xdropwizard.resources;
 
 import java.io.IOException;
 
@@ -7,10 +7,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import com.xeiam.xchart.BitmapEncoder;
-import com.xeiam.xchart.BitmapEncoder.BitmapFormat;
-import com.xeiam.xchart.Chart;
-import com.xeiam.xchart.QuickChart;
+import org.knowm.xchart.BitmapEncoder;
+import org.knowm.xchart.BitmapEncoder.BitmapFormat;
+import org.knowm.xchart.Chart;
+import org.knowm.xchart.QuickChart;
 
 /**
  * @author timmolter

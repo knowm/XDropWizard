@@ -1,18 +1,17 @@
-package com.xeiam.xdropwizard.manager;
-
-import io.dropwizard.lifecycle.Managed;
+package org.knowm.xdropwizard.manager;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.knowm.xdropwizard.XDropWizardApplicationConfiguration.YankConfiguration;
+import org.knowm.xdropwizard.business.Book;
+import org.knowm.xdropwizard.business.BooksDAO;
+import org.knowm.yank.PropertiesUtils;
+import org.knowm.yank.Yank;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.xeiam.xdropwizard.XDropWizardApplicationConfiguration.YankConfiguration;
-import com.xeiam.xdropwizard.business.Book;
-import com.xeiam.xdropwizard.business.BooksDAO;
-import com.xeiam.yank.PropertiesUtils;
-import com.xeiam.yank.Yank;
+import io.dropwizard.lifecycle.Managed;
 
 /**
  * <p>

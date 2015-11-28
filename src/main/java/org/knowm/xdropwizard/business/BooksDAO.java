@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.xeiam.xdropwizard.business;
+package org.knowm.xdropwizard.business;
 
 import java.util.List;
 
-import com.xeiam.yank.Yank;
+import org.knowm.yank.Yank;
 
 /**
  * DAO (Data Access Object) Class for BOOKS table. <br>

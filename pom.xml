@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<name>XDropwizard Webservice</name>
-	<groupId>com.xeiam</groupId>
+	<groupId>org.knowm</groupId>
 	<artifactId>xdropwizard</artifactId>
-	<version>0.8.1-SNAPSHOT</version>
+	<version>0.9.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<description>Webservice starting point for new webservices containing Xeiam OSS projects</description>
+	<description>Dropwizard webservice/webapp skeleton containing Knowm OSS projects and various other web technologies</description>
 	<url>http://knowm.org/open-source/</url>
 
 	<organization>
@@ -64,24 +64,24 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.xeiam</groupId>
+			<groupId>org.knowm</groupId>
 			<artifactId>dropwizard-sundial</artifactId>
-			<version>0.8.1.0</version>
+			<version>0.9.1.0</version>
 		</dependency>
 		<dependency>
-			<groupId>com.xeiam</groupId>
+			<groupId>org.knowm</groupId>
 			<artifactId>yank</artifactId>
-			<version>3.0.2</version>
+			<version>3.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
-			<version>2.3.2</version>
+			<version>2.3.3</version>
 		</dependency>
 		<dependency>
-			<groupId>com.xeiam.xchart</groupId>
+			<groupId>org.knowm.xchart</groupId>
 			<artifactId>xchart</artifactId>
-			<version>2.5.1</version>
+			<version>2.6.0</version>
 		</dependency>
 
 		<!-- test -->
@@ -112,7 +112,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>2.3</version>
+				<version>2.4.2</version>
 				<configuration>
 					<createDependencyReducedPom>true</createDependencyReducedPom>
 					<filters>
@@ -138,7 +138,7 @@
 									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.xeiam.xdropwizard.XDropWizardApplication</mainClass>
+									<mainClass>org.knowm.xdropwizard.XDropWizardApplication</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>
@@ -151,7 +151,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<dropwizard.version>0.8.1</dropwizard.version>
+		<dropwizard.version>0.9.1</dropwizard.version>
 	</properties>
 
 </project>

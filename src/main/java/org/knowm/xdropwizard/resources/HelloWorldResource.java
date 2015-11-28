@@ -1,4 +1,4 @@
-package com.xeiam.xdropwizard.resources;
+package org.knowm.xdropwizard.resources;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -8,9 +8,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.knowm.xdropwizard.api.Saying;
+
 import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Optional;
-import com.xeiam.xdropwizard.api.Saying;
 
 /**
  * @author timmolter

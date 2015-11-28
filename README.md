@@ -111,7 +111,7 @@ Add the **dropwizard-sundial** library as a dependency to your `pom.xml` file:
 
 ```xml
 <dependency>
-    <groupId>com.xeiam</groupId>
+    <groupId>org.knowm</groupId>
     <artifactId>dropwizard-sundial</artifactId>
     <version>0.8.1.0</version>
 </dependency>
@@ -156,7 +156,7 @@ public SundialConfiguration getSundialConfiguration() {
 ## Create a Job Class
 
 ```java
-public class SampleJob extends com.xeiam.sundial.Job {
+public class SampleJob extends org.knowm.sundial.Job {
 
   @Override
   public void doRun() throws JobInterruptException {
@@ -276,7 +276,7 @@ By defining some tasks and hooking them into DropWizard you can asynchronously t
     curl -X POST "http://localhost:9090/admin/tasks/startjob?JOB_NAME=SampleJob3&MyParam=9999"
     curl -X POST "http://localhost:9090/admin/tasks/stopjob?JOB_NAME=SampleJob3"
     curl -X POST "http://localhost:9090/admin/tasks/removejob?JOB_NAME=SampleJob3"
-    curl -X POST "http://localhost:9090/admin/tasks/addjob?JOB_NAME=SampleJob3&JOB_CLASS=com.xeiam.xdropwizard.jobs.SampleJob3&MyParam=888"
+    curl -X POST "http://localhost:9090/admin/tasks/addjob?JOB_NAME=SampleJob3&JOB_CLASS=org.knowm.xdropwizard.jobs.SampleJob3&MyParam=888"
     curl -X POST http://localhost:9090/admin/tasks/removejobtrigger?TRIGGER_NAME=SampleJob3-Trigger
     curl -X POST "http://localhost:9090/admin/tasks/addcronjobtrigger?TRIGGER_NAME=SampleJob3-Trigger&JOB_NAME=SampleJob3&CRON_EXPRESSION=0/45%20*%20*%20*%20*%20?"
     curl -X POST "http://localhost:9090/admin/tasks/addcronjobtrigger?TRIGGER_NAME=SampleJob3-Trigger&JOB_NAME=SampleJob3" --data-urlencode "CRON_EXPRESSION=0/45 * * * * ?"
@@ -583,7 +583,7 @@ but it could easily come from a database. Any URL parameters can be passed from 
 
 ### FTL - FreeMarker Template
 
-`book.ftl` is the path of the template relative to the class name. If this class was `com.xeiam.xdropwizard.views.PersonView`, Dropwizard
+`book.ftl` is the path of the template relative to the class name. If this class was `org.knowm.xdropwizard.views.PersonView`, Dropwizard
 would then look for the file src/main/resources/com/xeiam/xdropwizard/views/person.ftl.
 
 ```html

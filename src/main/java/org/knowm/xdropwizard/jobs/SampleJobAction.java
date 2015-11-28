@@ -1,9 +1,8 @@
-package com.xeiam.xdropwizard.jobs;
+package org.knowm.xdropwizard.jobs;
 
+import org.knowm.sundial.JobAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.xeiam.sundial.JobAction;
 
 /**
  * A sample Job Action that simply logs a message every time it's called.

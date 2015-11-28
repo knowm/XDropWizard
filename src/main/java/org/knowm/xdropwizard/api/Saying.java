@@ -1,4 +1,4 @@
-package com.xeiam.xdropwizard.api;
+package org.knowm.xdropwizard.api;
 
 /**
  * @author timmolter

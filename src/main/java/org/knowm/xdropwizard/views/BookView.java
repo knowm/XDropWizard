@@ -1,9 +1,10 @@
-package com.xeiam.xdropwizard.views;
+package org.knowm.xdropwizard.views;
 
-import io.dropwizard.views.View;
+import org.knowm.xdropwizard.business.Book;
 
 import com.google.common.base.Charsets;
-import com.xeiam.xdropwizard.business.Book;
+
+import io.dropwizard.views.View;
 
 /**
  * @author timmolter

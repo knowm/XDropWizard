@@ -1,28 +1,27 @@
-package com.xeiam.xdropwizard;
+package org.knowm.xdropwizard;
+
+import org.knowm.dropwizard.sundial.SundialBundle;
+import org.knowm.dropwizard.sundial.SundialConfiguration;
+import org.knowm.dropwizard.sundial.tasks.AddCronJobTriggerTask;
+import org.knowm.dropwizard.sundial.tasks.AddJobTask;
+import org.knowm.dropwizard.sundial.tasks.LockSundialSchedulerTask;
+import org.knowm.dropwizard.sundial.tasks.RemoveJobTask;
+import org.knowm.dropwizard.sundial.tasks.RemoveJobTriggerTask;
+import org.knowm.dropwizard.sundial.tasks.StartJobTask;
+import org.knowm.dropwizard.sundial.tasks.StopJobTask;
+import org.knowm.dropwizard.sundial.tasks.UnlockSundialSchedulerTask;
+import org.knowm.xdropwizard.health.TemplateHealthCheck;
+import org.knowm.xdropwizard.manager.YankManager;
+import org.knowm.xdropwizard.resources.HelloWorldResource;
+import org.knowm.xdropwizard.resources.YankBookResource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.xeiam.dropwizard.sundial.SundialBundle;
-import com.xeiam.dropwizard.sundial.SundialConfiguration;
-import com.xeiam.dropwizard.sundial.tasks.AddCronJobTriggerTask;
-import com.xeiam.dropwizard.sundial.tasks.AddJobTask;
-import com.xeiam.dropwizard.sundial.tasks.LockSundialSchedulerTask;
-import com.xeiam.dropwizard.sundial.tasks.RemoveJobTask;
-import com.xeiam.dropwizard.sundial.tasks.RemoveJobTriggerTask;
-import com.xeiam.dropwizard.sundial.tasks.StartJobTask;
-import com.xeiam.dropwizard.sundial.tasks.StopJobTask;
-import com.xeiam.dropwizard.sundial.tasks.UnlockSundialSchedulerTask;
-import com.xeiam.xdropwizard.health.TemplateHealthCheck;
-import com.xeiam.xdropwizard.manager.YankManager;
-import com.xeiam.xdropwizard.resources.HelloWorldResource;
-import com.xeiam.xdropwizard.resources.YankBookResource;
 
 /**
  * @author timmolter
@@ -90,7 +89,7 @@ public class XDropWizardApplication extends Application<XDropWizardApplicationCo
     //    environment.jersey().register(new ViewMarkdownResource());
     //    environment.jersey().register(new RandomNumberResource());
 
-    environment.jersey().packages("com.xeiam.xdropwizard.resources");
+    environment.jersey().packages("org.knowm.xdropwizard.resources");
 
   }
 }

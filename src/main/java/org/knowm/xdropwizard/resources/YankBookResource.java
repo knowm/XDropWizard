@@ -1,4 +1,4 @@
-package com.xeiam.xdropwizard.resources;
+package org.knowm.xdropwizard.resources;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.xeiam.xdropwizard.business.Book;
-import com.xeiam.xdropwizard.business.BooksDAO;
+import org.knowm.xdropwizard.business.Book;
+import org.knowm.xdropwizard.business.BooksDAO;
 
 /**
  * @author timmolter

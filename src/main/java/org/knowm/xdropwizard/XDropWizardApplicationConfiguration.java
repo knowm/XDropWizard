@@ -1,14 +1,14 @@
-package com.xeiam.xdropwizard;
-
-import io.dropwizard.Configuration;
+package org.knowm.xdropwizard;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.knowm.dropwizard.sundial.SundialConfiguration;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xeiam.dropwizard.sundial.SundialConfiguration;
+
+import io.dropwizard.Configuration;
 
 /**
  * @author timmolter

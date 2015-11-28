@@ -1,11 +1,11 @@
-package com.xeiam.xdropwizard.resources;
+package org.knowm.xdropwizard.resources;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.xeiam.xdropwizard.api.RandomNumber;
+import org.knowm.xdropwizard.api.RandomNumber;
 
 /**
  * @author timmolter

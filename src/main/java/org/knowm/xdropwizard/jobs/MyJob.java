@@ -1,12 +1,11 @@
-package com.xeiam.xdropwizard.jobs;
+package org.knowm.xdropwizard.jobs;
 
+import org.knowm.sundial.Job;
+import org.knowm.sundial.SundialJobScheduler;
+import org.knowm.sundial.annotations.CronTrigger;
+import org.knowm.sundial.exceptions.JobInterruptException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.xeiam.sundial.Job;
-import com.xeiam.sundial.SundialJobScheduler;
-import com.xeiam.sundial.annotations.CronTrigger;
-import com.xeiam.sundial.exceptions.JobInterruptException;
 
 @CronTrigger(cron = "0/25 * * * * ?")
 public class MyJob extends Job {

@@ -1,4 +1,4 @@
-package com.xeiam.xdropwizard.business;
+package org.knowm.xdropwizard.business;
 
 /**
  * A class used to represent rows in the BOOKS table <br>
