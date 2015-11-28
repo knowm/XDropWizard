@@ -1,0 +1,10 @@
+{
+  "name": "xdropwizard",
+  "version": "0.9.1",
+  "dependencies": {
+    "angular": "latest",
+    "bootstrap": "latest",
+    "flot": "latest"
+  },
+  "private": true
+}

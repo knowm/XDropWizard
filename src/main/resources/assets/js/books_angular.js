@@ -4,7 +4,7 @@ angular.module('sampleApp', [])
     $scope.books = [];
 
     $http.get('/service/book/all').success(function(data) {
-      console.log(data);
+      console.log("returned data: "+data);
       $scope.books = data;
     }).
     error(function(data, status, headers, config) {

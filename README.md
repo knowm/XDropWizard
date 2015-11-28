@@ -1,6 +1,6 @@
 # XDropWizard
 
-A jump-start DropWizard Web Application integrating and demonstrating several useful open source projects such as Yank, Sundial (a Quartz fork), Flot, Bootstrap, AngularJS, HSQLDB, XChart, JUnit, etc. Demonstrates how to serve static content, dynamic content loaded into Freemarker templates, using AJAX and more...
+A jump-start DropWizard Web Application integrating and demonstrating several useful open source projects such as Yank, Sundial (a Quartz fork), Bower, Flot, Bootstrap, AngularJS, HSQLDB, XChart, JUnit, etc. Demonstrates how to serve static content, dynamic content loaded into Freemarker templates, using AJAX and more...
 
 ![Screenshot of Dashboard](https://raw.githubusercontent.com/timmolter/XDropWizard/master/etc/xdropwizard.png)
 
@@ -650,7 +650,7 @@ This page uses JQuery to fetch JSON, update contents of the `numberplaceholder` 
             Random Number from Server: <span id="numberplaceholder">&nbsp;</span>
         </div>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <script src="/bower_components/jquery/dist/jquery.js"></script>
         <script>
             $(function() {
 
@@ -721,7 +721,7 @@ There are just two main things needed to make a flot chart:
         <div class="github notFullWidth">
             <div id="placeholder" style="width: 600px; height: 400px; font-size: 14px; line-height: 1.2em;"></div>
         </div>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <script src="/bower_components/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="/js/jquery.flot.js"></script>
         <script>
             $(function() {
@@ -752,7 +752,7 @@ Integrating `AngularJS` into a webapp requires adding some Javascript files to t
     <head>
       <title>Sample AngularJS Page</title>
       <!-- Bootstrap core CSS -->
-      <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+      <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.js"></script>
       <script src="/js/books_angular.js"></script>
@@ -803,6 +803,26 @@ angular.module('sampleApp', [])
 ```
 
 The controller defines a dependency to the `$scope` and the `$http` module. An HTTP GET request to the `/service/book/all` endpoint is carried out with the get method. It returns a $promise object with a success and an error method. Once successful, the JSON data is assigned to $scope.books to make it available in the template in books.html. The 'ng-repeat' creates a multi-rowed table to match the data fetched from the backend.
+
+## Bower
+
+Bower is used to manage the front end dependencies including JS and CSS libs. It's like Maven, but for front end web technology. Dependencies are defined in `.../assets/bower.json`
+
+### Install Bower
+
+Read all about `bower` in this concise writeup: <http://blog.teamtreehouse.com/getting-started-bower>
+
+     npm install -g bower
+     
+### Install Front-end Dependencies
+
+    cd ~/path/to/XDropWizard/src/main/resources/assets
+    bower update
+    
+This will download and put the JS dependencies found in `.../assets/bower.json` into a folder called: `.../assets/bower_components`. You can then reference the JS files in your HTML. The `bower.json` allows to you set specific versions of the dependencies if you want to. Otherwise the `"*"` indicates to bower to download the latest version.
+See `.../assets/books.html` on how to integrate the bower dependencies into an HTML document.
+
+Note that normally you would add the `src/main/resources/assets/bower_components` to your `.gitignore` file and not check these dependencies into your source repository and you would run `bower update` to get those dependencies. For this project I left a lot of the bower-installed files in the repo so this app runs flawlessly out of the box.
 
 ## Donations
 
