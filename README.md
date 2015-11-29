@@ -1,6 +1,6 @@
 # XDropWizard
 
-A jump-start DropWizard Web Application integrating and demonstrating several useful open source projects such as Yank, Sundial (a Quartz fork), Bower, Flot, Bootstrap, AngularJS, HSQLDB, XChart, JUnit, etc. Demonstrates how to serve static content, dynamic content loaded into Freemarker templates, using AJAX and more...
+A jump-start DropWizard Web Application integrating and demonstrating several useful open source projects such as Yank, Sundial (a Quartz fork), Bower, Flot JS Charts, Angular-nvD3 JS Charts, Bootstrap, AngularJS, HSQLDB, XChart Bitmap Charts, JUnit, etc. Demonstrates how to serve static content, dynamic content loaded into Freemarker templates, using AJAX and more...
 
 ![Screenshot of Dashboard](https://raw.githubusercontent.com/timmolter/XDropWizard/master/etc/xdropwizard.png)
 
@@ -637,40 +637,43 @@ For pseudo-real-time updates to an HTML page, AJAX comes in handy. Adding AJAX t
 
 This page uses JQuery to fetch JSON, update contents of the `numberplaceholder` span, and repeat every one second.
 ```html
-    <html>
-      <head>
-        <title>Sample AJAX HTML Page</title>
-      </head>
-      <body>
+<html>
+  <head>
+    <title>Sample AJAX Page</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
 
-        <h1>Sample AJAX HTML Page</h1>
-        <p>This is a sample html page demonstrating AJAX.</p>
+    <h1>Sample AJAX HTML Page</h1>
+    <p>This is a sample html page demonstrating AJAX.</p>
 
-        <div class="github">
-            Random Number from Server: <span id="numberplaceholder">&nbsp;</span>
-        </div>
+    <div class="github">
+        Random Number from Server: <span id="numberplaceholder">&nbsp;</span>
+    </div>
 
-        <script src="/bower_components/jquery/dist/jquery.js"></script>
-        <script>
-            $(function() {
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script>
+        $(function() {
 
-                dataUpdate();
+            dataUpdate();
+        });
+
+        function dataUpdate() {
+
+            $.getJSON("/service/random", function(json) {
+
+                $('#numberplaceholder').html(json.number);
+                setTimeout('dataUpdate()', 1000);
+
+            }).error(function() {
+                console.log("errorfetching JSON asynchronously!");
             });
+        }
+    </script>
+  </body>
+</html>
 
-            function dataUpdate() {
-
-                $.getJSON("/service/random", function(json) {
-
-                    $('#numberplaceholder').html(json.number);
-                    setTimeout('dataUpdate()', 1000);
-
-                }).error(function() {
-                    console.log("errorfetching JSON asynchronously!");
-                });
-            }
-        </script>
-      </body>
-    </html>
 ```
 ### Backend JSON endpoint (RandomNumberResource.java)
 ```java
@@ -708,35 +711,40 @@ There are just two main things needed to make a flot chart:
 1. the `placeholder` div
 
 ```html
-    <html>
-      <head>
-        <title>Sample Flot Page</title>
-        <link rel="stylesheet" type="text/css" href="/css/main.css" />
-      </head>
-      <body>
+<html>
 
-        <h1>Sample Flot HTML Page</h1>
-        <p>This is a sample html page demonstrating Flot.</p>
+<head>
+  <title>Sample Flot Page</title>
+  <!-- Bootstrap core CSS -->
+  <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
 
-        <div class="github notFullWidth">
-            <div id="placeholder" style="width: 600px; height: 400px; font-size: 14px; line-height: 1.2em;"></div>
-        </div>
-        <script src="/bower_components/jquery/dist/jquery.js"></script>
-        <script type="text/javascript" src="/js/jquery.flot.js"></script>
-        <script>
-            $(function() {
+<body>
 
-                var d1 = [];
-                for (var i = 0; i < 14; i += 0.5) {
-                    d1.push([i, Math.sin(i)]);
-                }
+  <h1>Sample Flot HTML Page</h1>
+  <p>This is a sample html page demonstrating Flot.</p>
 
-                $.plot("#placeholder", [ d1 ]);
+  <div class="github notFullWidth">
+    <div id="placeholder" style="width: 600px; height: 400px; font-size: 14px; line-height: 1.2em;"></div>
+  </div>
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
+  <script type="text/javascript" src="/bower_components/flot/jquery.flot.js"></script>
+  <script>
+    $(function() {
 
-            });
-        </script>
-      </body>
-    </html>
+      var d1 = [];
+      for (var i = 0; i < 14; i += 0.5) {
+        d1.push([i, Math.sin(i)]);
+      }
+
+      $.plot("#placeholder", [d1]);
+
+    });
+  </script>
+</body>
+
+</html>
+
 ```
 
 ## AngularJS
@@ -747,44 +755,45 @@ Integrating `AngularJS` into a webapp requires adding some Javascript files to t
 
 ### books.html
 ```html
-    <html>
+<html ng-app="sampleApp">
 
-    <head>
-      <title>Sample AngularJS Page</title>
-      <!-- Bootstrap core CSS -->
-      <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<head>
+  <title>Sample AngularJS Page</title>
+  <!-- Bootstrap core CSS -->
+  <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="/bower_components/angular/angular.js"></script>
+  <script src="/js/books_angular.js"></script>
+</head>
 
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.js"></script>
-      <script src="/js/books_angular.js"></script>
-    </head>
+<body>
 
-    <body ng-app="sampleApp">
-
-      <h1>Sample AngularJS Page</h1>
-      <p>This is a sample html page demonstrating AngularJS.</p>
+  <h1>Sample AngularJS Page</h1>
+  <p>This is a sample html page demonstrating AngularJS.</p>
 
 
-      <div ng-controller="sampleAppController">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-              <table class="table table-condensed">
-                <tr ng-repeat="book in books">
-                  <td>{{book.author}}</td>
-                  <td>{{book.title}}</td>
-                  <td>{{book.price}}</td>
-                </tr>
-              </table>
-            </div>
-          </div>
+  <div ng-controller="sampleAppController">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <table class="table">
+            <tr ng-repeat="book in books">
+              <td>{{book.author}}</td>
+              <td>{{book.title}}</td>
+              <td>{{book.price}}</td>
+            </tr>
+          </table>
         </div>
       </div>
+    </div>
+  </div>
 
-    </body>
+</body>
 
-    </html>
+</html>
+
 ```
 ### books_angular.js
+
 ```javascript
 angular.module('sampleApp', [])
   .controller('sampleAppController', ['$scope', '$http', function($scope, $http) {
@@ -823,6 +832,132 @@ This will download and put the JS dependencies found in `.../assets/bower.json` 
 See `.../assets/books.html` on how to integrate the bower dependencies into an HTML document.
 
 Note that normally you would add the `src/main/resources/assets/bower_components` to your `.gitignore` file and not check these dependencies into your source repository and you would run `bower update` to get those dependencies. For this project I left a lot of the bower-installed files in the repo so this app runs flawlessly out of the box.
+
+## Angular-nvD3
+
+[Angular-nvD3](https://github.com/krispo/angular-nvd3) is designed to make it easier to work with nvd3.js re-usable charting library. The Angular JS directive allows you to easily customize your charts via JSON API. Bower is used to pull in the necessary dependencies with the line: `"angular-nvd3": "latest"`.
+
+The `angular-nvd3` project has a fundamental difference from the others in the base approach it is created. This directive provides a two-way binding mechanism for all chart options over the full nvd3 core as well as chart data. It allows you to interactively customize chart options or data from the controller on the fly via JSON.
+
+Integrating `angular-nvd3` into your app requires a HTML page and a JS file. Here is the second example which pulls data from the webservice:
+
+### nvd3-chart2.html
+
+```html
+<!DOCTYPE html>
+<html ng-app="plunker">
+
+  <head>
+    <meta charset="utf-8">  <!-- it's important for d3.js -->
+    <title>Angular-nvD3 Line Chart 2</title>
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/d3/d3.js"></script>
+    <script src="/bower_components/nvd3/build/nv.d3.js"></script>
+    <script src="/bower_components/angular-nvd3/dist/angular-nvd3.js"></script>
+    <link rel="stylesheet" href="bower_components/nvd3/build/nv.d3.css">
+    <script src="/js/nvd3-chart2.js"></script>
+    
+  </head>
+
+  <body ng-controller="MainCtrl">
+  
+  
+    <h1>Sample Angular-nvD3 HTML Page</h1>
+    <p>This is a sample html page demonstrating Angular-nvD3 with data fetched from server.</p>
+    
+    <nvd3 options="options" data="appChartData" ng-init="initChartData()"></nvd3>
+    
+  </body>
+
+</html>
+```
+
+### nvd3-chart2.js
+
+```javascript
+var app = angular.module('plunker', ['nvd3']);
+
+app.controller('MainCtrl', function($scope, $http) {
+  $scope.options = {
+            chart: {
+                type: 'lineChart',
+                height: 450,
+                margin : {
+                    top: 20,
+                    right: 20,
+                    bottom: 40,
+                    left: 55
+                },
+                x: function(d){ return d.x; },
+                y: function(d){ return d.y; },
+                xAxis: {
+                    axisLabel: 'X'
+                },
+                yAxis: {
+                    axisLabel: 'Y',
+                    tickFormat: function(d){
+                        return d3.format('.02f')(d);
+                    },
+                    axisLabelDistance: 30
+                },
+                callback: function(chart){
+                    console.log("!!! lineChart callback !!!");
+                }
+            },
+            title: {
+                enable: true,
+                text: 'X vs. Y'
+            }
+        };
+  
+  
+//////////////////////////////////////////////////////////////////////
+  
+    // Chart Data //////////////////////////////////////////////////////////////
+    
+    
+    $scope.initChartData = function() {
+        
+        $http.get('/service/nvd3data/chartdata').success(function(data) {
+            
+//          console.log(data);
+            
+            $scope.appChartData = [
+                                   convertToChartFormat(data.xAxisData, data.a, 'A'),
+                                   convertToChartFormat(data.xAxisData, data.b, 'B'),
+                                   convertToChartFormat(data.xAxisData, data.c, 'C'),
+                                   convertToChartFormat(data.xAxisData, data.d, 'D')
+                                   ];
+
+//          console.log($scope.appChartData);
+        });
+
+    };
+
+//////////////////////////////////////////////////////////////////////
+
+
+});
+
+
+function convertToChartFormat(xData, yData, seriesName){
+    
+    var returnValue;
+    
+    var convertedChartArray = [];
+    var i;
+    for (i = 0; i < xData.length; i++) {
+        convertedChartArray.push( {x: xData[i], y: yData[i]});
+
+    }
+    returnValue = {
+        key: seriesName,
+        values: convertedChartArray
+    }
+    return returnValue;
+};
+```
 
 ## Donations
 
