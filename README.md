@@ -13,7 +13,9 @@ A jump-start DropWizard Web Application integrating and demonstrating several us
 * [x] Uses Yank for databases
 * [x] Uses XChart for Bitmap charts
 * [x] Uses Flot for Javascript charts
+* [x] Uses Angular-nvD3 for Javascript charts
 * [x] Uses Freemarker for dymanic templating
+* [x] Uses Bower for front end dependency management
 * [x] Demonstrates working Dropwizard setup
 * [x] Demonstrates Dropwizard tasks
 * [x] Demonstrates Dropwizard halthchecks
