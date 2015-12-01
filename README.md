@@ -586,7 +586,7 @@ but it could easily come from a database. Any URL parameters can be passed from 
 ### FTL - FreeMarker Template
 
 `book.ftl` is the path of the template relative to the class name. If this class was `org.knowm.xdropwizard.views.PersonView`, Dropwizard
-would then look for the file src/main/resources/com/xeiam/xdropwizard/views/person.ftl.
+would then look for the file src/main/resources/org/knowm/xdropwizard/views/person.ftl.
 
 ```html
     <!DOCTYPE html>

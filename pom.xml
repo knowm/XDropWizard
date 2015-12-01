@@ -145,6 +145,19 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- for header in all .java files -->
+			<plugin>
+				<groupId>com.mycila.maven-license-plugin</groupId>
+				<artifactId>maven-license-plugin</artifactId>
+				<version>1.10.b1</version>
+				<configuration>
+					<header>NOTICE</header>
+					<aggregate>true</aggregate>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
