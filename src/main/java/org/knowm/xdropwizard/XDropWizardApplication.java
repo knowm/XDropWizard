@@ -16,6 +16,7 @@
  */
 package org.knowm.xdropwizard;
 
+import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.knowm.dropwizard.sundial.SundialBundle;
 import org.knowm.dropwizard.sundial.SundialConfiguration;
 import org.knowm.dropwizard.sundial.tasks.AddCronJobTriggerTask;
@@ -26,8 +27,10 @@ import org.knowm.dropwizard.sundial.tasks.RemoveJobTriggerTask;
 import org.knowm.dropwizard.sundial.tasks.StartJobTask;
 import org.knowm.dropwizard.sundial.tasks.StopJobTask;
 import org.knowm.dropwizard.sundial.tasks.UnlockSundialSchedulerTask;
+import org.knowm.xdropwizard.business.User;
 import org.knowm.xdropwizard.health.TemplateHealthCheck;
 import org.knowm.xdropwizard.manager.YankManager;
+import org.knowm.xdropwizard.resources.AuthenticatorExample;
 import org.knowm.xdropwizard.resources.HelloWorldResource;
 import org.knowm.xdropwizard.resources.YankBookResource;
 import org.slf4j.Logger;
@@ -35,6 +38,9 @@ import org.slf4j.LoggerFactory;
 
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
@@ -106,6 +112,14 @@ public class XDropWizardApplication extends Application<XDropWizardApplicationCo
     //    environment.jersey().register(new RandomNumberResource());
 
     environment.jersey().packages("org.knowm.xdropwizard.resources");
+
+    // AUTHENTICATION /////////////////////////
+
+    environment.jersey().register(new AuthDynamicFeature(
+        new BasicCredentialAuthFilter.Builder<User>().setAuthenticator(new AuthenticatorExample()).setRealm("SUPER SECRET STUFF").buildAuthFilter()));
+    environment.jersey().register(RolesAllowedDynamicFeature.class);
+    //If you want to use @Auth to inject a custom Principal type into your resource
+    environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
 
   }
 }

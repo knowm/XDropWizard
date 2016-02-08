@@ -1,6 +1,6 @@
 # XDropWizard
 
-A jump-start DropWizard Web Application integrating and demonstrating several useful open source projects such as Yank, Sundial (a Quartz fork), Bower, Flot JS Charts, Angular-nvD3 JS Charts, Bootstrap, AngularJS, HSQLDB, XChart Bitmap Charts, JUnit, etc. Demonstrates how to serve static content, dynamic content loaded into Freemarker templates, using AJAX and more...
+A jump-start [DropWizard](https://github.com/dropwizard/dropwizard) Web Application integrating and demonstrating several useful open source projects such as Yank, Sundial (a Quartz fork), Bower, Flot JS Charts, Angular-nvD3 JS Charts, Bootstrap, AngularJS, HSQLDB, XChart Bitmap Charts, JUnit, etc. Demonstrates how to serve static content, dynamic content loaded into Freemarker templates, using AJAX and more...
 
 ![Screenshot of Dashboard](https://raw.githubusercontent.com/timmolter/XDropWizard/master/etc/xdropwizard.png)
 
@@ -18,7 +18,8 @@ A jump-start DropWizard Web Application integrating and demonstrating several us
 * [x] Uses Bower for front end dependency management
 * [x] Demonstrates working Dropwizard setup
 * [x] Demonstrates Dropwizard tasks
-* [x] Demonstrates Dropwizard halthchecks
+* [x] Demonstrates Dropwizard healthchecks
+* [x] Demonstrates Dropwizard Basic Authentication
 * [x] Demonstrates Dropwizard building and deploying
 * [x] Java 7 and up
 * [x] Apache 2.0 license
