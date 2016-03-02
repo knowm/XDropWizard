@@ -25,7 +25,7 @@ import javax.ws.rs.core.Response;
 
 import org.knowm.xchart.BitmapEncoder;
 import org.knowm.xchart.BitmapEncoder.BitmapFormat;
-import org.knowm.xchart.Chart;
+import org.knowm.xchart.Chart_XY;
 import org.knowm.xchart.QuickChart;
 
 /**
@@ -39,7 +39,7 @@ public class XChartResource {
   @Produces("image/png")
   public Response getRandomLineChart() throws IOException {
 
-    Chart chart = QuickChart.getChart("XChart Sample - Random Walk", "X", "Y", null, null, getRandomWalk(105));
+    Chart_XY chart = QuickChart.getChart("XChart Sample - Random Walk", "X", "Y", null, null, getRandomWalk(105));
 
     return Response.ok().type("image/png").entity(BitmapEncoder.getBitmapBytes(chart, BitmapFormat.PNG)).build();
   }
