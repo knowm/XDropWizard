@@ -5,7 +5,7 @@
 	<name>XDropwizard Webservice</name>
 	<groupId>org.knowm</groupId>
 	<artifactId>xdropwizard</artifactId>
-	<version>0.9.1</version>
+	<version>1.0.0-rc2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<description>Dropwizard webservice/webapp skeleton containing Knowm OSS projects and various other web technologies</description>
 	<url>http://knowm.org/open-source/</url>
@@ -71,7 +71,7 @@
 		<dependency>
 			<groupId>org.knowm</groupId>
 			<artifactId>dropwizard-sundial</artifactId>
-			<version>0.9.1.0</version>
+			<version>1.0.0-rc2.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.knowm</groupId>
@@ -199,7 +199,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<dropwizard.version>0.9.1</dropwizard.version>
+		<dropwizard.version>1.0.0-rc2</dropwizard.version>
 	</properties>
 
 </project>

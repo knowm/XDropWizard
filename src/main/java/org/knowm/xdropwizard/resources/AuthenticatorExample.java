@@ -1,8 +1,8 @@
 package org.knowm.xdropwizard.resources;
 
-import org.knowm.xdropwizard.business.User;
+import java.util.Optional;
 
-import com.google.common.base.Optional;
+import org.knowm.xdropwizard.business.User;
 
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
@@ -17,6 +17,6 @@ public class AuthenticatorExample implements Authenticator<BasicCredentials, Use
     if ("Kgfgusd3450m_88".equals(credentials.getPassword())) {
       return Optional.of(new User(credentials.getUsername()));
     }
-    return Optional.absent();
+    return Optional.empty();
   }
 }
