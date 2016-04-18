@@ -17,6 +17,7 @@ A jump-start [DropWizard](https://github.com/dropwizard/dropwizard) Web Applicat
 * [x] Uses Freemarker for dymanic templating
 * [x] Uses Bower for front end dependency management
 * [x] Demonstrates working Dropwizard setup
+* [x] Demonstrates Asynchronous Requests/Responses
 * [x] Demonstrates Dropwizard tasks
 * [x] Demonstrates Dropwizard healthchecks
 * [x] Demonstrates Dropwizard Basic Authentication
@@ -960,7 +961,98 @@ function convertToChartFormat(xData, yData, seriesName){
     }
     return returnValue;
 };
+
 ```
+
+
+## Asynchronous Requests/Responses
+
+For long running Asynchronous requests and responses, we can use Jersey's [Asynchronous Services and Clients](https://jersey.java.net/documentation/latest/async.html).
+
+### Server Endpoint (`AsyncResource.java`)
+
+```java
+
+@Path("/async")
+public class AsyncResource {
+
+  private static int numberOfSuccessResponses = 0;
+  private static int numberOfFailures = 0;
+  private static Throwable lastException = null;
+
+  @GET
+  public void asyncGetWithTimeout(@Suspended final AsyncResponse asyncResponse) {
+    asyncResponse.register(new CompletionCallback() {
+      @Override
+      public void onComplete(Throwable throwable) {
+        if (throwable == null) {
+          // no throwable - the processing ended successfully
+          // (response already written to the client)
+          numberOfSuccessResponses++;
+        } else {
+          numberOfFailures++;
+          lastException = throwable;
+        }
+      }
+    });
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        String result = veryExpensiveOperation();
+        asyncResponse.resume(result);
+      }
+
+      private String veryExpensiveOperation() {
+        // ... very expensive operation
+        try {
+          Thread.sleep(5000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+        return "Hello Async!";
+      }
+    }).start();
+  }
+}
+
+```
+
+### Client (`AsyncTest.java`)
+
+```java
+
+public class AsyncTest {
+
+  public static void main(String[] args) throws InterruptedException, ExecutionException {
+
+    AsyncTest asyncTest = new AsyncTest();
+    asyncTest.go();
+  }
+
+  private void go() throws InterruptedException, ExecutionException {
+
+    Client client = ClientBuilder.newClient();
+
+    final Future<String> entityFuture = client.target("http://localhost:9090/service/async").request().async().get(new InvocationCallback<String>() {
+      @Override
+      public void completed(String response) {
+        System.out.println("Response entity '" + response + "' received.");
+      }
+
+      @Override
+      public void failed(Throwable throwable) {
+        System.out.println("Invocation failed.");
+        throwable.printStackTrace();
+      }
+    });
+    System.out.println(entityFuture.get());
+
+  }
+
+}
+
+```
+
 
 ## Donations
 
