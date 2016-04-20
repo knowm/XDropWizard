@@ -19,14 +19,6 @@ package org.knowm.xdropwizard;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.knowm.dropwizard.sundial.SundialBundle;
 import org.knowm.dropwizard.sundial.SundialConfiguration;
-import org.knowm.dropwizard.sundial.tasks.AddCronJobTriggerTask;
-import org.knowm.dropwizard.sundial.tasks.AddJobTask;
-import org.knowm.dropwizard.sundial.tasks.LockSundialSchedulerTask;
-import org.knowm.dropwizard.sundial.tasks.RemoveJobTask;
-import org.knowm.dropwizard.sundial.tasks.RemoveJobTriggerTask;
-import org.knowm.dropwizard.sundial.tasks.StartJobTask;
-import org.knowm.dropwizard.sundial.tasks.StopJobTask;
-import org.knowm.dropwizard.sundial.tasks.UnlockSundialSchedulerTask;
 import org.knowm.xdropwizard.business.User;
 import org.knowm.xdropwizard.health.TemplateHealthCheck;
 import org.knowm.xdropwizard.manager.YankManager;
@@ -97,16 +89,8 @@ public class XDropWizardApplication extends Application<XDropWizardApplicationCo
     environment.jersey().register(new YankBookResource());
 
     // TASKS ////////////////////////////
-
     // tasks are things that should run triggered by a POST, but don't need to respond
-    environment.admin().addTask(new LockSundialSchedulerTask());
-    environment.admin().addTask(new UnlockSundialSchedulerTask());
-    environment.admin().addTask(new RemoveJobTriggerTask());
-    environment.admin().addTask(new AddCronJobTriggerTask());
-    environment.admin().addTask(new StartJobTask());
-    environment.admin().addTask(new StopJobTask());
-    environment.admin().addTask(new RemoveJobTask());
-    environment.admin().addTask(new AddJobTask());
+    // none
 
     // RESOURCES ////////////////////////////
 
