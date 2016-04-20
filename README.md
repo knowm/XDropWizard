@@ -108,6 +108,8 @@ the scheduling and automatic running of jobs is straight forward and stable. For
 developed by [Knowm](http://knowm.org/open-source/). A lot of the bloat and confusion of configuring Quartz was removed in creating Sundial and a convenient wrapper around jobs was added to enable
 more modular job building and organization. Sundial creates a threadpool on application startup and uses it for background jobs.
 
+Integration is made convenient with the [dropwizard-sundial project](https://github.com/timmolter/dropwizard-sundial).
+
 
 ## Adding the dropwizard-sundial dependency
 
