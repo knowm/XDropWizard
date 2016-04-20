@@ -41,6 +41,7 @@ import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
+import io.dropwizard.forms.MultiPartBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
@@ -70,6 +71,9 @@ public class XDropWizardApplication extends Application<XDropWizardApplicationCo
         return configuration.getSundialConfiguration();
       }
     });
+
+    // for use with `dropwizard-forms`
+    bootstrap.addBundle(new MultiPartBundle());
   }
 
   @Override

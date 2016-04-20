@@ -1053,6 +1053,43 @@ public class AsyncTest {
 
 ```
 
+## File Upload
+
+To add file uploading capabilities to your webapp using DropWizard (and Jersey) there are a couple of preliminary steps you needs to take first:
+
+1. Add `bootstrap.addBundle(new MultiPartBundle());` to your `initialize()` method in your `Application` class
+1. Add the `dropwizard-forms` dependency to the `pom` file
+
+### Resource (`FileUploadResource.java`)
+
+```java
+@Path("/file")
+@Produces(MediaType.APPLICATION_JSON)
+public class FileUploadResource {
+
+  private final Logger logger = LoggerFactory.getLogger(FileUploadResource.class);
+
+  @POST
+  @Path("/upload")
+  @Consumes(MediaType.MULTIPART_FORM_DATA)
+  public Response uploadFile(@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataContentDisposition fileDetail) {
+
+    String fileName = fileDetail.getFileName();
+
+    String output = "File received : " + fileName;
+
+    logger.info(output);
+
+    return Response.status(200).entity(output).build();
+  }
+
+}
+
+```
+
+Finally, once DropWizard is running, you can post a file via a form the following URL:
+
+http://localhost:9090/fileupload.html
 
 ## Donations
 
