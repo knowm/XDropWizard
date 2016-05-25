@@ -103,7 +103,7 @@ public class YankManager implements Managed {
 
     logger.info("shutting down Yank...");
 
-    Yank.releaseDataSource();
+    Yank.releaseDefaultConnectionPool();
 
     logger.info("Yank shutdown successfully.");
   }
