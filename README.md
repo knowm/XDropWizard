@@ -14,7 +14,7 @@ A jump-start [DropWizard](https://github.com/dropwizard/dropwizard) Web Applicat
 * [x] Uses XChart for Bitmap charts
 * [x] Uses Flot for Javascript charts
 * [x] Uses Angular-nvD3 for Javascript charts
-* [x] Uses Freemarker for dymanic templating
+* [x] Uses Freemarker for dynamic templating
 * [x] Uses Bower for front end dependency management
 * [x] Demonstrates working Dropwizard setup
 * [x] Demonstrates Asynchronous Requests/Responses
@@ -35,6 +35,14 @@ http://www.webestools.com/ascii-text-generator-ascii-art-code-online-txt2ascii-t
 
 Run `XDropWizardApplication` in Eclipse. Add a program arg: `server xdropwizard.yml`.
 
+## Running in IntelliJ
+
+Run `XDropWizardApplication` in IntelliJ. Add a program arg: `server xdropwizard.yml`.
+
+### File `xdropwizard.yml` not found
+
+You need to set the working directory to `XDropWizard` for the app in IntelliJ (Run ==> Edit Configurations...).
+
 ## Terminal
 
     cd ~/path/to/project/XDropWizard
@@ -46,6 +54,10 @@ Run `XDropWizardApplication` in Eclipse. Add a program arg: `server xdropwizard.
 ## Run
 
     $ java -jar target/xdropwizard.jar server xdropwizard.yml
+
+## Visit Web App
+
+<http://localhost:9090>
 
 ## Test Basics
 
@@ -119,7 +131,7 @@ Add the **dropwizard-sundial** library as a dependency to your `pom.xml` file:
 <dependency>
     <groupId>org.knowm</groupId>
     <artifactId>dropwizard-sundial</artifactId>
-    <version>0.8.1.0</version>
+    <version>1.1.0.0</version>
 </dependency>
 ```
 

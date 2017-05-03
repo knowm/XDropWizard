@@ -5,7 +5,7 @@
 	<name>XDropwizard Webservice</name>
 	<groupId>org.knowm</groupId>
 	<artifactId>xdropwizard</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<description>Dropwizard webservice/webapp skeleton containing Knowm OSS projects and various other web technologies</description>
 	<url>http://knowm.org/open-source/</url>
@@ -78,22 +78,22 @@
 		<dependency>
 			<groupId>org.knowm</groupId>
 			<artifactId>dropwizard-sundial</artifactId>
-			<version>1.0.0.0</version>
+			<version>1.1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.knowm</groupId>
 			<artifactId>yank</artifactId>
-			<version>3.2.0</version>
+			<version>3.3.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
-			<version>2.3.3</version>
+			<version>2.3.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.knowm.xchart</groupId>
 			<artifactId>xchart</artifactId>
-			<version>3.2.0</version>
+			<version>3.3.0</version>
 		</dependency>
 
 		<!-- test -->
@@ -112,7 +112,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.5.1</version>
+				<version>3.6.1</version>
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
@@ -187,26 +187,26 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- for header in all .java files -->
-			<plugin>
-				<groupId>com.mycila.maven-license-plugin</groupId>
-				<artifactId>maven-license-plugin</artifactId>
-				<version>1.10.b1</version>
-				<configuration>
-					<header>NOTICE</header>
-					<aggregate>true</aggregate>
-					<includes>
-						<include>**/*.java</include>
-					</includes>
-				</configuration>
-			</plugin>
+            <!-- for header in all .java files -->
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <header>NOTICE</header>
+                    <aggregate>true</aggregate>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<dropwizard.version>1.0.1-SNAPSHOT</dropwizard.version>
+		<dropwizard.version>1.1.0</dropwizard.version>
 	</properties>
 
 </project>
