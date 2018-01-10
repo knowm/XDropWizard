@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 Knowm Inc. (http://knowm.org) and contributors.
+ * Copyright 2015-2018 Knowm Inc. (http://knowm.org) and contributors.
  * Copyright 2013-2015 Xeiam LLC (http://xeiam.com) and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@ package org.knowm.xdropwizard.business;
  * <li>The columns are matched to the object's class members</li>
  * <li>If the conversion fails (i.e. the property was an int and the column was a Timestamp) an SQLException is thrown.</li>
  * </ul>
- * 
+ *
  * @author timmolter
  */
 public class Book {
@@ -69,8 +69,7 @@ public class Book {
 
   /** Pro-tip: In Eclipse, generate a toString() method for a class: Right-click --> Source --> Generate toString()... */
 
-  @Override
-  public String toString() {
+  @Override public String toString() {
 
     return "Book [title=" + title + ", author=" + author + ", price=" + price + "]";
   }

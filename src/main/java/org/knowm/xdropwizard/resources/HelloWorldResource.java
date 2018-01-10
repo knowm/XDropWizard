@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 Knowm Inc. (http://knowm.org) and contributors.
+ * Copyright 2015-2018 Knowm Inc. (http://knowm.org) and contributors.
  * Copyright 2013-2015 Xeiam LLC (http://xeiam.com) and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,9 +32,7 @@ import com.google.common.base.Optional;
 /**
  * @author timmolter
  */
-@Path("hello-world")
-@Produces(MediaType.APPLICATION_JSON)
-public class HelloWorldResource {
+@Path("hello-world") @Produces(MediaType.APPLICATION_JSON) public class HelloWorldResource {
 
   private final String template;
   private final String defaultName;
@@ -42,7 +40,7 @@ public class HelloWorldResource {
 
   /**
    * Constructor
-   * 
+   *
    * @param template
    * @param defaultName
    */
@@ -54,9 +52,7 @@ public class HelloWorldResource {
   }
 
   /** Dropwizard automatically records the duration and rate of its invocations as a Metrics Timer. */
-  @GET
-  @Timed
-  public Saying sayHello(@QueryParam("name") Optional<String> name) {
+  @GET @Timed public Saying sayHello(@QueryParam("name") Optional<String> name) {
 
     return new Saying(counter.incrementAndGet(), String.format(template, name.or(defaultName)));
   }

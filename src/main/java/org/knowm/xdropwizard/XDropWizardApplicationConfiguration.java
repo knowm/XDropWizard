@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 Knowm Inc. (http://knowm.org) and contributors.
+ * Copyright 2015-2018 Knowm Inc. (http://knowm.org) and contributors.
  * Copyright 2013-2015 Xeiam LLC (http://xeiam.com) and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,6 +25,9 @@ import org.knowm.dropwizard.sundial.SundialConfiguration;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.dropwizard.Configuration;
+import org.knowm.xdropwizard.manager.YankConfiguration;
+
+import java.util.List;
 
 /**
  * @author timmolter
@@ -32,13 +35,9 @@ import io.dropwizard.Configuration;
 public class XDropWizardApplicationConfiguration extends Configuration {
 
   // Hello world
-  @NotEmpty
-  @JsonProperty
-  private String template;
+  @NotEmpty @JsonProperty private String template;
 
-  @NotEmpty
-  @JsonProperty
-  private String defaultName = "Stranger";
+  @NotEmpty @JsonProperty private String defaultName = "Stranger";
 
   public String getTemplate() {
 
@@ -51,43 +50,19 @@ public class XDropWizardApplicationConfiguration extends Configuration {
   }
 
   // Sundial
-  @Valid
-  @NotNull
-  public SundialConfiguration sundialConfiguration = new SundialConfiguration();
+  @Valid @NotNull public SundialConfiguration sundialConfiguration = new SundialConfiguration();
 
-  @JsonProperty("sundial")
-  public SundialConfiguration getSundialConfiguration() {
+  @JsonProperty("sundial") public SundialConfiguration getSundialConfiguration() {
 
     return sundialConfiguration;
   }
 
   // Yank
-  @Valid
-  @JsonProperty("yank")
-  protected YankConfiguration yankConfiguration = new YankConfiguration();
+  @Valid @JsonProperty("yank") protected List<YankConfiguration> yankConfigurations;
 
-  public static class YankConfiguration {
+  public List<YankConfiguration> getYankConfiguration() {
 
-    @JsonProperty
-    private String dbPropsFileName;
-
-    @JsonProperty
-    private String sqlPropsFileName;
-
-    public String getDbPropsFileName() {
-
-      return dbPropsFileName;
-    }
-
-    public String getSqlPropsFileName() {
-
-      return sqlPropsFileName;
-    }
-  }
-
-  public YankConfiguration getYankConfiguration() {
-
-    return yankConfiguration;
+    return yankConfigurations;
   }
 
 }

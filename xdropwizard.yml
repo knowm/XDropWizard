@@ -32,8 +32,13 @@ sundial:
 
   
 yank:
-  dbPropsFileName: DB.properties
-  sqlPropsFileName: SQL.properties
+  -
+    dbPropsFileName: DB.properties
+    sqlPropsFileName: SQL.properties
+  -
+    poolName: mypool
+    dbPropsFileName: DB.properties
+    sqlPropsFileName: SQL.properties
   
 template: Hello, %s!
 defaultName: Stranger

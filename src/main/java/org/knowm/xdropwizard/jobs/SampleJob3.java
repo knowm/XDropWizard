@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 Knowm Inc. (http://knowm.org) and contributors.
+ * Copyright 2015-2018 Knowm Inc. (http://knowm.org) and contributors.
  * Copyright 2013-2015 Xeiam LLC (http://xeiam.com) and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,8 +29,7 @@ public class SampleJob3 extends Job {
 
   private final Logger logger = LoggerFactory.getLogger(SampleJob3.class);
 
-  @Override
-  public void doRun() throws JobInterruptException {
+  @Override public void doRun() throws JobInterruptException {
 
     JobContext context = getJobContext();
 

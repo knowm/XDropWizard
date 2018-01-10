@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 Knowm Inc. (http://knowm.org) and contributors.
+ * Copyright 2015-2018 Knowm Inc. (http://knowm.org) and contributors.
  * Copyright 2013-2015 Xeiam LLC (http://xeiam.com) and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,20 +29,14 @@ import org.knowm.xdropwizard.business.BooksDAO;
 /**
  * @author timmolter
  */
-@Path("book")
-@Produces(MediaType.APPLICATION_JSON)
-public class YankBookResource {
+@Path("book") @Produces(MediaType.APPLICATION_JSON) public class YankBookResource {
 
-  @GET
-  @Path("random")
-  public Book getRandomBook() {
+  @GET @Path("random") public Book getRandomBook() {
 
     return BooksDAO.selectRandomBook();
   }
 
-  @GET
-  @Path("all")
-  public List<Book> getAllBooks() {
+  @GET @Path("all") public List<Book> getAllBooks() {
 
     return BooksDAO.selectAllBooks();
   }

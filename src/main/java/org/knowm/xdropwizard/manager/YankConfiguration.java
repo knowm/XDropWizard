@@ -14,26 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.knowm.xdropwizard.business;
+package org.knowm.xdropwizard.manager;
 
-/**
- * @author timmolter
- */
-public class User implements java.security.Principal {
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-  private final String name;
+public class YankConfiguration {
 
-  /**
-   * Constructor
-   *
-   * @param name
-   */
-  public User(String name) {
-    this.name = name;
+  @JsonProperty private String poolName;
+
+  @JsonProperty private String dbPropsFileName;
+
+  @JsonProperty private String sqlPropsFileName;
+
+  public String getPoolName() {
+    return poolName;
   }
 
-  @Override public String getName() {
-    return name;
+  public String getDbPropsFileName() {
+
+    return dbPropsFileName;
   }
 
+  public String getSqlPropsFileName() {
+
+    return sqlPropsFileName;
+  }
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 Knowm Inc. (http://knowm.org) and contributors.
+ * Copyright 2015-2018 Knowm Inc. (http://knowm.org) and contributors.
  * Copyright 2013-2015 Xeiam LLC (http://xeiam.com) and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,14 +27,9 @@ import com.codahale.metrics.annotation.Timed;
 
 import io.dropwizard.jersey.caching.CacheControl;
 
-@Path("view/book")
-@Produces(MediaType.TEXT_HTML)
-public class ViewBookResource {
+@Path("view/book") @Produces(MediaType.TEXT_HTML) public class ViewBookResource {
 
-  @GET
-  @Timed
-  @CacheControl(noCache = true)
-  public BookView bookView() {
+  @GET @Timed @CacheControl(noCache = true) public BookView bookView() {
 
     return new BookView();
   }

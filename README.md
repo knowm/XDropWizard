@@ -131,7 +131,7 @@ Add the **dropwizard-sundial** library as a dependency to your `pom.xml` file:
 <dependency>
     <groupId>org.knowm</groupId>
     <artifactId>dropwizard-sundial</artifactId>
-    <version>1.1.0.0</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
@@ -476,12 +476,18 @@ including the following line of code:
     environment.addResource(new YankBookResource());
 ```
 
-In your `.yml` DropWizard configuration file, you can easily define the database and SQL statement files that Yank uses:
+In your `.yml` DropWizard configuration file, you can easily define the connection pools and SQL statement files that Yank uses:
 
-    yank:
-
-        dbPropsFileName: DB.properties
-        sqlPropsFileName: SQL.properties (optional)
+```
+yank:
+  -
+    dbPropsFileName: DB.properties
+    sqlPropsFileName: SQL.properties
+  -
+    poolName: mypool
+    dbPropsFileName: DB.properties
+    sqlPropsFileName: SQL.properties
+```
 
 ### Yank Database Access
 
@@ -1104,8 +1110,3 @@ Finally, once DropWizard is running, you can post a file via a form the followin
 
 http://localhost:9090/fileupload.html
 
-## Donations
-
-Donate with Bitcoin: [1JVyTP9v9z54dALuhDTZDQfS6FUjcKjPgZ](https://blockchain.info/address/1JVyTP9v9z54dALuhDTZDQfS6FUjcKjPgZ)
-
-All donations will be used to pay bounties for new features, refactoring, etc. Please consider donating or even posting your own bounties on our [Issues Page](https://github.com/timmolter/xdropwizard/issues?state=open). Open bounties and bounties paid thus far can be found on knowm's [bounties](http://knowm.org/open-source/) page.

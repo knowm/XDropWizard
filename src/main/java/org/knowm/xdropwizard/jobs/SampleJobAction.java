@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 Knowm Inc. (http://knowm.org) and contributors.
+ * Copyright 2015-2018 Knowm Inc. (http://knowm.org) and contributors.
  * Copyright 2013-2015 Xeiam LLC (http://xeiam.com) and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,15 +22,14 @@ import org.slf4j.LoggerFactory;
 
 /**
  * A sample Job Action that simply logs a message every time it's called.
- * 
+ *
  * @author timmolter
  */
 public class SampleJobAction extends JobAction {
 
   private final Logger logger = LoggerFactory.getLogger(SampleJobAction.class);
 
-  @Override
-  public void doRun() {
+  @Override public void doRun() {
 
     Integer myValue = getJobContext().get("MyValue");
 

@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 Knowm Inc. (http://knowm.org) and contributors.
+ * Copyright 2015-2018 Knowm Inc. (http://knowm.org) and contributors.
  * Copyright 2013-2015 Xeiam LLC (http://xeiam.com) and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,7 +38,7 @@ public class BooksDAO {
    */
   public static int insertBook(Book book) {
 
-    Object[] params = new Object[] { book.getTitle(), book.getAuthor(), book.getPrice() };
+    Object[] params = new Object[]{book.getTitle(), book.getAuthor(), book.getPrice()};
     String SQL = "INSERT INTO BOOKS  (TITLE, AUTHOR, PRICE) VALUES (?, ?, ?)";
     return Yank.execute(SQL, params);
   }
@@ -83,7 +83,7 @@ public class BooksDAO {
 
     for (int i = 0; i < books.size(); i++) {
       Book book = books.get(i);
-      params[i] = new Object[] { book.getTitle(), book.getAuthor(), book.getPrice() };
+      params[i] = new Object[]{book.getTitle(), book.getAuthor(), book.getPrice()};
     }
 
     String SQL = "INSERT INTO BOOKS  (TITLE, AUTHOR, PRICE) VALUES (?, ?, ?)";
@@ -113,7 +113,7 @@ public class BooksDAO {
    */
   public static Book selectBook(String title) {
 
-    Object[] params = new Object[] { title };
+    Object[] params = new Object[]{title};
 
     String sqlKey = "BOOKS_SELECT_BY_TITLE";
     return Yank.queryBeanSQLKey(sqlKey, Book.class, params);

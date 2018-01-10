@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 Knowm Inc. (http://knowm.org) and contributors.
+ * Copyright 2015-2018 Knowm Inc. (http://knowm.org) and contributors.
  * Copyright 2013-2015 Xeiam LLC (http://xeiam.com) and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,8 +30,7 @@ public class TemplateHealthCheck extends HealthCheck {
     this.template = template;
   }
 
-  @Override
-  protected Result check() throws Exception {
+  @Override protected Result check() throws Exception {
 
     final String saying = String.format(template, "TEST");
     if (!saying.contains("TEST")) {

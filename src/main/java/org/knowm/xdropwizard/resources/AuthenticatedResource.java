@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 Knowm Inc. (http://knowm.org) and contributors.
+ * Copyright 2015-2018 Knowm Inc. (http://knowm.org) and contributors.
  * Copyright 2013-2015 Xeiam LLC (http://xeiam.com) and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,12 +29,9 @@ import io.dropwizard.auth.Auth;
 /**
  * @author timmolter
  */
-@Path("authenticated")
-@Produces(MediaType.APPLICATION_JSON)
-public class AuthenticatedResource {
+@Path("authenticated") @Produces(MediaType.APPLICATION_JSON) public class AuthenticatedResource {
 
-  @GET
-  public RandomNumber getRandom(@Auth User user) {
+  @GET public RandomNumber getRandom(@Auth User user) {
 
     return new RandomNumber();
   }

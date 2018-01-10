@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 Knowm Inc. (http://knowm.org) and contributors.
+ * Copyright 2015-2018 Knowm Inc. (http://knowm.org) and contributors.
  * Copyright 2013-2015 Xeiam LLC (http://xeiam.com) and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,10 +16,7 @@
  */
 package org.knowm.xdropwizard.manager;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.knowm.xdropwizard.XDropWizardApplicationConfiguration.YankConfiguration;
+import io.dropwizard.lifecycle.Managed;
 import org.knowm.xdropwizard.business.Book;
 import org.knowm.xdropwizard.business.BooksDAO;
 import org.knowm.yank.PropertiesUtils;
@@ -27,7 +24,8 @@ import org.knowm.yank.Yank;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.dropwizard.lifecycle.Managed;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -40,70 +38,53 @@ public class YankManager implements Managed {
 
   private final Logger logger = LoggerFactory.getLogger(YankManager.class);
 
-  private final YankConfiguration yankConfiguration;
+  private final List<YankConfiguration> yankConfigurations;
 
   /**
    * Constructor
    */
-  public YankManager(YankConfiguration yankConfiguration) {
+  public YankManager(List<YankConfiguration> yankConfigurations) {
 
-    this.yankConfiguration = yankConfiguration;
+    this.yankConfigurations = yankConfigurations;
   }
 
-  @Override
-  public void start() throws Exception {
+  @Override public void start() throws Exception {
 
     logger.info("initializing Yank...");
 
-    // setup connection pool
-    if (yankConfiguration.getDbPropsFileName() == null || yankConfiguration.getSqlPropsFileName().trim().length() == 0) {
-      Yank.setupDataSource(PropertiesUtils.getPropertiesFromClasspath("DB.properties"));
-    } else {
-      Yank.setupDataSource(PropertiesUtils.getPropertiesFromClasspath(yankConfiguration.getDbPropsFileName()));
+    for (YankConfiguration yankConfiguration : yankConfigurations) {
+
+      // setup connection pool
+      if (yankConfiguration.getDbPropsFileName() == null || yankConfiguration.getSqlPropsFileName().trim().length() == 0) {
+        if (yankConfiguration.getPoolName() != null) {
+          Yank.setupConnectionPool(yankConfiguration.getPoolName(), PropertiesUtils.getPropertiesFromClasspath("DB.properties"));
+        } else {
+          Yank.setupDefaultConnectionPool(PropertiesUtils.getPropertiesFromClasspath("DB.properties"));
+        }
+      } else {
+        if (yankConfiguration.getPoolName() != null) {
+          Yank.setupConnectionPool(yankConfiguration.getPoolName(),
+              PropertiesUtils.getPropertiesFromClasspath(yankConfiguration.getDbPropsFileName()));
+        } else {
+          Yank.setupDefaultConnectionPool(PropertiesUtils.getPropertiesFromClasspath(yankConfiguration.getDbPropsFileName()));
+        }
+      }
+
+      // setup sql statements
+      if (yankConfiguration.getSqlPropsFileName() != null && yankConfiguration.getSqlPropsFileName().trim().length() > 0) {
+        Yank.addSQLStatements(PropertiesUtils.getPropertiesFromClasspath(yankConfiguration.getSqlPropsFileName()));
+      }
+
+      logger.info("Yank started successfully.");
+
     }
-
-    // setup sql statements
-    if (yankConfiguration.getSqlPropsFileName() != null && yankConfiguration.getSqlPropsFileName().trim().length() > 0) {
-      Yank.addSQLStatements(PropertiesUtils.getPropertiesFromClasspath(yankConfiguration.getSqlPropsFileName()));
-    }
-
-    logger.info("Yank started successfully.");
-
-    /// The below code is just to create some dummy data in an in-memory DB for use later by the REST API. See YankBookResource.
-
-    // put some data in DB
-    BooksDAO.createBooksTable();
-
-    List<Book> books = new ArrayList<Book>();
-
-    Book book = new Book();
-    book.setTitle("Cryptonomicon");
-    book.setAuthor("Neal Stephenson");
-    book.setPrice(23.99);
-    books.add(book);
-
-    book = new Book();
-    book.setTitle("Harry Potter");
-    book.setAuthor("Joanne K. Rowling");
-    book.setPrice(11.99);
-    books.add(book);
-
-    book = new Book();
-    book.setTitle("Don Quijote");
-    book.setAuthor("Cervantes");
-    book.setPrice(21.99);
-    books.add(book);
-
-    BooksDAO.insertBatch(books);
-
   }
 
-  @Override
-  public void stop() throws Exception {
+  @Override public void stop() throws Exception {
 
     logger.info("shutting down Yank...");
 
-    Yank.releaseDefaultConnectionPool();
+    Yank.releaseAllConnectionPools();
 
     logger.info("Yank shutdown successfully.");
   }
