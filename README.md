@@ -131,7 +131,7 @@ Add the **dropwizard-sundial** library as a dependency to your `pom.xml` file:
 <dependency>
     <groupId>org.knowm</groupId>
     <artifactId>dropwizard-sundial</artifactId>
-    <version>1.2.0</version>
+    <version>2.0.0-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -276,7 +276,6 @@ sundial:
 
     thread-pool-size: 5
     shutdown-on-unload: true
-    wait-on-shutdown: false
     start-delay-seconds: 0
     start-scheduler-on-load: true
     global-lock-on-load: false

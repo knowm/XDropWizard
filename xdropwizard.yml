@@ -24,7 +24,6 @@ logging:
 sundial:
   thread-pool-size: 5
   shutdown-on-unload: true
-  wait-on-shutdown: false
   start-delay-seconds: 0
   start-scheduler-on-load: true
   global-lock-on-load: false
