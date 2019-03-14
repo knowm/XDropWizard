@@ -1,22 +1,17 @@
-/**
- * Copyright 2015-2018 Knowm Inc. (http://knowm.org) and contributors.
- * Copyright 2013-2015 Xeiam LLC (http://xeiam.com) and contributors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package org.knowm.xdropwizard;
 
+import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
+import io.dropwizard.forms.MultiPartBundle;
 import io.dropwizard.lifecycle.ServerLifecycleListener;
+import io.dropwizard.setup.Bootstrap;
+import io.dropwizard.setup.Environment;
+import io.dropwizard.views.ViewBundle;
+import java.util.ArrayList;
+import java.util.List;
 import org.eclipse.jetty.server.Server;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.knowm.dropwizard.sundial.SundialBundle;
@@ -32,22 +27,7 @@ import org.knowm.xdropwizard.resources.YankBookResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.dropwizard.Application;
-import io.dropwizard.assets.AssetsBundle;
-import io.dropwizard.auth.AuthDynamicFeature;
-import io.dropwizard.auth.AuthValueFactoryProvider;
-import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
-import io.dropwizard.forms.MultiPartBundle;
-import io.dropwizard.setup.Bootstrap;
-import io.dropwizard.setup.Environment;
-import io.dropwizard.views.ViewBundle;
-
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * @author timmolter
- */
+/** @author timmolter */
 public class XDropWizardApplication extends Application<XDropWizardApplicationConfiguration> {
 
   private final Logger logger = LoggerFactory.getLogger(XDropWizardApplication.class);
@@ -57,23 +37,29 @@ public class XDropWizardApplication extends Application<XDropWizardApplicationCo
     new XDropWizardApplication().run(args);
   }
 
-  @Override public void initialize(Bootstrap<XDropWizardApplicationConfiguration> bootstrap) {
+  @Override
+  public void initialize(Bootstrap<XDropWizardApplicationConfiguration> bootstrap) {
 
     bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
     bootstrap.addBundle(new ViewBundle<XDropWizardApplicationConfiguration>());
 
-    bootstrap.addBundle(new SundialBundle<XDropWizardApplicationConfiguration>() {
+    bootstrap.addBundle(
+        new SundialBundle<XDropWizardApplicationConfiguration>() {
 
-      @Override public SundialConfiguration getSundialConfiguration(XDropWizardApplicationConfiguration configuration) {
-        return configuration.getSundialConfiguration();
-      }
-    });
+          @Override
+          public SundialConfiguration getSundialConfiguration(
+              XDropWizardApplicationConfiguration configuration) {
+            return configuration.getSundialConfiguration();
+          }
+        });
 
     // for use with `dropwizard-forms`
     bootstrap.addBundle(new MultiPartBundle());
   }
 
-  @Override public void run(XDropWizardApplicationConfiguration configuration, Environment environment) throws Exception {
+  @Override
+  public void run(XDropWizardApplicationConfiguration configuration, Environment environment)
+      throws Exception {
 
     logger.info("running DropWizard!");
 
@@ -88,7 +74,8 @@ public class XDropWizardApplication extends Application<XDropWizardApplicationCo
     // MANAGERS /////////////////////////
 
     // Yank
-    YankManager ym = new YankManager(configuration.getYankConfiguration()); // A DropWizard Managed Object
+    YankManager ym =
+        new YankManager(configuration.getYankConfiguration()); // A DropWizard Managed Object
     environment.lifecycle().manage(ym); // Assign the management of the object to the Service
     environment.jersey().register(new YankBookResource());
 
@@ -107,44 +94,54 @@ public class XDropWizardApplication extends Application<XDropWizardApplicationCo
 
     // AUTHENTICATION /////////////////////////
 
-    environment.jersey().register(new AuthDynamicFeature(
-        new BasicCredentialAuthFilter.Builder<User>().setAuthenticator(new AuthenticatorExample()).setRealm("SUPER SECRET STUFF").buildAuthFilter()));
+    environment
+        .jersey()
+        .register(
+            new AuthDynamicFeature(
+                new BasicCredentialAuthFilter.Builder<User>()
+                    .setAuthenticator(new AuthenticatorExample())
+                    .setRealm("SUPER SECRET STUFF")
+                    .buildAuthFilter()));
     environment.jersey().register(RolesAllowedDynamicFeature.class);
-    //If you want to use @Auth to inject a custom Principal type into your resource
+    // If you want to use @Auth to inject a custom Principal type into your resource
     environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
 
     // DO THIS AFTER THE WEBAPP HAS BEEN STARTED UP!!!
-    environment.lifecycle().addServerLifecycleListener(new ServerLifecycleListener() {
-      @Override public void serverStarted(Server server) {
+    environment
+        .lifecycle()
+        .addServerLifecycleListener(
+            new ServerLifecycleListener() {
+              @Override
+              public void serverStarted(Server server) {
 
-        /// The below code is just to create some dummy data in an in-memory DB for use later by the REST API. See YankBookResource.
+                /// The below code is just to create some dummy data in an in-memory DB for use
+                // later by the REST API. See YankBookResource.
 
-        // put some data in DB
-        BooksDAO.createBooksTable();
+                // put some data in DB
+                BooksDAO.createBooksTable();
 
-        List<Book> books = new ArrayList<Book>();
+                List<Book> books = new ArrayList<Book>();
 
-        Book book = new Book();
-        book.setTitle("Cryptonomicon");
-        book.setAuthor("Neal Stephenson");
-        book.setPrice(23.99);
-        books.add(book);
+                Book book = new Book();
+                book.setTitle("Cryptonomicon");
+                book.setAuthor("Neal Stephenson");
+                book.setPrice(23.99);
+                books.add(book);
 
-        book = new Book();
-        book.setTitle("Harry Potter");
-        book.setAuthor("Joanne K. Rowling");
-        book.setPrice(11.99);
-        books.add(book);
+                book = new Book();
+                book.setTitle("Harry Potter");
+                book.setAuthor("Joanne K. Rowling");
+                book.setPrice(11.99);
+                books.add(book);
 
-        book = new Book();
-        book.setTitle("Don Quijote");
-        book.setAuthor("Cervantes");
-        book.setPrice(21.99);
-        books.add(book);
+                book = new Book();
+                book.setTitle("Don Quijote");
+                book.setAuthor("Cervantes");
+                book.setPrice(21.99);
+                books.add(book);
 
-        BooksDAO.insertBatch(books);
-      }
-    });
-
+                BooksDAO.insertBatch(books);
+              }
+            });
   }
 }

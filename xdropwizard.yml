@@ -6,7 +6,7 @@ server:
   connector:
     type: http
     port: 9090
-  
+
 logging:
   level: INFO
   appenders:
@@ -29,16 +29,14 @@ sundial:
   global-lock-on-load: false
   annotated-jobs-package-name: org.knowm.xdropwizard.jobs
 
-  
+
 yank:
-  -
+  - dbPropsFileName: DB.properties
+    sqlPropsFileName: SQL.properties
+  - poolName: mypool
     dbPropsFileName: DB.properties
     sqlPropsFileName: SQL.properties
-  -
-    poolName: mypool
-    dbPropsFileName: DB.properties
-    sqlPropsFileName: SQL.properties
-  
+
 template: Hello, %s!
 defaultName: Stranger
   

@@ -1,11 +1,11 @@
 <html ng-app="sampleApp">
 
 <head>
-    <title>Sample AngularJS Page</title>
-    <!-- Bootstrap core CSS -->
-    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="/bower_components/angular/angular.js"></script>
-    <script src="/js/books_angular.js"></script>
+  <title>Sample AngularJS Page</title>
+  <!-- Bootstrap core CSS -->
+  <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="/bower_components/angular/angular.js"></script>
+  <script src="/js/books_angular.js"></script>
 </head>
 
 <body>
@@ -15,19 +15,19 @@
 
 
 <div ng-controller="sampleAppController">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-                <table class="table">
-                    <tr ng-repeat="book in books">
-                        <td>{{book.author}}</td>
-                        <td>{{book.title}}</td>
-                        <td>{{book.price}}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 col-md-2 sidebar">
+        <table class="table">
+          <tr ng-repeat="book in books">
+            <td>{{book.author}}</td>
+            <td>{{book.title}}</td>
+            <td>{{book.price}}</td>
+          </tr>
+        </table>
+      </div>
     </div>
+  </div>
 </div>
 
 </body>

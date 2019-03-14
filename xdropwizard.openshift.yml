@@ -6,7 +6,7 @@ server:
     type: http
     port: @OPENSHIFT_DIY_PORT@
     bindHost: @OPENSHIFT_DIY_IP@
-  
+
 sundial:
   thread-pool-size: 5
   shutdown-on-unload: true
@@ -15,11 +15,11 @@ sundial:
   start-scheduler-on-load: true
   global-lock-on-load: false
 
-  
+
 yank:
   dbPropsFileName: DB.properties
   sqlPropsFileName: SQL.properties
-  
+
 template: Hello, %s!
 defaultName: Stranger
   
