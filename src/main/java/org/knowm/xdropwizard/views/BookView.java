@@ -1,10 +1,12 @@
 package org.knowm.xdropwizard.views;
 
 import com.google.common.base.Charsets;
-import io.dropwizard.views.View;
+import io.dropwizard.views.common.View;
 import org.knowm.xdropwizard.business.Book;
 
-/** @author timmolter */
+/**
+ * @author timmolter
+ */
 public class BookView extends View {
 
   public BookView() {

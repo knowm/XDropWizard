@@ -1,7 +1,7 @@
 package org.knowm.xdropwizard;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.dropwizard.Configuration;
+import io.dropwizard.core.Configuration;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -9,7 +9,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.knowm.dropwizard.sundial.SundialConfiguration;
 import org.knowm.xdropwizard.manager.YankConfiguration;
 
-/** @author timmolter */
+/**
+ * @author timmolter
+ */
 public class XDropWizardApplicationConfiguration extends Configuration {
 
   // Hello world

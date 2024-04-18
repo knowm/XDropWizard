@@ -8,7 +8,9 @@ import javax.ws.rs.core.MediaType;
 import org.knowm.xdropwizard.business.Book;
 import org.knowm.xdropwizard.business.BooksDAO;
 
-/** @author timmolter */
+/**
+ * @author timmolter
+ */
 @Path("book")
 @Produces(MediaType.APPLICATION_JSON)
 public class YankBookResource {

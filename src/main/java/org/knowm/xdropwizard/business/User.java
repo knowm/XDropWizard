@@ -1,6 +1,8 @@
 package org.knowm.xdropwizard.business;
 
-/** @author timmolter */
+/**
+ * @author timmolter
+ */
 public class User implements java.security.Principal {
 
   private final String name;

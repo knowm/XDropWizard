@@ -6,7 +6,9 @@ import org.knowm.sundial.exceptions.JobInterruptException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** @author timmolter */
+/**
+ * @author timmolter
+ */
 public class SampleJob3 extends Job {
 
   private final Logger logger = LoggerFactory.getLogger(SampleJob3.class);

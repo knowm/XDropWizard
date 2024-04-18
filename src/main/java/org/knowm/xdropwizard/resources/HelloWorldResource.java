@@ -10,7 +10,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import org.knowm.xdropwizard.api.Saying;
 
-/** @author timmolter */
+/**
+ * @author timmolter
+ */
 @Path("hello-world")
 @Produces(MediaType.APPLICATION_JSON)
 public class HelloWorldResource {

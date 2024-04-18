@@ -10,7 +10,9 @@ import org.knowm.xchart.BitmapEncoder.BitmapFormat;
 import org.knowm.xchart.QuickChart;
 import org.knowm.xchart.XYChart;
 
-/** @author timmolter */
+/**
+ * @author timmolter
+ */
 @Path("xchart")
 public class XChartResource {
 

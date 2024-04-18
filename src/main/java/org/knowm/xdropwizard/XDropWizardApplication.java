@@ -1,15 +1,15 @@
 package org.knowm.xdropwizard;
 
-import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
+import io.dropwizard.core.Application;
+import io.dropwizard.core.setup.Bootstrap;
+import io.dropwizard.core.setup.Environment;
 import io.dropwizard.forms.MultiPartBundle;
 import io.dropwizard.lifecycle.ServerLifecycleListener;
-import io.dropwizard.setup.Bootstrap;
-import io.dropwizard.setup.Environment;
-import io.dropwizard.views.ViewBundle;
+import io.dropwizard.views.common.ViewBundle;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.jetty.server.Server;
@@ -27,7 +27,9 @@ import org.knowm.xdropwizard.resources.YankBookResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** @author timmolter */
+/**
+ * @author timmolter
+ */
 public class XDropWizardApplication extends Application<XDropWizardApplicationConfiguration> {
 
   private final Logger logger = LoggerFactory.getLogger(XDropWizardApplication.class);

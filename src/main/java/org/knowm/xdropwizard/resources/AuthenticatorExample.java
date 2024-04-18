@@ -6,7 +6,9 @@ import io.dropwizard.auth.basic.BasicCredentials;
 import java.util.Optional;
 import org.knowm.xdropwizard.business.User;
 
-/** @author timmolter */
+/**
+ * @author timmolter
+ */
 public class AuthenticatorExample implements Authenticator<BasicCredentials, User> {
   @Override
   public Optional<User> authenticate(BasicCredentials credentials) throws AuthenticationException {

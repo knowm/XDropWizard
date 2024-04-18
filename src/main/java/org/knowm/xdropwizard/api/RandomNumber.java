@@ -1,6 +1,8 @@
 package org.knowm.xdropwizard.api;
 
-/** @author timmolter */
+/**
+ * @author timmolter
+ */
 public class RandomNumber {
 
   private int number;

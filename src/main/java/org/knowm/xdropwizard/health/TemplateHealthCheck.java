@@ -2,7 +2,9 @@ package org.knowm.xdropwizard.health;
 
 import com.codahale.metrics.health.HealthCheck;
 
-/** @author timmolter */
+/**
+ * @author timmolter
+ */
 public class TemplateHealthCheck extends HealthCheck {
 
   private final String template;

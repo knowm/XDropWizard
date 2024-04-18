@@ -6,7 +6,9 @@ import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.CompletionCallback;
 import javax.ws.rs.container.Suspended;
 
-/** @author timmolter */
+/**
+ * @author timmolter
+ */
 @Path("/async")
 public class AsyncResource {
 

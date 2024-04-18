@@ -1,6 +1,8 @@
 package org.knowm.xdropwizard.api;
 
-/** @author timmolter */
+/**
+ * @author timmolter
+ */
 public class Saying {
 
   private final long id;

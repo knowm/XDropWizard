@@ -8,7 +8,9 @@ import javax.ws.rs.core.MediaType;
 import org.knowm.xdropwizard.api.RandomNumber;
 import org.knowm.xdropwizard.business.User;
 
-/** @author timmolter */
+/**
+ * @author timmolter
+ */
 @Path("authenticated")
 @Produces(MediaType.APPLICATION_JSON)
 public class AuthenticatedResource {

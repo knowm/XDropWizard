@@ -8,7 +8,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-/** @author timmolter */
+/**
+ * @author timmolter
+ */
 @Path("nvd3data")
 public class NVD3ChartDataResource {
 
