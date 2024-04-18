@@ -6,32 +6,3 @@ updates:
     interval: daily
     time: "12:00"
   open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: io.dropwizard:dropwizard-forms
-    versions:
-    - 2.0.19
-    - 2.0.20
-  - dependency-name: io.dropwizard:dropwizard-auth
-    versions:
-    - 2.0.19
-    - 2.0.20
-  - dependency-name: io.dropwizard:dropwizard-views-freemarker
-    versions:
-    - 2.0.19
-    - 2.0.20
-  - dependency-name: io.dropwizard:dropwizard-views
-    versions:
-    - 2.0.19
-    - 2.0.20
-  - dependency-name: io.dropwizard:dropwizard-assets
-    versions:
-    - 2.0.19
-    - 2.0.20
-  - dependency-name: io.dropwizard:dropwizard-configuration
-    versions:
-    - 2.0.19
-    - 2.0.20
-  - dependency-name: io.dropwizard:dropwizard-core
-    versions:
-    - 2.0.19
-    - 2.0.20

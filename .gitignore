@@ -38,3 +38,4 @@ src/main/resources/assets/bower_components/**/nuget
 src/main/resources/assets/bower_components/**/less
 src/main/resources/assets/bower_components/**/examples/*
 
+dependency-reduced-pom.xml
