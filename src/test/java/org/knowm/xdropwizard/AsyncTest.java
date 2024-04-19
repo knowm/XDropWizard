@@ -2,9 +2,9 @@ package org.knowm.xdropwizard;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.InvocationCallback;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.InvocationCallback;
 
 /**
  * https://dennis-xlc.gitbooks.io/restful-java-with-jax-rs-2-0-2rd-edition/content/en/part1/chapter13/async_invoker_client_api.html
