@@ -4,23 +4,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class YankConfiguration {
 
-  @JsonProperty private String poolName;
+    @JsonProperty
+    private String poolName;
 
-  @JsonProperty private String dbPropsFileName;
+    @JsonProperty
+    private String dbPropsFileName;
 
-  @JsonProperty private String sqlPropsFileName;
+    @JsonProperty
+    private String sqlPropsFileName;
 
-  public String getPoolName() {
-    return poolName;
-  }
+    public String getPoolName() {
+        return poolName;
+    }
 
-  public String getDbPropsFileName() {
+    public String getDbPropsFileName() {
 
-    return dbPropsFileName;
-  }
+        return dbPropsFileName;
+    }
 
-  public String getSqlPropsFileName() {
+    public String getSqlPropsFileName() {
 
-    return sqlPropsFileName;
-  }
+        return sqlPropsFileName;
+    }
 }

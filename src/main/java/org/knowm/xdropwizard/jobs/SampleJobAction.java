@@ -11,13 +11,13 @@ import org.slf4j.LoggerFactory;
  */
 public class SampleJobAction extends JobAction {
 
-  private final Logger logger = LoggerFactory.getLogger(SampleJobAction.class);
+    private final Logger logger = LoggerFactory.getLogger(SampleJobAction.class);
 
-  @Override
-  public void doRun() {
+    @Override
+    public void doRun() {
 
-    Integer myValue = getJobContext().get("MyValue");
+        Integer myValue = getJobContext().get("MyValue");
 
-    logger.info("SampleJobAction says " + myValue);
-  }
+        logger.info("SampleJobAction says " + myValue);
+    }
 }

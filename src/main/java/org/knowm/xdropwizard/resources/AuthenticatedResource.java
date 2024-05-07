@@ -8,16 +8,14 @@ import jakarta.ws.rs.core.MediaType;
 import org.knowm.xdropwizard.api.RandomNumber;
 import org.knowm.xdropwizard.business.User;
 
-/**
- * @author timmolter
- */
+
 @Path("authenticated")
 @Produces(MediaType.APPLICATION_JSON)
 public class AuthenticatedResource {
 
-  @GET
-  public RandomNumber getRandom(@Auth User user) {
+    @GET
+    public RandomNumber getRandom(@Auth User user) {
 
-    return new RandomNumber();
-  }
+        return new RandomNumber();
+    }
 }

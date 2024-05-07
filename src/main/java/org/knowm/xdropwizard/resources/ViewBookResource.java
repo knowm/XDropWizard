@@ -12,11 +12,11 @@ import org.knowm.xdropwizard.views.BookView;
 @Produces(MediaType.TEXT_HTML)
 public class ViewBookResource {
 
-  @GET
-  @Timed
-  @CacheControl(noCache = true)
-  public BookView bookView() {
+    @GET
+    @Timed
+    @CacheControl(noCache = true)
+    public BookView bookView() {
 
-    return new BookView();
-  }
+        return new BookView();
+    }
 }

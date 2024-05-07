@@ -18,51 +18,51 @@ package org.knowm.xdropwizard.business;
  */
 public class Book {
 
-  private String title;
-  private String author;
-  private double price;
+    private String title;
+    private String author;
+    private double price;
 
-  /**
-   * Pro-tip: In Eclipse, generate all getters and setters after defining class fields: Right-click
-   * --> Source --> Generate Getters and Setters...
-   */
-  public String getTitle() {
+    /**
+     * Pro-tip: In Eclipse, generate all getters and setters after defining class fields: Right-click
+     * --> Source --> Generate Getters and Setters...
+     */
+    public String getTitle() {
 
-    return title;
-  }
+        return title;
+    }
 
-  public void setTitle(String title) {
+    public void setTitle(String title) {
 
-    this.title = title;
-  }
+        this.title = title;
+    }
 
-  public String getAuthor() {
+    public String getAuthor() {
 
-    return author;
-  }
+        return author;
+    }
 
-  public void setAuthor(String author) {
+    public void setAuthor(String author) {
 
-    this.author = author;
-  }
+        this.author = author;
+    }
 
-  public double getPrice() {
+    public double getPrice() {
 
-    return price;
-  }
+        return price;
+    }
 
-  public void setPrice(double price) {
+    public void setPrice(double price) {
 
-    this.price = price;
-  }
+        this.price = price;
+    }
 
-  /**
-   * Pro-tip: In Eclipse, generate a toString() method for a class: Right-click --> Source -->
-   * Generate toString()...
-   */
-  @Override
-  public String toString() {
+    /**
+     * Pro-tip: In Eclipse, generate a toString() method for a class: Right-click --> Source -->
+     * Generate toString()...
+     */
+    @Override
+    public String toString() {
 
-    return "Book [title=" + title + ", author=" + author + ", price=" + price + "]";
-  }
+        return "Book [title=" + title + ", author=" + author + ", price=" + price + "]";
+    }
 }

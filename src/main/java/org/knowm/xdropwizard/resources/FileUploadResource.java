@@ -1,6 +1,5 @@
 package org.knowm.xdropwizard.resources;
 
-import java.io.InputStream;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -12,25 +11,27 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.InputStream;
+
 @Path("/file")
 @Produces(MediaType.APPLICATION_JSON)
 public class FileUploadResource {
 
-  private final Logger logger = LoggerFactory.getLogger(FileUploadResource.class);
+    private final Logger logger = LoggerFactory.getLogger(FileUploadResource.class);
 
-  @POST
-  @Path("/upload")
-  @Consumes(MediaType.MULTIPART_FORM_DATA)
-  public Response uploadFile(
-      @FormDataParam("file") InputStream uploadedInputStream,
-      @FormDataParam("file") FormDataContentDisposition fileDetail) {
+    @POST
+    @Path("/upload")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response uploadFile(
+            @FormDataParam("file") InputStream uploadedInputStream,
+            @FormDataParam("file") FormDataContentDisposition fileDetail) {
 
-    String fileName = fileDetail.getFileName();
+        String fileName = fileDetail.getFileName();
 
-    String output = "File received : " + fileName;
+        String output = "File received : " + fileName;
 
-    logger.info(output);
+        logger.info(output);
 
-    return Response.status(200).entity(output).build();
-  }
+        return Response.status(200).entity(output).build();
+    }
 }

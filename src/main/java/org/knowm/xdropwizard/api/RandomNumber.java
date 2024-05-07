@@ -1,14 +1,12 @@
 package org.knowm.xdropwizard.api;
 
-/**
- * @author timmolter
- */
+
 public class RandomNumber {
 
-  private int number;
+    private int number;
 
-  public int getNumber() {
+    public int getNumber() {
 
-    return (int) (Math.random() * 1000);
-  }
+        return (int) (Math.random() * 1000);
+    }
 }

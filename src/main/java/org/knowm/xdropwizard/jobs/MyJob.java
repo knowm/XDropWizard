@@ -10,14 +10,14 @@ import org.slf4j.LoggerFactory;
 @CronTrigger(cron = "0/25 * * * * ?")
 public class MyJob extends Job {
 
-  private final Logger logger = LoggerFactory.getLogger(MyJob.class);
+    private final Logger logger = LoggerFactory.getLogger(MyJob.class);
 
-  @Override
-  public void doRun() throws JobInterruptException {
+    @Override
+    public void doRun() throws JobInterruptException {
 
-    // pull object from ServletContext, which was added in the pllication's run method
-    String myObject = (String) SundialJobScheduler.getServletContext().getAttribute("MyKey");
+        // pull object from ServletContext, which was added in the pllication's run method
+        String myObject = (String) SundialJobScheduler.getServletContext().getAttribute("MyKey");
 
-    logger.info("MyJob says: " + myObject);
-  }
+        logger.info("MyJob says: " + myObject);
+    }
 }
